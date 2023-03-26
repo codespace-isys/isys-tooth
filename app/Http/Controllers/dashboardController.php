@@ -9,9 +9,10 @@ class dashboardController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('is_admin');
     }
-    function dashboard(){
+    function dashboard()
+    {
         return view('dashboard');
     }
 }
