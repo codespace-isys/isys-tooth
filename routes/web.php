@@ -16,22 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
-// Route::get('/login', function () {
-//     return view('login');
-// });
-// Route::get('/signup', function () {
-//     return view('signup');
-// });
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// });
+
 Route::get('/login', "AuthController@index")->name('login');
 Route::post('/login', "AuthController@submit");
 Route::get('/logout', "AuthController@logout")->name("logout");
-
-// Route::middleware('auth')->group(function () {
-//     Route::get('/dashboard', [dashboardController::class, 'dashboard']);
-// });
 
 Route::group(['middleware' => ['is_admin']], function () {
     Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
