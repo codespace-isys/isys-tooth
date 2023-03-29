@@ -15,7 +15,7 @@
                 </span> --}}
                 </div>
             @endif
-            <h1 class="text-xl font-bold mb-4">Dashboard</h1>
+            <h1 class="text-xl font-bold mb-4">Dashboard Admin</h1>
             <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse
                 lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.
                 Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>

@@ -21,5 +21,11 @@ Route::post('/login', "AuthController@submit");
 Route::get('/logout', "AuthController@logout")->name("logout");
 
 Route::group(['middleware' => ['is_admin']], function () {
-    Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
+    Route::get('/pages/admin-layout/dashboard', 'AdminDashboard@dashboard')->name('dashboard-admin');
+});
+Route::group(['middleware' => ['is_doctor']], function () {
+    Route::get('/pages/doctor-layout/dashboard', 'DoctorDashboard@dashboard')->name('dashboard-doctor');
+});
+Route::group(['middleware' => ['is_user']], function () {
+    Route::get('/pages/users-layout/dashboard', 'UsersDashboard@dashboard')->name('dashboard-users');
 });

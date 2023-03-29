@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\User;
 
-class dashboardController extends Controller
+class DoctorDashboard extends Controller
 {
     public function __construct()
     {
-        $this->middleware('is_admin');
+        $this->middleware('is_doctor');
     }
     function dashboard()
     {
-        return view('dashboard');
+        return view('/pages/doctor-layout/dashboard');
     }
 }
