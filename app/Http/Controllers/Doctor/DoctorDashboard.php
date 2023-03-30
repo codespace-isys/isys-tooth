@@ -11,6 +11,7 @@ class DoctorDashboard extends Controller
     {
         $this->middleware('is_doctor');
     }
+    
     function dashboard()
     {
         return view('/pages/doctor-layout/dashboard');
