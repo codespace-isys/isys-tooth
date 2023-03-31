@@ -3,7 +3,8 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>dashboard</title>
+    <link rel="icon" type="image/x-icon" href="{{ URL('img/gigi.png') }}">
+    <title>Diagnosis Penyakit Gigi & Mulut</title>
     @vite('resources/js/app.js')
     @vite('resources/css/app.css')
     <script src="./js/app.js"></script>
