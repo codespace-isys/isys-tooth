@@ -25,6 +25,7 @@ Route::post('/signup', "AuthController@create")->name('create');
 
 Route::group(['middleware' => ['is_admin']], function () {
     Route::get('/pages/admin-layout/dashboard', 'Admin\AdminDashboard@dashboard')->name('dashboard-admin');
+    Route::get('/pages/admin-layout/articles', 'Admin\AdminArticles@index')->name('articles-admin');
 });
 
 Route::group(['middleware' => ['is_doctor']], function () {

@@ -62,7 +62,6 @@
             //     sub_expandedClass: "border-l border-gray-400 ml-4 pl-4",
             //     sub_shrinkedClass: "sm:absolute top-0 left-28 sm:shadow-md sm:z-10 sm:bg-gray-900 sm:rounded-md sm:p-4 border-l sm:border-none border-gray-400 ml-4 pl-4 sm:ml-0 w-28",
             // }));
-            // Creating tooltip
         });
     </script>
 </head>
@@ -76,7 +75,7 @@
             <div class="rounded-full overflow-hidden">
                 <img class="w-10 h-10" src="https://via.placeholder.com/150" alt="Avatar">
             </div>
-            <h1 class="ml-2 text-white font-bold"></h1>
+            <h1 class="ml-2 text-white font-bold">{{ auth()->user()->name }}</h1>
         </div>
     </header>
     <!-- Mobile Menu Toggle -->
@@ -116,9 +115,9 @@
             </button>
             <!-- Home -->
             @if (auth()->user()->role_id == 1)
-                <div x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
-                    @click="$store.sidebar.active = 'home' "
-                    class=" relative flex items-center hover:text-gray-200 hover:bg-gray-800 space-x-2 rounded-md p-2 cursor-pointer"
+                <a href="{{ route('dashboard-admin') }}" x-data="tooltip" x-on:mouseover="show = true"
+                    x-on:mouseleave="show = false" @click="$store.sidebar.active = 'home' "
+                    class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
                     x-bind:class="{
                         'justify-start': $store.sidebar.full,
                         'sm:justify-center': !$store.sidebar
@@ -133,10 +132,10 @@
                         x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
                             'sm:hidden' : ''">
                         Dashboard</h1>
-                </div>
-                <div x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
+                </a>
+                <a x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                     @click="$store.sidebar.active = 'home' "
-                    class=" relative flex items-center hover:text-gray-200 hover:bg-gray-800 space-x-2 rounded-md p-2 cursor-pointer"
+                    class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
                     x-bind:class="{
                         'justify-start': $store.sidebar.full,
                         'sm:justify-center': !$store.sidebar
@@ -145,17 +144,17 @@
                         'text-gray-400 ': $store
                             .sidebar.active != 'home'
                     }">
-                    <img src="{{ URL('img/homewhite.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    <img src="{{ URL('img/user.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                     </img>
                     <h1 x-cloak
                         x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
                             'sm:hidden' : ''">
                         Users</h1>
-                </div>
-                <div x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
+                </a>
+                <a href="{{ route('articles-admin') }}" x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                     @click="$store.sidebar.active = 'home' "
-                    class=" relative flex items-center hover:text-gray-200 hover:bg-gray-800 space-x-2 rounded-md p-2 cursor-pointer"
+                    class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
                     x-bind:class="{
                         'justify-start': $store.sidebar.full,
                         'sm:justify-center': !$store.sidebar
@@ -164,17 +163,17 @@
                         'text-gray-400 ': $store
                             .sidebar.active != 'home'
                     }">
-                    <img src="{{ URL('img/homewhite.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    <img src="{{ URL('img/article.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                     </img>
                     <h1 x-cloak
                         x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
                             'sm:hidden' : ''">
                         Article</h1>
-                </div>
-                <div x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
+                </a>
+                <a x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                     @click="$store.sidebar.active = 'home' "
-                    class=" relative flex items-center hover:text-gray-200 hover:bg-gray-800 space-x-2 rounded-md p-2 cursor-pointer"
+                    class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
                     x-bind:class="{
                         'justify-start': $store.sidebar.full,
                         'sm:justify-center': !$store.sidebar
@@ -183,19 +182,19 @@
                         'text-gray-400 ': $store
                             .sidebar.active != 'home'
                     }">
-                    <img src="{{ URL('img/homewhite.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    <img src="{{ URL('img/result.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                     </img>
                     <h1 x-cloak
                         x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
                             'sm:hidden' : ''">
-                        Hasil</h1>
-                </div>
+                        Result</h1>
+                </a>
             @endif
             @if (auth()->user()->role_id == 2)
-                <div x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
-                    @click="$store.sidebar.active = 'home' "
-                    class=" relative flex items-center hover:text-gray-200 hover:bg-gray-800 space-x-2 rounded-md p-2 cursor-pointer"
+                <a href="{{ route('dashboard-doctor') }}" x-data="tooltip" x-on:mouseover="show = true"
+                    x-on:mouseleave="show = false" @click="$store.sidebar.active = 'home' "
+                    class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
                     x-bind:class="{
                         'justify-start': $store.sidebar.full,
                         'sm:justify-center': !$store.sidebar
@@ -206,15 +205,14 @@
                     }">
                     <img src="{{ URL('img/homewhite.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
-                    </img>
                     <h1 x-cloak
                         x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
                             'sm:hidden' : ''">
-                        Gejala</h1>
-                </div>
-                <div x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
+                        Dashboard</h1>
+                </a>
+                <a x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                     @click="$store.sidebar.active = 'home' "
-                    class=" relative flex items-center hover:text-gray-200 hover:bg-gray-800 space-x-2 rounded-md p-2 cursor-pointer"
+                    class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
                     x-bind:class="{
                         'justify-start': $store.sidebar.full,
                         'sm:justify-center': !$store.sidebar
@@ -223,17 +221,17 @@
                         'text-gray-400 ': $store
                             .sidebar.active != 'home'
                     }">
-                    <img src="{{ URL('img/homewhite.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    <img src="{{ URL('img/diagnosis.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                     </img>
                     <h1 x-cloak
                         x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
                             'sm:hidden' : ''">
-                        Penyakit</h1>
-                </div>
-                <div x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
+                        Diagnosis</h1>
+                </a>
+                <a x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                     @click="$store.sidebar.active = 'home' "
-                    class=" relative flex items-center hover:text-gray-200 hover:bg-gray-800 space-x-2 rounded-md p-2 cursor-pointer"
+                    class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
                     x-bind:class="{
                         'justify-start': $store.sidebar.full,
                         'sm:justify-center': !$store.sidebar
@@ -242,17 +240,17 @@
                         'text-gray-400 ': $store
                             .sidebar.active != 'home'
                     }">
-                    <img src="{{ URL('img/homewhite.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    <img src="{{ URL('img/disease.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                     </img>
                     <h1 x-cloak
                         x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
                             'sm:hidden' : ''">
-                        Aturan</h1>
-                </div>
-                <div x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
+                        Disease</h1>
+                </a>
+                <a x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                     @click="$store.sidebar.active = 'home' "
-                    class=" relative flex items-center hover:text-gray-200 hover:bg-gray-800 space-x-2 rounded-md p-2 cursor-pointer"
+                    class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
                     x-bind:class="{
                         'justify-start': $store.sidebar.full,
                         'sm:justify-center': !$store.sidebar
@@ -261,19 +259,56 @@
                         'text-gray-400 ': $store
                             .sidebar.active != 'home'
                     }">
-                    <img src="{{ URL('img/homewhite.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    <img src="{{ URL('img/rules.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                     </img>
                     <h1 x-cloak
                         x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
                             'sm:hidden' : ''">
-                        Obat</h1>
-                </div>
+                        Rule</h1>
+                </a>
+                <a x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
+                    @click="$store.sidebar.active = 'home' "
+                    class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
+                    x-bind:class="{
+                        'justify-start': $store.sidebar.full,
+                        'sm:justify-center': !$store.sidebar
+                            .full,
+                        'text-gray-200 bg-gray-800': $store.sidebar.active == 'home',
+                        'text-gray-400 ': $store
+                            .sidebar.active != 'home'
+                    }">
+                    <img src="{{ URL('img/medicine.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                    </img>
+                    <h1 x-cloak
+                        x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
+                            'sm:hidden' : ''">
+                        Medicine</h1>
+                </a>
             @endif
             @if (auth()->user()->role_id == 3)
-                <div x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
+                <a href="{{ route('dashboard-users') }}" x-data="tooltip" x-on:mouseover="show = true"
+                    x-on:mouseleave="show = false" @click="$store.sidebar.active = 'home' "
+                    class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
+                    x-bind:class="{
+                        'justify-start': $store.sidebar.full,
+                        'sm:justify-center': !$store.sidebar
+                            .full,
+                        'text-gray-200 bg-gray-800': $store.sidebar.active == 'home',
+                        'text-gray-400 ': $store
+                            .sidebar.active != 'home'
+                    }">
+                    <img src="{{ URL('img/homewhite.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                    <h1 x-cloak
+                        x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
+                            'sm:hidden' : ''">
+                        Dashboard</h1>
+                </a>
+                <a x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                     @click="$store.sidebar.active = 'home' "
-                    class=" relative flex items-center hover:text-gray-200 hover:bg-gray-800 space-x-2 rounded-md p-2 cursor-pointer"
+                    class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
                     x-bind:class="{
                         'justify-start': $store.sidebar.full,
                         'sm:justify-center': !$store.sidebar
@@ -288,11 +323,11 @@
                     <h1 x-cloak
                         x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
                             'sm:hidden' : ''">
-                        Konsultasi</h1>
-                </div>
-                <div x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
+                        Consultation</h1>
+                </a>
+                <a x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                     @click="$store.sidebar.active = 'home' "
-                    class=" relative flex items-center hover:text-gray-200 hover:bg-gray-800 space-x-2 rounded-md p-2 cursor-pointer"
+                    class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
                     x-bind:class="{
                         'justify-start': $store.sidebar.full,
                         'sm:justify-center': !$store.sidebar
@@ -307,12 +342,12 @@
                     <h1 x-cloak
                         x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
                             'sm:hidden' : ''">
-                        Hasil</h1>
-                </div>
+                        Result</h1>
+                </a>
             @endif
             <a href="/logout" x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                 @click="$store.sidebar.active = 'home' "
-                class=" relative flex items-center hover:text-gray-200 hover:bg-gray-800 space-x-2 rounded-md p-2 cursor-pointer"
+                class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
                 x-bind:class="{
                     'justify-start': $store.sidebar.full,
                     'sm:justify-center': !$store.sidebar
@@ -321,7 +356,7 @@
                     'text-gray-400 ': $store
                         .sidebar.active != 'home'
                 }">
-                <img src="{{ URL('img/homewhite.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                <img src="{{ URL('img/logout.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                 </img>
                 <h1 x-cloak
