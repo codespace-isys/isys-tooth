@@ -13,6 +13,9 @@ class AdminArticles extends Controller
     }
     function index()
     {
-        return view('/pages/admin-layout/articles');
+        return view('/pages/admin-layout/articles/articles');
+    }
+    function create(){
+        return view('/pages/admin-layout/articles/create-articles');
     }
 }

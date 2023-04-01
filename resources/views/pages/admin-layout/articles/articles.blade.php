@@ -15,12 +15,18 @@
                 </span> --}}
                 </div>
             @endif
-            <h1 class="w-full text-xl font-bold mb-4">Dashboard Admin</h1>
-            <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse
-                lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.
-                Maecenas ligulas</p>
+            <h1 class="w-full text-xl font-bold mb-4">Article Admin</h1>
+            <a href="{{ route('create-articles-admin') }}"
+                class="flex items-center justify-center bg-blue-500 hover:bg-blue-700 text-white w-40 font-bold py-2 px-4 rounded">
+                <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12zm-2-6a2 2 0 114 0 2 2 0 01-4 0z"
+                        clip-rule="evenodd" />
+                </svg>
+                Create Data
+            </a>
             <div class="w-full flex flex-wrap justify-between">
-                <div class="w-full overflow-x-auto rounded-lg shadow hidden md:block mt-5">
+                <div class="w-full overflow-x-auto rounded-lg shadow mt-5">
                     <table class="w-full">
                         <thead class="bg-gray50 border-b-2 border-gray-200">
                             <tr>
@@ -41,7 +47,10 @@
                     </table>
                 </div>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
+            <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse
+                lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam.
+                Maecenas ligulas</p>
+            {{-- <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
                 <div class="bg-white space-y-3 p-4 rounded-lg shadow">
                     <div class="flex items-center space-x-2 text-sm">
                         <div class="font-bold">
@@ -55,7 +64,7 @@
                     <div class="text-sm text-gray-700">orem ipsum dolor sit amet, consectetur adipiscing elit.</div>
                     <div class="text-sm font-medium text-black">orem ipsum dolor sit amet, consectetur adipiscing elit.</div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection
