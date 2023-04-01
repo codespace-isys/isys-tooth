@@ -36,6 +36,7 @@ Route::group(['middleware' => ['is_admin']], function () {
 
 Route::group(['middleware' => ['is_doctor']], function () {
     Route::get('/pages/doctor-layout/dashboard', 'Doctor\DoctorDashboard@dashboard')->name('dashboard-doctor');
+    Route::get('/pages/doctor-layout/medicine', 'Doctor\DoctorMedicines@index')->name('medicine-doctor');
 });
 
 Route::group(['middleware' => ['is_user']], function () {

@@ -1,5 +1,12 @@
 @extends('pages.layout.layout')
 @section('content')
+    {{-- <script>
+        $('button#removeFile').click(function(e) {
+            if (@{{ form - > name }})
+                $('documentName').addClass('d-none')
+            $('document').removeClass('d - none ')
+        });
+    </script> --}}
     <div class="w-full container md:mx:auto mt-20 overflow-x-auto">
         <div class="bg-white rounded-lg shadow-lg p-5 ">
             <h1 class="w-full text-xl font-bold mb-4">Input Article Admin</h1>
@@ -18,8 +25,8 @@
                     class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Title</label>
                 <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
                     <img src="{{ URL('img/title.png') }}" alt="" class="w-5 h-5 absolute ml-3 pointer-events-none">
-                    <input type="text" name="title" placeholder="Input Title" autocomplete="off" value="{{ $articles->title }}"
-                        aria-label="Input Table"
+                    <input type="text" name="title" placeholder="Input Title" autocomplete="off"
+                        value="{{ $articles->title }}" aria-label="Input Table"
                         class="block w-full  pr-3 pl-10 py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
                 </div>
                 <label for="large-input" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Short
@@ -33,15 +40,17 @@
                 </div>
                 <label for="large-input"
                     class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Description</label>
-                <textarea name="description" id="myTextarea" cols="30" rows="10" >{{ $articles->description }}</textarea>
+                <textarea name="description" id="myTextarea" cols="30" rows="10">{{ $articles->description }}</textarea>
                 <label for="large-input"
                     class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Image</label>
 
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload
                     file</label>
+                    {{-- <span id="documentName">{{$articles->image}}</span> <button id="removeFile">Remove</button> --}}
                 <input
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                    aria-describedby="file_input_help" name="image" id="file_input" value="{{ $articles->image}}" type="file">
+                    aria-describedby="file_input_help" name="image" id="file_input" value=""
+                    type="file">
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX.
                     800x400px).</p>
                 <button type="submit"

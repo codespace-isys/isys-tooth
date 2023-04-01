@@ -59,13 +59,6 @@ class AdminArticles extends Controller
     }
     public function update(Request $request, $id)
     {
-        // $articles = Article::find($id);
-        // $articles->id = isset($request->id) ? $request->id : $articles->id;
-        // $articles->title = isset($request->title) ? $request->title : $articles->title;
-        // $articles->short_description = isset($request->short_description) ? $request->short_description : $articles->short_description;
-        // $articles->description = isset($request->description) ? $request->description : $articles->description;
-        // $articles->supplier_id = isset($request->supplier_id) ? $request->supplier_id : $articles->supplier_id;
-        // $articles->save();
         $request->validate([
             'title' => 'required',
             'short_description' => 'required',
@@ -75,16 +68,15 @@ class AdminArticles extends Controller
             'short_description.required' => 'short description wajib diisi',
             'description.required' => ' description wajib diisi',
         ]);
-        
+        $articles = Article::find($id);
         if($request->hasFile('image')){
             $request->validate([
-                'image' => 'required|mimes:jpeg,png,jpg,gif'
+                'image' => 'mimes:jpeg,png,jpg,gif'
             ],[
-                'image.required' => ' image wajib diisi',
                 'image.mimes' => ' image hanya diperbolehkan berekstensi JPEG, JPG, PNG, dan GIF',
             ]);
             $image_file = $request->file('image');
-            $image_extension = $image_file->extension();
+            $image_extension = $image_file->getClientOriginalName();
             $image_name = date('ymdhis') . "." . $image_extension;
             $image_file->move(public_path('img'), $image_name);
 
@@ -95,10 +87,12 @@ class AdminArticles extends Controller
             'title' => $request->input('title'),
             'short_description' => $request->input('short_description'),
             'description' => $request->input('description'),
-            'image' => $image_name,
+            'image' => $request->image ? $image_name : $articles->image,
         ]);
         return redirect()->route('articles-admin');
     }
+
+    //delete data
     public function delete($id){
         $data = Article::where('id', $id)->first();
         File::delete(public_path('img'). '/' .$data->image);
