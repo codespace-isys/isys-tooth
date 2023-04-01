@@ -24,9 +24,14 @@ Route::get('/signup', "AuthController@signup")->name("signup");
 Route::post('/signup', "AuthController@create")->name('create');
 
 Route::group(['middleware' => ['is_admin']], function () {
+    //CRUD Article
     Route::get('/pages/admin-layout/dashboard', 'Admin\AdminDashboard@dashboard')->name('dashboard-admin');
     Route::get('/pages/admin-layout/articles', 'Admin\AdminArticles@index')->name('articles-admin');
     Route::get('/pages/admin-layout/articles/create-articles', 'Admin\AdminArticles@create')->name('create-articles-admin');
+    Route::post('/pages/admin-layout/articles/create-articles', 'Admin\AdminArticles@store_articles')->name('store_articles');
+    Route::get('/pages/admin-layout/articles/edit-articles/{id}', 'Admin\AdminArticles@edit')->name('edit-articles-admin');
+    Route::post('/pages/admin-layout/articles/edit-articles/{id}', 'Admin\AdminArticles@update')->name('update-articles');
+    Route::get('/pages/admin-layout/articles/delete-articles/{id}', 'Admin\AdminArticles@delete')->name('delete-articles');
 });
 
 Route::group(['middleware' => ['is_doctor']], function () {
