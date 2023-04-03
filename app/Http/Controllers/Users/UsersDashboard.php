@@ -12,9 +12,7 @@ class UsersDashboard extends Controller
         $this->middleware('is_user');
     }
     function dashboard()
-    {
-        $users = new User();
-        $users = $users->get();
-        return view('/pages/users-layout/dashboard', ['users' => $users]);
+    { 
+        return view('/pages/users-layout/dashboard');
     }
 }

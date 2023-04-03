@@ -37,6 +37,10 @@ Route::group(['middleware' => ['is_admin']], function () {
 Route::group(['middleware' => ['is_doctor']], function () {
     Route::get('/pages/doctor-layout/dashboard', 'Doctor\DoctorDashboard@dashboard')->name('dashboard-doctor');
     Route::get('/pages/doctor-layout/medicine', 'Doctor\DoctorMedicines@index')->name('medicine-doctor');
+    Route::post('/pages/doctor-layout/medicine', 'Doctor\DoctorMedicines@store_medicine')->name('store_medicine');
+    Route::put('/pages/doctor-layout/medicine', 'Doctor\DoctorMedicines@update_medicine')->name('update_medicine');
+    Route::get('/pages/doctor-layout/medicine/{id}', 'Doctor\DoctorMedicines@delete_medicine')->name('delete_medicine');
+   
 });
 
 Route::group(['middleware' => ['is_user']], function () {

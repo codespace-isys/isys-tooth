@@ -1,6 +1,6 @@
 @extends('pages.layout.layout')
 @section('content')
-    <div class="container relative overflow-x-auto shadow-md sm:rounded-lg md:mx-auto mt-20">
+    <div class="container relative w-full overflow-x-auto shadow-md sm:rounded-lg md:mx-auto mt-20">
         <a href="{{ route('create-articles-admin') }}"
             class="flex items-center justify-center bg-blue-500 hover:bg-blue-700 text-white w-40 font-bold py-2 px-4 rounded mt-5 ml-5">
             <img src="{{ URL('img/add.png') }}" class="w-5 mr-2" alt="">

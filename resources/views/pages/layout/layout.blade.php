@@ -319,7 +319,7 @@
                     <h1 x-cloak
                         x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
                             'sm:hidden' : ''">
-                        Diagnosis</h1>
+                        Indication</h1>
                 </a>
                 <a x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                     @click="$store.sidebar.active = 'home' "
@@ -338,7 +338,7 @@
                     <h1 x-cloak
                         x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
                             'sm:hidden' : ''">
-                        Disease</h1>
+                        Sickness</h1>
                 </a>
                 <a x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                     @click="$store.sidebar.active = 'home' "
@@ -357,7 +357,7 @@
                     <h1 x-cloak
                         x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
                             'sm:hidden' : ''">
-                        Rule</h1>
+                        Regulation</h1>
                 </a>
                 <a href="{{ route('medicine-doctor') }}" x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                     @click="$store.sidebar.active = 'home' "
