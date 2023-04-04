@@ -142,7 +142,7 @@
                 </button>
                 <div class="px-6 py-6 lg:px-8">
                     <h3 class="mb-4 text-xl font-semibold text-gray-900 dark:text-white">Input Data Medicine</h3>
-                    <form class="space-y-6" method="POST" action="{{ route('update_medicine') }}">
+                    <form class="space-y-6" method="POST" action="{{ route('update_medicine',$medicine->id) }}">
                         @method('PUT')
                         @csrf
                         <input type="hidden" value="{{ $medicine->id }}" name="id_medicine">
