@@ -168,8 +168,6 @@
 
 
 <body x-data class="h-screen mx-auto flex fixed antialiased justify-between">
-
-
     <header class="w-full flex fixed justify-end items-center px-6 py-4 bg-gray-800 shadow-m">
         <div class="flex items-center">
             <div class="rounded-full overflow-hidden">
