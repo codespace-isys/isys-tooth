@@ -17,4 +17,7 @@ class Sickness extends Model
         'sickness_solution',
         'medicine_id',
     ];
+    public function medicine(){
+        return $this->belongsTo(medicine::class, 'medicine_id');
+    }
 }

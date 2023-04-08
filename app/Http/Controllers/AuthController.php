@@ -65,7 +65,7 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
+            'password' => 'required|min:2',
         ],[
             'name.required' => 'Nama wajib diisi',
             'email.required' => 'Email wajib diisi',
@@ -76,6 +76,9 @@ class AuthController extends Controller
         ]);
         $users = User::Create([
             'name' => $request->name,
+            'image' => 'default.png',
+            'address' => 'empty',
+            'phone' => 'empty',
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role_id' => 3,

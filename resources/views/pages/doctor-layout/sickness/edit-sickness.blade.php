@@ -2,7 +2,7 @@
 @section('content')
     <div class="w-full container md:mx:auto mt-20 overflow-x-auto">
         <div class="bg-white rounded-lg shadow-lg p-5 ">
-            <h1 class="w-full text-xl font-bold mb-4">Input Article Admin</h1>
+            <h1 class="w-full text-xl font-bold mb-4">Edit Sickness Doctor</h1>
             <a href="{{ url()->previous() }}"
                 class="rotate-180 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
@@ -12,40 +12,33 @@
                         clip-rule="evenodd"></path>
                 </svg>
             </a>
-            <form action="{{ route('store-sickness') }}" method="POST" enctype="multipart/form-data"
-                class="w-full max-w-screen-2xl mt-10">
+            <form action="{{ route('update-sickness', ['id' => $Sickness->id]) }}" method="POST"
+                enctype="multipart/form-data" class="w-full max-w-screen-2xl mt-10">
                 @csrf
                 <label for="large-input" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Sickness
                     Name</label>
                 <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
                     <img src="{{ URL('img/virus.png') }}" alt="" class="w-5 h-5 absolute ml-3 pointer-events-none">
                     <input type="text" name="sickness_name" placeholder="Input Sickness" autocomplete="off"
-                        aria-label="Input Table"
+                        aria-label="Input Table" value="{{ $Sickness->sickness_name }}"
                         class="block w-full  pr-3 pl-10 py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
                 </div>
 
                 <label for="large-input" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Sickness
                     Description</label>
-                <textarea name="sickness_description" id="myTextarea" cols="30" rows="10"></textarea>
+                <textarea name="sickness_description" id="myTextarea" cols="30" rows="10">{{ $Sickness->sickness_description }}</textarea>
                 <label for="large-input" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Sickness
                     Solution</label>
-                <textarea name="sickness_solution" id="myTextarea" cols="30" rows="10"></textarea>
+                <textarea name="sickness_solution" id="myTextarea" cols="30" rows="10">{{ $Sickness->sickness_solution }}</textarea>
 
-                <label for="countries" class="block mb-2 mt-5 text-sm font-medium text-gray-900 dark:text-white">Select an Medicine Name</label>
-                {{-- <select id='selUser' style='width: 200px;'>
-                    <option value='0'>Select User</option>
-                    <option value='1'>Yogesh singh</option>
-                    <option value='2'>Sonarika Bhadoria</option>
-                    <option value='3'>Anil Singh</option>
-                    <option value='4'>Vishal Sahu</option>
-                    <option value='5'>Mayank Patidar</option>
-                    <option value='6'>Vijay Mourya</option>
-                    <option value='7'>Rakesh sahu</option>
-                </select> --}}
-                <select id="selUser"  name="medicine_id" style='width: 100%;'>
-                    <option selected disabled>Choose a Medicine</option>
-                    @foreach ($medicines as $medicine)
-                        <option value="{{ $medicine->id }}">{{ $medicine->medicine_name }}</option>
+                <label for="large-input" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Medicine Name</label>
+                <select id="selUser" name="medicine_id" style='width: 100%;'>
+                    <option selected value="{{ $Sickness->medicine_id }}">{{ $Sickness->medicine->medicine_name }}</option>
+                    <option disabled>Choose a Medicine</option>
+                    @foreach ($medicine as $medicines)
+                        @if (!$medicines->id == $Sickness->medicine_id)
+                            <option value="{{ $medicines->id }}">{{ $medicines->medicine_name }}</option>
+                        @endif
                     @endforeach
                 </select>
                 <label for="large-input" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Sickness

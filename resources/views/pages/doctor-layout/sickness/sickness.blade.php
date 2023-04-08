@@ -55,28 +55,28 @@
                             {{ $sickness->sickness_description }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $sickness->sickness_solution}}
+                            {{ $sickness->sickness_solution }}
                         </td>
                         <td class="px-6 py-4">
                             <img src="/img/{{ $sickness->sickness_image }}" alt="">
                         </td>
                         <td class="px-6 py-4">
-                            {{ $sickness->medicine_id}}
+                            {{ $sickness->medicine->medicine_name }}
                         </td>
-                        {{-- <td class="px-6 py-4 text-right">
-                            <a href="{{ route('edit-sicknesss-admin', ['id' => $sickness->id]) }}"
+                        <td class="px-6 py-4 text-right">
+                            <a href="{{ route('edit-sickness', ['id' => $sickness->id]) }}"
                                 class="flex items-center justify-center bg-yellow-300 hover:bg-yellow-100 text-white w-20 font-bold py-2 px-4 rounded mt-5 ml-5">
                                 <img src="{{ URL('img/edit.png') }}" class="w-5" alt="">
                                 Edit
                             </a>
-                        </td> --}}
-                        {{-- <td class="px-6 py-4 text-right">
-                            <a href="{{ route('delete-sicknesss', ['id' => $sickness->id]) }}"
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <a href="{{ route('delete-sickness', ['id' => $sickness->id]) }}"
                                 class="flex items-center justify-center bg-red-600 hover:bg-red-400 text-white w-20 font-bold py-2 px-4 rounded mt-5 ml-5">
                                 <img src="{{ URL('img/trash.png') }}" class="w-5" alt="">
                                 Hapus
                             </a>
-                        </td> --}}
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

@@ -23,7 +23,6 @@ class RoleSeeder extends Seeder
             ['role' => 'Dokter'],
             ['role' => 'User'],
         ];
-
         foreach ($data as $value) {
             DB::table("roles")->insert([
                 'role' => $value['role'],

@@ -8,6 +8,14 @@
     @vite('resources/js/app.js')
     @vite('resources/css/app.css')
     <script src="./js/app.js"></script>
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <!-- Alpine Js -->
     <script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>
@@ -165,7 +173,7 @@
     <header class="w-full flex fixed justify-end items-center px-6 py-4 bg-gray-800 shadow-m">
         <div class="flex items-center">
             <div class="rounded-full overflow-hidden">
-                <img class="w-10 h-10" src="https://via.placeholder.com/150" alt="Avatar">
+                <img class="w-10 h-10" src="/img/{{ auth()->user()->image }}" alt="Avatar">
             </div>
             <h1 class="ml-2 text-white font-bold">{{ auth()->user()->name }}</h1>
         </div>
@@ -244,6 +252,25 @@
                             'sm:hidden' : ''">
                         Users</h1>
                 </a>
+                <a x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
+                    @click="$store.sidebar.active = 'home' "
+                    class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
+                    x-bind:class="{
+                        'justify-start': $store.sidebar.full,
+                        'sm:justify-center': !$store.sidebar
+                            .full,
+                        'text-gray-200 bg-gray-800': $store.sidebar.active == 'home',
+                        'text-gray-400 ': $store
+                            .sidebar.active != 'home'
+                    }">
+                    <img src="{{ URL('img/setting.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                    </img>
+                    <h1 x-cloak
+                        x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
+                            'sm:hidden' : ''">
+                        Roles</h1>
+                </a>
                 <a href="{{ route('articles-admin') }}" x-data="tooltip" x-on:mouseover="show = true"
                     x-on:mouseleave="show = false" @click="$store.sidebar.active = 'home' "
                     class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
@@ -302,6 +329,25 @@
                             'sm:hidden' : ''">
                         Dashboard</h1>
                 </a>
+                <a href="{{ route('medicine-doctor') }}" x-data="tooltip" x-on:mouseover="show = true"
+                    x-on:mouseleave="show = false" @click="$store.sidebar.active = 'home' "
+                    class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
+                    x-bind:class="{
+                        'justify-start': $store.sidebar.full,
+                        'sm:justify-center': !$store.sidebar
+                            .full,
+                        'text-gray-200 bg-gray-800': $store.sidebar.active == 'home',
+                        'text-gray-400 ': $store
+                            .sidebar.active != 'home'
+                    }">
+                    <img src="{{ URL('img/medicine.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                    </img>
+                    <h1 x-cloak
+                        x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
+                            'sm:hidden' : ''">
+                        Medicine</h1>
+                </a>
                 <a x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                     @click="$store.sidebar.active = 'home' "
                     class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
@@ -321,8 +367,8 @@
                             'sm:hidden' : ''">
                         Indication</h1>
                 </a>
-                <a href="{{ route('sickness-doctor') }}" x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
-                    @click="$store.sidebar.active = 'home' "
+                <a href="{{ route('sickness-doctor') }}" x-data="tooltip" x-on:mouseover="show = true"
+                    x-on:mouseleave="show = false" @click="$store.sidebar.active = 'home' "
                     class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
                     x-bind:class="{
                         'justify-start': $store.sidebar.full,
@@ -359,25 +405,6 @@
                             'sm:hidden' : ''">
                         Regulation</h1>
                 </a>
-                <a href="{{ route('medicine-doctor') }}" x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
-                    @click="$store.sidebar.active = 'home' "
-                    class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
-                    x-bind:class="{
-                        'justify-start': $store.sidebar.full,
-                        'sm:justify-center': !$store.sidebar
-                            .full,
-                        'text-gray-200 bg-gray-800': $store.sidebar.active == 'home',
-                        'text-gray-400 ': $store
-                            .sidebar.active != 'home'
-                    }">
-                    <img src="{{ URL('img/medicine.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                    </img>
-                    <h1 x-cloak
-                        x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
-                            'sm:hidden' : ''">
-                        Medicine</h1>
-                </a>
             @endif
             @if (auth()->user()->role_id == 3)
                 <a href="{{ route('dashboard-users') }}" x-data="tooltip" x-on:mouseover="show = true"
@@ -409,8 +436,8 @@
                         'text-gray-400 ': $store
                             .sidebar.active != 'home'
                     }">
-                    <img src="{{ URL('img/homewhite.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
+                    <img src="{{ URL('img/doctor-consultation.png') }}" class="h-6 w-6" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
                     </img>
                     <h1 x-cloak
                         x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
@@ -428,7 +455,7 @@
                         'text-gray-400 ': $store
                             .sidebar.active != 'home'
                     }">
-                    <img src="{{ URL('img/homewhite.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    <img src="{{ URL('img/result.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                     </img>
                     <h1 x-cloak

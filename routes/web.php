@@ -47,6 +47,9 @@ Route::group(['middleware' => ['is_doctor']], function () {
     Route::get('/pages/doctor-layout/sickness', 'Doctor\DoctorSickness@index')->name('sickness-doctor');
     Route::get('/pages/doctor-layout/sickness/create-sickness', 'Doctor\DoctorSickness@create')->name('create-sickness-doctor');
     Route::post('/pages/doctor-layout/Sickness/store-sickness', 'Doctor\DoctorSickness@store_sickness')->name('store-sickness');
+    Route::get('/pages/doctor-layout/Sickness/edit-sickness/{id}', 'Doctor\DoctorSickness@edit_sickness')->name('edit-sickness');
+    Route::post('/pages/doctor-layout/Sickness/update-sickness/{id}', 'Doctor\DoctorSickness@update_sickness')->name('update-sickness');
+    Route::get('/pages/doctor-layout/Sickness/delete-sickness/{id}', 'Doctor\DoctorSickness@delete_sickness')->name('delete-sickness');
 });
 
 Route::group(['middleware' => ['is_user']], function () {
