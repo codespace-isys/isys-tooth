@@ -43,6 +43,12 @@ Route::group(['middleware' => ['is_doctor']], function () {
     Route::put('/pages/doctor-layout/medicine/{id}', 'Doctor\DoctorMedicines@update_medicine')->name('update_medicine');
     Route::get('/pages/doctor-layout/medicine/{id}', 'Doctor\DoctorMedicines@delete_medicine')->name('delete_medicine');
     
+    //CRUD Indication
+    Route::get('/pages/doctor-layout/indication', 'Doctor\DoctorIndication@index')->name('indication-doctor');
+    Route::post('/pages/doctor-layout/indication', 'Doctor\DoctorIndication@store_indication')->name('store_indication');
+    Route::put('/pages/doctor-layout/indication/{id}', 'Doctor\DoctorIndication@update_indication')->name('update_indication');
+    Route::get('/pages/doctor-layout/indication/{id}', 'Doctor\DoctorIndication@delete_indication')->name('delete_indication');
+
     //CRUD Sickness
     Route::get('/pages/doctor-layout/sickness', 'Doctor\DoctorSickness@index')->name('sickness-doctor');
     Route::get('/pages/doctor-layout/sickness/create-sickness', 'Doctor\DoctorSickness@create')->name('create-sickness-doctor');

@@ -36,7 +36,6 @@ class DoctorMedicines extends Controller
     }
     function update_medicine(Request $request)
     {
-        //$medicines = medicine::find($id);
         $request->validate([
             'medicine_name' => 'required',
             'medicine_information' => 'required',
