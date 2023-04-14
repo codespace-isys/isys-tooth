@@ -1,59 +1,53 @@
 @extends('pages.layout.layout')
 @section('content')
-    <div class="container overflow-x-auto shadow-md sm:rounded-lg md:mx-auto mt-20">
-        <button data-modal-target="create-regulation-modal" data-modal-toggle="create-regulation-modal"
-            class="flex items-center justify-center pointer-events bg-blue-500 hover:bg-blue-700 text-white w-40 font-bold py-2 px-4 rounded mt-5 ml-5">
-            <img src="{{ URL('img/add.png') }}" class="w-5 mr-2" alt="">
-            Create Data
-        </button>
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <h1 class="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
-                Our regulation
-
-            </h1>
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th scope="col" class="px-6 py-3 p-10">
-                        No
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        regulation&nbspNama
-                    </th>
-                    <th scope="col" class="px-80 py-3">
-                        regulation&nbspInformation
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Action
-                    </th>
-                    <th scope="col" class="px-48 py-3">
-
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @php
-                    $no = 1;
-                @endphp
-                @foreach ($regulations as $regulation)
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <td class="px-6 py-1 whitespace-nowrap">
-                            {{ $no++ }}
-                        </td>
-                        <td class="px-6 py-4 ">
-                            {{ $regulation->sickness->sickness_name }}
-                        </td>
-                        <td class="px-80 py-4">
-                            {{ $regulation->indication->indication   }}
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            <a href="#" type="button"
-                                data-modal-target="update-regulation-modal{{ $regulation->id }}"
-                                data-modal-toggle="update-regulation-modal{{ $regulation->id }}"
-                                class="flex items-center justify-center bg-yellow-300 hover:bg-yellow-100 text-white w-20 font-bold py-2 px-4 rounded mt-5 ml-5">
-                                <img src="{{ URL('img/edit.png') }}" class="w-5" alt="">
-                                Edit
-                            </a>
-                            {{-- <div id="update-regulation-modal{{ $regulation->id }}" tabindex="-1" aria-hidden="true"
+    <button data-modal-target="create-regulation-modal" data-modal-toggle="create-regulation-modal"
+        class="flex items-center justify-center pointer-events bg-blue-500 hover:bg-blue-700 text-white w-40 font-bold py-2 px-4 mt-5 ml-16 mb-3 rounded">
+        <img src="{{ URL('img/add.png') }}" class="w-5 mr-2" alt="">
+        Create Data
+    </button>
+    <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto mb-10">
+        <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+            <table id="example" class="w-full" style="width: 100%; padding-top: 1em; padding-bottom: 1em;">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="w-auto px-4 py-4">
+                            No
+                        </th>
+                        <th scope="col" class="w-auto px-1 py-3">
+                            regulation Nama
+                        </th>
+                        <th scope="col" class="w-auto px-1 py-3">
+                            regulation Information
+                        </th>
+                        <th scope="col" class="w-auto px-6 py-3">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    @php
+                        $no = 1;
+                    @endphp
+                    @foreach ($regulations as $regulation)
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <td class="w-auto px-4 py-4">
+                                {{ $no++ }}
+                            </td>
+                            <td class="w-auto px-1 py-1">
+                                {{ $regulation->sickness->sickness_name }}
+                            </td>
+                            <td class="w-auto px-1 py-1">
+                                {{ $regulation->indication->indication }}
+                            </td>
+                            <td class="w-auto px-1 py-1 text-right grid grid-cols-2 gap-14">
+                                <a href="#" type="button"
+                                    data-modal-target="update-regulation-modal{{ $regulation->id }}"
+                                    data-modal-toggle="update-regulation-modal{{ $regulation->id }}"
+                                    class="flex items-center justify-center bg-yellow-300 hover:bg-yellow-100 text-white w-20 font-bold py-2 px-4 rounded mt-5 ml-5">
+                                    <img src="{{ URL('img/edit.png') }}" class="w-5" alt="">
+                                    Edit
+                                </a>
+                                {{-- <div id="update-regulation-modal{{ $regulation->id }}" tabindex="-1" aria-hidden="true"
                                 class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
                                 <div class="relative w-full h-full max-w-md md:h-auto">
                                     <!-- Modal content -->
@@ -115,24 +109,26 @@
                                     </div>
                                 </div>
                             </div> --}}
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            {{-- <a href="{{ route('delete_regulation', ['id' => $regulation->id]) }}"
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                {{-- <a href="{{ route('delete_regulation', ['id' => $regulation->id]) }}"
                                 class="flex items-center justify-center bg-red-600 hover:bg-red-400 text-white w-20 font-bold py-2 px-4 rounded mt-5 ml-5">
                                 <img src="{{ URL('img/trash.png') }}" class="w-5" alt="">
                                 Hapus
                             </a> --}}
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <p class=" text-white text-opacity-100 ">Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+                took a
+                galley of type of typeof typeof typeof typeof typeof typeof type </p>
+        </div>
     </div>
 
-    <!-- Modal toggle -->
-    {{-- <button data-modal-target="create-regulation-modal" data-modal-toggle="create-regulation-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-    Toggle modal
-  </button> --}}
 
     <!-- Main modal -->
     <div id="create-regulation-modal" tabindex="-1" aria-hidden="true"
@@ -169,7 +165,8 @@
                             <label for="regulation_information"
                                 class="block text-sm  font-medium text-gray-400 dark:text-white">
                                 Regulation</label>
-                            <select id="indication_id" name="indication_id[]" style='width: 100%;' class="indicatiion_id" multiple='multiple'>
+                            <select id="indication_id" name="indication_id[]" style='width: 100%;' class="indicatiion_id"
+                                multiple='multiple'>
                                 {{-- @foreach ($indications as $indication)
                                     <option value="{{ $indication->id }}">{{ $indication->indication }}</option>
                                 @endforeach --}}
@@ -188,19 +185,19 @@
             // Initialize select2
             $("#selUser").select2();
             // $('.indicatiion_id').select2{(
-               
+
             // )};
             $("#indication_id").select2({
-                placeholder : "Choose a Indication",
-                allowClear : true,
-                ajax:{
-                    url:"{{ route('get_indication')}}",
-                    type:"post",
-                    dataType:'json',
-                    data: function(params){
-                        return{
-                            indication:params.term,
-                            "_token" : "{{ csrf_token() }}",
+                placeholder: "Choose a Indication",
+                allowClear: true,
+                ajax: {
+                    url: "{{ route('get_indication') }}",
+                    type: "post",
+                    dataType: 'json',
+                    data: function(params) {
+                        return {
+                            indication: params.term,
+                            "_token": "{{ csrf_token() }}",
                         };
                     },
                     // processResults:function(data){
