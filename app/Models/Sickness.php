@@ -20,4 +20,7 @@ class Sickness extends Model
     public function medicine(){
         return $this->belongsTo(medicine::class, 'medicine_id');
     }
+    public function regulation(){
+        return $this->hasMany(Regulation::class, 'id');
+    }
 }

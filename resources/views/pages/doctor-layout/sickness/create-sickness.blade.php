@@ -1,6 +1,6 @@
 @extends('pages.layout.layout')
 @section('content')
-    <div class="w-full container md:mx:auto mt-20 overflow-x-auto">
+    <div class="w-full container md:mx:auto mt-20">
         <div class="bg-white rounded-lg shadow-lg p-5 ">
             <h1 class="w-full text-xl font-bold mb-4">Input Article Admin</h1>
             <a href="{{ url()->previous() }}"
