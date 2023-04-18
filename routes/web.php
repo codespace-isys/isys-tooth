@@ -39,14 +39,14 @@ Route::group(['middleware' => ['is_doctor']], function () {
     
     //CRUD Regulation
     Route::get('/pages/doctor-layout/regulation', 'Doctor\DoctorRegulation@index')->name('regulation-doctor');
-    Route::post('/pages/doctor-layout/regulation', 'Doctor\DoctorRegulation@store_regulation')->name('store_regulation');
-    Route::post('/pages/doctor-layout/regulation', 'Doctor\DoctorRegulation@get_indication')->name('get_indication');
+    Route::get('/pages/doctor-layout/regulation/{id}', 'Doctor\DoctorRegulation@edit_regulation')->name('edit-regulation');
+    Route::post('/pages/doctor-layout/regulation/{id}', 'Doctor\DoctorRegulation@update_regulation')->name('update-regulation');
 
     //CRUD Medicine
     Route::get('/pages/doctor-layout/medicine', 'Doctor\DoctorMedicines@index')->name('medicine-doctor');
     Route::post('/pages/doctor-layout/medicine', 'Doctor\DoctorMedicines@store_medicine')->name('store_medicine');
-    Route::put('/pages/doctor-layout/medicine/{id}', 'Doctor\DoctorMedicines@update_medicine')->name('update_medicine');
     Route::get('/pages/doctor-layout/medicine/{id}', 'Doctor\DoctorMedicines@delete_medicine')->name('delete_medicine');
+    Route::put('/pages/doctor-layout/medicine/{id}', 'Doctor\DoctorMedicines@update_medicine')->name('update_medicine');
     
     //CRUD Indication
     Route::get('/pages/doctor-layout/indication', 'Doctor\DoctorIndication@index')->name('indication-doctor');

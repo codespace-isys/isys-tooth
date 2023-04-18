@@ -18,9 +18,12 @@ class Sickness extends Model
         'medicine_id',
     ];
     public function medicine(){
-        return $this->belongsTo(medicine::class, 'medicine_id');
+        return $this->belongsTo(medicine::class, 'medicine_id'); 
     }
-    public function regulation(){
-        return $this->hasMany(Regulation::class, 'id');
+    public function indication(){
+        return $this->belongsToMany(indication::class)->withTimestamps();
+    }
+    public function indications(){
+        return $this->belongsToMany(indication::class, 'indication_sickness', 'sickness_id','indication_id');
     }
 }

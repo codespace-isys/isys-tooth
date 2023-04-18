@@ -13,13 +13,13 @@
                         <th scope="col" class="w-1 px-4 py-4">
                             No
                         </th>
-                        <th scope="col" class="w-20 px-1 py-3">
+                        <th scope="col" class="w-10 px-1 py-3">
                             Sickness Name
                         </th>
                         <th scope="col" class="w-40 px-1 py-3">
                             Sickness Description
                         </th>
-                        <th scope="col" class="w-1 px-1 py-3">
+                        <th scope="col" class="w-40 px-1 py-3">
                             Sickness Solution
                         </th>
                         <th scope="col" class="w-1 px-6 py-3">
@@ -57,7 +57,7 @@
                             <td class="w-1 px-6 py-4">
                                 {{ $sickness->medicine->medicine_name }}
                             </td>
-                            <td class="w-32 px-1 py-1 text-right grid grid-cols-2 gap-14">
+                            <td class="w-32 px-1 py-1 text-right grid grid-cols-2 gap-14 justify-center">
                                 <a href="{{ route('edit-sickness', ['id' => $sickness->id]) }}"
                                     class="flex items-center justify-center bg-yellow-300 hover:bg-yellow-100 text-white w-20 font-bold py-2 px-4 rounded mt-5 ml-5">
                                     <img src="{{ URL('img/edit.png') }}" class="w-5" alt="">
@@ -80,5 +80,4 @@
                 galley of type of typeof typeof typeof typeof typeof typeof type </p>
         </div>
     </div>
-
 @endsection

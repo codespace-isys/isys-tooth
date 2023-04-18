@@ -14,7 +14,7 @@ class indication extends Model
         'code_indication',
         'indication',
     ];
-    public function regulation(){
-        return $this->hasMany(Regulation::class, 'id');
+    public function Sickness(){
+        return $this->belongsToMany(Sickness::class);
     }
 }

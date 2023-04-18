@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Doctor;
 
 use App\Http\Controllers\Controller;
 use App\Models\indication;
-use App\Models\Regulation;
 use App\Models\Sickness;
 use Illuminate\Http\Request;
 
@@ -17,34 +16,29 @@ class DoctorRegulation extends Controller
     
     function index()
     {
-        $regulations = Regulation::all();
         $sicknesses = Sickness::all();
         $indications = indication::all();
         $array = [
-            'regulations' => $regulations,
             'sicknesses' => $sicknesses,
             'indications' => $indications,
         ];
         return view('/pages/doctor-layout/regulation/regulation', $array);
     }
-    public function get_indication(Request $request){
-        $indication_id = [];
-        if($search = $request->indication){
-            $indication_id = indication::where('indication','LIKE',"%$search%")->get();
-        }
-        return response()->json($indication_id);
+    function edit_regulation($id){
+        $sicknesses = Sickness::findOrFail($id);
+        $indications = indication::all();
+        $array = [
+            'Sickness' => $sicknesses,
+            'indications' => $indications,
+        ];
+        return view('/pages/doctor-layout/regulation/edit-regulation', $array);
     }
-    function store_regulation(Request $request){
-        $regulations = new Regulation();
-        $request->validate([
-            'sickness_id' => 'required',
-            'indication_id' => 'required',
-        ],[
-            'sickness_id.required' => 'nama Regulation wajib diisi',
-            'indication_id.required' => 'informasi Regulation wajib diisi',
+    function update_regulation(Request $request, $id){
+        $sicknesses = Sickness::find($id);
+        Sickness::where('id',$id)->update([
+            'sickness_name' => $request->input('sickness_name'),
         ]);
-        $regulations = Regulation::Create($request->indication_id);
-        $regulations->save();
+        $sicknesses->indication()->sync($request->indication_id);
         return redirect()->route('regulation-doctor');
     }
 }

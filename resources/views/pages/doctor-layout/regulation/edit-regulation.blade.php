@@ -12,7 +12,7 @@
                         clip-rule="evenodd"></path>
                 </svg>
             </a>
-            <form action="{{ route('update-sickness', ['id' => $Sickness->id]) }}" method="POST"
+            <form action="{{ route('update-regulation', ['id' => $Sickness->id]) }}" method="POST"
                 enctype="multipart/form-data" class="w-full max-w-screen-2xl mt-10">
                 @csrf
                 <label for="large-input" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Sickness
@@ -23,25 +23,6 @@
                         aria-label="Input Table" value="{{ $Sickness->sickness_name }}"
                         class="block w-full  pr-3 pl-10 py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
                 </div>
-
-                <label for="large-input" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Sickness
-                    Description</label>
-                <textarea name="sickness_description" id="myTextarea" cols="30" rows="10">{{ $Sickness->sickness_description }}</textarea>
-                <label for="large-input" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Sickness
-                    Solution</label>
-                <textarea name="sickness_solution" id="myTextarea" cols="30" rows="10">{{ $Sickness->sickness_solution }}</textarea>
-
-                <label for="large-input" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Medicine
-                    Name</label>
-                <select id="selUser" name="medicine_id" style='width: 100%;'>
-                    <option selected value="{{ $Sickness->medicine_id }}">{{ $Sickness->medicine->medicine_name }}</option>
-                    <option disabled>Choose a Medicine</option>
-                    @foreach ($medicine as $medicines)
-                        @if (!$medicines->id == $Sickness->medicine_id)
-                            <option value="{{ $medicines->id }}">{{ $medicines->medicine_name }}</option>
-                        @endif
-                    @endforeach
-                </select>
                 <div class="mt-5">
                     <label for="regulation_information" class="block text-sm  font-medium text-gray-400 dark:text-white">
                         Indication</label>
@@ -57,28 +38,17 @@
                         @endforeach
                     </select>
                 </div>
-                <label for="large-input" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Sickness
-                    Image</label>
-                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload
-                    file</label>
-                <input
-                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                    aria-describedby="file_input_help" name="sickness_image" id="file_input" type="file">
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX.
-                    800x400px).</p>
                 <button type="submit"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center mt-10">
                     <img src="{{ URL('img/save-data.png') }}" fill="currentColor" class="w-4 h-4 mr-2 rounded"></img>
                     <span>Store Data</span>
                 </button>
             </form>
+            <p class=" text-white text-opacity-100 ">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,</p>
         </div>
-        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,</p>
     </div>
     <script>
         $(document).ready(function() {
-            // Initialize select2
-            $("#selUser").select2();
             $("#indication_id").select2({
                 placeholder: "Select a state",
                 allowClear: true,

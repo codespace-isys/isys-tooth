@@ -32,22 +32,23 @@
                 <textarea name="sickness_solution" id="myTextarea" cols="30" rows="10"></textarea>
 
                 <label for="countries" class="block mb-2 mt-5 text-sm font-medium text-gray-900 dark:text-white">Select an Medicine Name</label>
-                {{-- <select id='selUser' style='width: 200px;'>
-                    <option value='0'>Select User</option>
-                    <option value='1'>Yogesh singh</option>
-                    <option value='2'>Sonarika Bhadoria</option>
-                    <option value='3'>Anil Singh</option>
-                    <option value='4'>Vishal Sahu</option>
-                    <option value='5'>Mayank Patidar</option>
-                    <option value='6'>Vijay Mourya</option>
-                    <option value='7'>Rakesh sahu</option>
-                </select> --}}
-                <select id="selUser"  name="medicine_id" style='width: 100%;'>
+                <select id="medicine_id"  name="medicine_id" style='width: 100%;'>
                     <option selected disabled>Choose a Medicine</option>
                     @foreach ($medicines as $medicine)
                         <option value="{{ $medicine->id }}">{{ $medicine->medicine_name }}</option>
                     @endforeach
                 </select>
+                <div class="mt-5">
+                    <label for="regulation_information"
+                        class="block text-sm  font-medium text-gray-400 dark:text-white">
+                        Indication</label>
+                    <select name="indication_id[]" class="indication_id" id="indication_id" style='width: 100%;'
+                        multiple>
+                        @foreach ($indications as $indication)
+                            <option value="{{ $indication->id }}">{{ $indication->indication }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <label for="large-input" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Sickness
                     Image</label>
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload
@@ -68,7 +69,11 @@
     <script>
         $(document).ready(function() {
             // Initialize select2
-            $("#selUser").select2();
+            $("#medicine_id").select2();
+            $("#indication_id").select2({
+                placeholder: "Select a Indication",
+                allowClear: true,
+            });
         });
     </script>
 @endsection

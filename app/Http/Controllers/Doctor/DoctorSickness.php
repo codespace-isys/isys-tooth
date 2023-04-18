@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Doctor;
 use App\Http\Controllers\Controller;
 use App\Models\medicine;
 use App\Models\Sickness;
+use App\Models\indication;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,12 @@ class DoctorSickness extends Controller
     }
     function create(){
         $medicines = medicine::all();
-        return view('/pages/doctor-layout/sickness/create-sickness')->with('medicines', $medicines);
+        $indications = indication::all();
+        $array = [
+            'medicines' => $medicines,
+            'indications' => $indications,
+        ];
+        return view('/pages/doctor-layout/sickness/create-sickness', $array);
     }
     function store_sickness(Request $request){
         $sicknesses = new Sickness();
@@ -52,15 +58,18 @@ class DoctorSickness extends Controller
                 'medicine_id' => $request->input('medicine_id'),
                 'sickness_image' => $image_name,
             ]);
+            $sicknesses->indication()->attach($request->indication_id);
             $sicknesses->save();
         return redirect()->route('sickness-doctor');
     }
     function edit_sickness($id){
-        $sicknesses = Sickness::find($id);
+        $sicknesses = Sickness::findOrFail($id);
         $medicines = medicine::all();
+        $indications = indication::all();
         $array = [
             'Sickness' => $sicknesses,
             'medicine' => $medicines,
+            'indications' => $indications,
         ];
         return view('/pages/doctor-layout/sickness/edit-sickness', $array);
     }
@@ -100,6 +109,7 @@ class DoctorSickness extends Controller
             'medicine_id' => $request->medicine_id,
             'sickness_image' => $request->sickness_image ? $image_name : $sicknesses->sickness_image,
         ]);
+        $sicknesses->indication()->sync($request->indication_id);
         return redirect()->route('sickness-doctor');
     }
     public function delete_sickness($id){

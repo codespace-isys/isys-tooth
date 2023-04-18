@@ -4,6 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="{{ URL('img/gigi.png') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Diagnosis Penyakit Gigi & Mulut</title>
     @vite('resources/js/app.js')
     @vite('resources/css/app.css')
@@ -24,16 +25,17 @@
     <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
     <!--Responsive Extension Datatables CSS-->
     <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
+
     <!-- Alpine Js -->
     <script defer src="https://unpkg.com/alpinejs@3.2.4/dist/cdn.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/0p9kp1nlo0k6j1ymhnzdjs7uxaoj06su7apue9d2f3zysnzu/tinymce/6/tinymce.min.js"
         referrerpolicy="origin"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    {{-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script> --}}
 
     <!--Datatables -->
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
-    
+
     <script>
         $(document).ready(function() {
 
