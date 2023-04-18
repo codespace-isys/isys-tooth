@@ -1,17 +1,44 @@
 @extends('pages.layout.layout')
 @section('content')
-    <div class="w-full container md:mx:auto overflow-x-auto">
-        <div class="bg-white rounded-lg shadow-lg p-5 ">
-            <h1 class="w-full text-xl font-bold mb-4">Edit Sickness Doctor</h1>
-            <a href="{{ url()->previous() }}"
-                class="rotate-180 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
-                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                        clip-rule="evenodd"></path>
-                </svg>
-            </a>
+    <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mb-10 mt-10 shadow-2xl ">
+        <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
+            <div class="flex mb-4" aria-label="Breadcrumb">
+                <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                    <li class="inline-flex items-center">
+                        <a href="{{ route('regulation-doctor') }}"
+                            class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                            <img src="{{ URL('img/rules_black.png') }}" class="w-4 h-4 mr-2 fill-black" fill="currentColor"
+                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            </img>
+                            Sickness
+                        </a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <a href="{{ route('edit-regulation', ['id' => $Sickness->id]) }}"
+                                class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">Update</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            <h2 class="mb-10 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">
+                Sickness Update</h2>
             <form action="{{ route('update-regulation', ['id' => $Sickness->id]) }}" method="POST"
                 enctype="multipart/form-data" class="w-full max-w-screen-2xl mt-10">
                 @csrf
@@ -23,17 +50,23 @@
                         aria-label="Input Table" value="{{ $Sickness->sickness_name }}"
                         class="block w-full  pr-3 pl-10 py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
                 </div>
-                <div class="mt-5">
-                    <label for="regulation_information" class="block text-sm  font-medium text-gray-400 dark:text-white">
-                        Indication</label>
+                <label for="large-input"
+                    class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Indication</label>
+                <div class="flex">
+                    <div id="states-button" data-dropdown-toggle="dropdown-states"
+                        class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-500 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
+                        type="button">
+                        <img src="{{ URL('img/diagnosis_black.png') }}" class="h-5 mr-2">
+                        </img>
+                        Indication
+                    </div>
                     <select name="indication_id[]" class="indication_id" id="indication_id" style='width: 100%;' multiple>
                         @foreach ($indications as $indication)
                             <option value="{{ $indication->id }}"
                                 @foreach ($Sickness->indication as $value)
                                     @if ($indication->id == $value->id)
                                         selected
-                                    @endif 
-                                @endforeach>
+                                    @endif @endforeach>
                                 {{ $indication->indication }}</option>
                         @endforeach
                     </select>
@@ -44,7 +77,10 @@
                     <span>Store Data</span>
                 </button>
             </form>
-            <p class=" text-white text-opacity-100 ">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,</p>
+            <p class=" text-white text-opacity-100 ">Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five
+                centuries,</p>
         </div>
     </div>
     <script>
