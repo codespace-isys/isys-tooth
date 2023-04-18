@@ -58,7 +58,7 @@
                     </button>
                     <div class="flex items-center justify-between mb-2 mt-4">
                         <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-                            href="{{ URL('/signup') }}">
+                            href="{{ route('signup') }}">
                             You don't Have Account? Sign Up!
                         </a>
                     </div>

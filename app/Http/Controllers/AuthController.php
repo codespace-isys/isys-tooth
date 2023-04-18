@@ -3,35 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Symfony\Component\VarDumper\Caster\RedisCaster;
 
 class AuthController extends Controller
 {
-    // public function login(){
-    //     $users = new User();
-    //     $users = $users->get();
-    //     return view('login', ['users' => $users]);
-    // }
-    // public function authenticating(Request $request){
-    //     $credentials = $request->validate([
-    //         'email' => ['required', 'email'],
-    //         'password' => ['required'],
-    //     ]);
-
-    //     if (Auth::attempt($credentials)) {
-    //         $request->session()->regenerate();
-    //         return redirect()->intended('dashboard');
-    //     }
-    //    // Session::flash('name', $request->name);
-    //     Session::flash('status', 'failed');
-    //     Session::flash('message', 'login wrong!');
-
-    //     return redirect('/login');
-    //    // dd($request->all());
-    // }
-
     public function index()
     {
         return view('login');
@@ -45,10 +26,10 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
+        
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
             if (auth()->user()->role_id == 1) {
-                return redirect()->route('dashboard');
+                return redirect()->route('dashboard-admin');
             }
         } else {
             return redirect()->route('login')->with('error', 'Email-Address And Password Are Wrong.');
@@ -56,7 +37,7 @@ class AuthController extends Controller
 
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
             if (auth()->user()->role_id == 2) {
-                return redirect()->route('doctor.dashboard.index');
+                return redirect()->route('dashboard-doctor');
             }
         } else {
             return redirect()->route('login')->with('error', 'Email-Address And Password Are Wrong.');
@@ -64,18 +45,45 @@ class AuthController extends Controller
 
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
             if (auth()->user()->role_id == 3) {
-                return redirect()->route('user.dashboard.index');
+                return redirect()->route('dashboard-users');
             }
         } else {
             return redirect()->route('login')->with('error', 'Email-Address And Password Are Wrong.');
         }
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
         return redirect('/login');
     }
+    public function signup(){
+        return view('signup');
+    }
+    public function create(Request $request){
+        $users = new User();
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:2',
+        ],[
+            'name.required' => 'Nama wajib diisi',
+            'email.required' => 'Email wajib diisi',
+            'email.email' => 'Silakan masukkan email yang valid',
+            'email.unique' => 'Email sudah pernah digunakan, silakan gunakan email lain',
+            'password.required' => 'Password wajib diisi',
+            'password.min' => 'Minimum password yang diizinkan adalah 6 karakter',
+        ]);
+        $users = User::Create([
+            'name' => $request->name,
+            'image' => 'default.png',
+            'address' => 'empty',
+            'phone' => 'empty',
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role_id' => 3,
+        ]);
+        $users->save();
+        return redirect()->route('login');
+    }  
 }
