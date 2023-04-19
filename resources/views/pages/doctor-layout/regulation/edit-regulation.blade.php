@@ -74,7 +74,7 @@
                 <button type="submit"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center mt-10">
                     <img src="{{ URL('img/save-data.png') }}" fill="currentColor" class="w-4 h-4 mr-2 rounded"></img>
-                    <span>Store Data</span>
+                    <span>Update Data</span>
                 </button>
             </form>
             <p class=" text-white text-opacity-100 ">Lorem Ipsum is simply dummy text of the printing and typesetting
