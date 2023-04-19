@@ -12,7 +12,7 @@
                     <li class="inline-flex items-center">
                         <a href="{{ route('articles-admin') }}"
                             class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                            <img src="{{ URL('img/virus_black.png') }}" class="w-4 h-4 mr-2 fill-black" fill="currentColor"
+                            <img src="{{ URL('img/article_black.png') }}" class="w-4 h-4 mr-2 fill-black" fill="currentColor"
                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             </img>
                             Article
