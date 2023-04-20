@@ -39,6 +39,12 @@ Route::group(['middleware' => ['is_admin']], function () {
     Route::post('/pages/admin-layout/roles', 'Admin\AdminRoles@store_roles')->name('store-roles');
     Route::put('/pages/admin-layout/roles/{id}', 'Admin\AdminRoles@update_roles')->name('update-roles');
     Route::get('/pages/admin-layout/roles/{id}', 'Admin\AdminRoles@delete_roles')->name('delete-roles');
+
+    //CRUD Users
+    Route::get('/pages/admin-layout/users', 'Admin\AdminUsers@index')->name('users-admin');
+    Route::post('/pages/admin-layout/users', 'Admin\AdminUsers@store_users')->name('store-users');
+    Route::put('/pages/admin-layout/users/{id}', 'Admin\AdminUsers@update_users')->name('update-users');
+    Route::get('/pages/admin-layout/users/{id}', 'Admin\AdminUsers@delete_users')->name('delete-users');
 });
 
 Route::group(['middleware' => ['is_doctor']], function () {

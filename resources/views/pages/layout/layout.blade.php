@@ -347,7 +347,7 @@
                                 'sm:hidden' : ''">
                             Dashboard</h1>
                     </a>
-                    <a x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
+                    <a href="{{ route('users-admin') }}" x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                         @click="$store.sidebar.active = 'home' "
                         class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
                         x-bind:class="{
