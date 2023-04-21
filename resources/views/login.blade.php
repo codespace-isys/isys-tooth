@@ -11,6 +11,22 @@
     <div class="min-h-screen flex items-center justify-center">
         <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
             <h1 class="text-2xl font-bold text-gray-700 mb-6 text-center">Login</h1>
+            @if (Session::has('error'))
+                <div class="flex p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:text-red-400 dark:border-red-800"
+                    role="alert">
+                    <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
+                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Info</span>
+                    <div>
+                        <span class="font-medium">{{ Session::get('error') }}</span> 
+                    </div>
+                </div>
+                
+            @endif
             <form method="POST" action="">
                 @csrf
                 <div class="mb-4 mt-4">
@@ -19,7 +35,7 @@
                         for="email">
                         Email
                     </label>
-                    <input type="text"
+                    <input type="text" value="{{ old('email') }}"
                         class="border border-gray-400 p-2 w-full rounded-md {{ $errors->has('email') ? ' border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}"
                         name="email" placeholder="Enter your email" />
                     @if ($errors->has('email'))

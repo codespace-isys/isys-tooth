@@ -32,7 +32,7 @@ class AuthController extends Controller
                 return redirect()->route('dashboard-admin');
             }
         } else {
-            return redirect()->route('login')->with('error', 'Email-Address And Password Are Wrong.');
+            return redirect()->route('login')->with('error', 'Email Or Password Are Wrong.');
         }
 
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
@@ -40,7 +40,7 @@ class AuthController extends Controller
                 return redirect()->route('dashboard-doctor');
             }
         } else {
-            return redirect()->route('login')->with('error', 'Email-Address And Password Are Wrong.');
+            return redirect()->route('login')->with('error', 'Email Or Password Are Wrong.');
         }
 
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
@@ -48,7 +48,7 @@ class AuthController extends Controller
                 return redirect()->route('dashboard-users');
             }
         } else {
-            return redirect()->route('login')->with('error', 'Email-Address And Password Are Wrong.');
+            return redirect()->route('login')->with('error', 'Email Or Password Are Wrong.');
         }
     }
 
@@ -64,15 +64,8 @@ class AuthController extends Controller
         $users = new User();
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:2',
-        ],[
-            'name.required' => 'Nama wajib diisi',
-            'email.required' => 'Email wajib diisi',
-            'email.email' => 'Silakan masukkan email yang valid',
-            'email.unique' => 'Email sudah pernah digunakan, silakan gunakan email lain',
-            'password.required' => 'Password wajib diisi',
-            'password.min' => 'Minimum password yang diizinkan adalah 6 karakter',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:4',
         ]);
         $users = User::Create([
             'name' => $request->name,
