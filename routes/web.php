@@ -26,6 +26,9 @@ Route::post('/signup', "AuthController@create")->name('create');
 //Change Password
 Route::post('/pages/layout/layout', 'ChangePassword@store_change_password')->name('store-change-password');
 
+//Account Setting
+Route::put('/pages/layout/layout/{id}', 'AccountSetting@store_account_setting')->name('store-account-setting');
+
 Route::group(['middleware' => ['is_admin']], function () {
     Route::get('/pages/admin-layout/dashboard', 'Admin\AdminDashboard@dashboard')->name('dashboard-admin');
     

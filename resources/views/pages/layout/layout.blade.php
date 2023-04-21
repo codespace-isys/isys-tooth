@@ -287,7 +287,6 @@
         <header class="w-full flex fixed justify-end items-center px-6 py-4 bg-gray-800 shadow-m">
             <div class="flex items-center">
                 <div class="rounded-full overflow-hidden">
-                    {{-- <img class="w-10 h-10" src="/img/{{ auth()->user()->image }}" alt="Avatar"> --}}
                     <button id="dropdownAvatarNameButton" data-dropdown-toggle="dropdownAvatarName"
                         class="flex items-center text-sm font-medium text-gray-100 rounded-full hover:text-gray-300 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-100 dark:text-white"
                         type="button">
@@ -305,12 +304,13 @@
                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                         aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
                         <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings
-                                Account</a>
+                            <a href="#" data-modal-target="account-setting-modal{{ auth()->user()->id }}"
+                                data-modal-toggle="account-setting-modal{{ auth()->user()->id }}"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Account Setting</a>
                         </li>
                         <li>
-                            <a href="#" data-modal-target="change-password-modal" data-modal-toggle="change-password-modal"
+                            <a href="#" data-modal-target="change-password-modal"
+                                data-modal-toggle="change-password-modal"
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Change
                                 Password</a>
                         </li>
@@ -325,7 +325,6 @@
                             out</a>
                     </div>
                 </div>
-                {{-- <h1 class="ml-2 text-white font-bold">{{ auth()->user()->name }}</h1> --}}
             </div>
         </header>
         <!-- Mobile Menu Toggle -->
@@ -641,7 +640,7 @@
             </div>
         @endif
     </aside>
-    <!-- Default Modal -->
+    <!-- Change Password Modal -->
     <div id="change-password-modal" tabindex="-1"
         class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-lg max-h-full">
@@ -712,6 +711,123 @@
                             class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</a>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    <!-- Account Setting Modal -->
+    <div id="account-setting-modal{{ auth()->user()->id }}" tabindex="-1"
+        class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-4xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+                        Account Setting
+                    </h3>
+                    <button type="button"
+                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        data-modal-hide="account-setting-modal{{ auth()->user()->id }}">
+                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="px-10 py-1 space-y-1 text-left">
+                    <form class="space-y-6 mb-10" enctype="multipart/form-data" method="POST"
+                        action="{{ route('store-account-setting', auth()->user()->id) }}">
+                        @method('PUT')
+                        @csrf
+                        @php
+                            $name = explode(' ', auth()->user()->name);
+                            $first_name = array_shift($name);
+                            $last_name = array_pop($name);
+                            $name_middle = trim(implode(' ', $name));
+                        @endphp
+                        <div class="grid gap-6 mb-6 md:grid-cols-2">
+                            <div>
+                                <label for="name"
+                                    class="block text-sm  font-medium text-gray-400 dark:text-white">
+                                    First Name</label>
+                                <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
+                                    <img src="{{ URL('img/user_black.png') }}" alt=""
+                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    <input type="text" name="first_name_edit" value="{{ $first_name }}"
+                                        placeholder="Input First Name" autocomplete="off" aria-label="Input Table"
+                                        class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="name"
+                                    class="block text-sm  font-medium text-gray-400 dark:text-white">
+                                    Last Name</label>
+                                <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
+                                    <img src="{{ URL('img/user_black.png') }}" alt=""
+                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    <input type="text" name="last_name_edit"
+                                        value="{{ $name_middle . ' ' . $last_name }}" placeholder="Input Last Name"
+                                        autocomplete="off" aria-label="Input Table"
+                                        class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="email"
+                                    class="block text-sm  font-medium text-gray-400 dark:text-white">
+                                    Photos</label>
+                                <input
+                                    class="block w-full mt-1 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    aria-describedby="file_input_help" name="image_edit" id="file_input"
+                                    type="file">
+                                <p class="mt-1 text-sm text-gray-500 text-left dark:text-gray-300"
+                                    id="file_input_help">PNG,
+                                    JPG or JPEG (MAX.
+                                    800x400px).</p>
+                            </div>
+                            <div>
+                                <label for="phone"
+                                    class="block text-sm  font-medium text-gray-400 dark:text-white">
+                                    Phone Number</label>
+                                <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
+                                    <img src="{{ URL('img/phone.png') }}" alt=""
+                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    <input type="text" name="phone_edit" placeholder="Input Phone Number"
+                                        value="{{ auth()->user()->phone }}"
+                                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                        autocomplete="off" aria-label="Input Table"
+                                        class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm  font-medium text-gray-400 dark:text-white">
+                                Address</label>
+                            <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
+                                <textarea id="address" rows="4" name="address_edit"
+                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Write your address here...">{{ auth()->user()->address }}</textarea>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm  font-medium text-gray-400 dark:text-white">
+                                Email</label>
+                            <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
+                                <img src="{{ URL('img/gmail-logo.png') }}" alt=""
+                                    class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                <input type="text" name="email_edit" value="{{ auth()->user()->email }}"
+                                    placeholder="Input Email" autocomplete="off" aria-label="Input Table"
+                                    class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                            </div>
+                        </div>
+                        <button type="submit"
+                            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Store
+                            Data</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
