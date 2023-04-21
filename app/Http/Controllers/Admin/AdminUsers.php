@@ -31,13 +31,11 @@ class AdminUsers extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'phone' => 'required',
-            'image' => 'required|mimes:jpeg,png,jpg,gif'
-        ],[
-            'first_name.required' => 'first_name wajib diisi',
-            'last_name.required' => 'last_name wajib diisi',
-            'phone.required' => 'phone wajib diisi',
-            'image.required' => ' image wajib diisi',
-            'image.mimes' => ' image hanya diperbolehkan berekstensi JPEG, JPG, PNG, dan GIF',
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:10240|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
+            'address' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:4',
+            'role' => 'required',
         ]);
 
         $image_file = $request->file('image');
@@ -58,19 +56,12 @@ class AdminUsers extends Controller
         return redirect()->route('users-admin');
     }
     function update_users(Request $request,$id){
-        // $request->validate([
-        //     'name' => 'required',
-        // ],[
-        //     'name.required' => 'name wajib diisi',
-        // ]);
-        //$id = $request->user_id_edit;
         $users = User::find($id);
+        $request->validate([
+            'image_edit' => 'image|mimes:jpg,png,jpeg|max:10240|dimensions:min_width=100,min_height=100,max_width=100,max_height=100',
+            // 'email_edit' => 'email|unique:users,email,'.$request->user_id_edit,
+        ]);
         if($request->hasFile('image_edit')){
-            // $request->validate([
-            //     'image_edit' => 'mimes:jpeg,png,jpg,gif'
-            // ],[
-            //     'image_edit.mimes' => ' image hanya diperbolehkan berekstensi JPEG, JPG, PNG, dan GIF',
-            // ]);
             $image_file = $request->file('image_edit');
             $image_extension = $image_file->getClientOriginalName();
             $image_name = date('ymdhis') . "." . $image_extension;

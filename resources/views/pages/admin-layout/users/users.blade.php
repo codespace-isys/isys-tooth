@@ -1,6 +1,6 @@
 @extends('pages.layout.layout')
 @section('content')
-    <button data-modal-target="create-users-modal" data-modal-toggle="create-users-modal"
+    <button data-modal-target="create-users-modal" data-modal-toggle="create-users-modal" id="button_id" onclick="myFunction()"
         class="flex items-center justify-center bg-blue-500 hover:bg-blue-700 text-white w-40 font-bold py-2 px-4 mt-5 ml-16 rounded">
         <img src="{{ URL('img/add.png') }}" class="w-5 mr-2" alt="">
         Create Data
@@ -32,6 +32,32 @@
             </div>
             <h2 class="mb-10 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">
                 Users Table</h2>
+            @if ($errors->has('image_edit'))
+                <div id="alert-border-2"
+                    class="flex p-4 mb-4 text-red-800 border-t-4 border-red-300 bg-red-50 dark:text-red-400 dark:bg-gray-800 dark:border-red-800"
+                    role="alert">
+                    <svg class="flex-shrink-0 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <div class="ml-3 text-sm font-medium">
+                        {{ $errors->first('image_edit') }}
+                    </div>
+                    <button type="button"
+                        class="ml-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700"
+                        data-dismiss-target="#alert-border-2" aria-label="Close">
+                        <span class="sr-only">Dismiss</span>
+                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+            @endif
             <table id="example" class="w-full" style="width: 100%; padding-top: 1em;  padding-bottom: 1em;">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -121,8 +147,8 @@
                                             </div>
                                             <!-- Modal body -->
                                             <div class="px-10 py-1 space-y-1 text-left">
-                                                <form class="space-y-6 mb-10" enctype="multipart/form-data" method="POST"
-                                                    action="{{ route('update-users', $user->id) }}">
+                                                <form class="space-y-6 mb-10" enctype="multipart/form-data"
+                                                    method="POST" action="{{ route('update-users', $user->id) }}">
                                                     @method('PUT')
                                                     @csrf
                                                     <input type="hidden" value="{{ $user->id }}" id="user_id_edit"
@@ -175,7 +201,7 @@
                                                             <p class="mt-1 text-sm text-gray-500 text-left dark:text-gray-300"
                                                                 id="file_input_help">PNG,
                                                                 JPG or JPEG (MAX.
-                                                                800x400px).</p>
+                                                                512x512px).</p>
                                                         </div>
                                                         <div>
                                                             <label for="phone"
@@ -267,7 +293,16 @@
                 galley of type of typeof typeof typeof typeof typeof typeof type </p>
         </div>
     </div>
-
+    @if (count($errors) > 1)
+        <script>
+            function myFunction() {
+                document.getElementById("button_id").value = "Clicked";
+            }
+            setTimeout(function() {
+                document.getElementById("button_id").click();
+            }, 1000);
+        </script>
+    @endif
     <!-- Main modal -->
     <div id="create-users-modal" tabindex="-1"
         class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -293,8 +328,9 @@
                 </div>
                 <!-- Modal body -->
                 <div class="px-10 py-1 space-y-1">
-                    <form class="space-y-6 mb-10" enctype="multipart/form-data" method="POST"
-                        action="{{ route('store-users') }}">
+
+                    <form class="space-y-6 mb-10" enctype="multipart/form-data" method="POST" id="UsersModalForm"
+                        role="form" action="{{ route('store-users') }}">
                         @csrf
                         <div class="grid gap-6 mb-6 md:grid-cols-2">
                             <div>
@@ -303,10 +339,15 @@
                                 <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
                                     <img src="{{ URL('img/user_black.png') }}" alt=""
                                         class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                    <input type="text" name="first_name" placeholder="Input First Name"
+                                    <input type="text" id="first_name" name="first_name"
+                                        value="{{ old('first_name') }}" placeholder="Input First Name"
                                         autocomplete="off" aria-label="Input Table"
                                         class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
                                 </div>
+                                @error('first_name')
+                                    <p class="text-sm text-red-600 dark:text-red-500"><span
+                                            class="font-medium">{{ $message }}</span></p>
+                                @enderror
                             </div>
                             <div>
                                 <label for="name" class="block text-sm  font-medium text-gray-400 dark:text-white">
@@ -315,9 +356,13 @@
                                     <img src="{{ URL('img/user_black.png') }}" alt=""
                                         class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
                                     <input type="text" name="last_name" placeholder="Input Last Name"
-                                        autocomplete="off" aria-label="Input Table"
+                                        value="{{ old('last_name') }}" autocomplete="off" aria-label="Input Table"
                                         class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
                                 </div>
+                                @error('last_name')
+                                    <p class="text-sm text-red-600 dark:text-red-500"><span
+                                            class="font-medium">{{ $message }}</span></p>
+                                @enderror
                             </div>
                             <div>
                                 <label for="email" class="block text-sm  font-medium text-gray-400 dark:text-white">
@@ -325,9 +370,15 @@
                                 <input
                                     class="block w-full mt-1 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                     aria-describedby="file_input_help" name="image" id="file_input" type="file">
-                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG,
-                                    JPG or JPEG (MAX.
-                                    800x400px).</p>
+                                @if (!$errors->has('image'))
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG,
+                                        JPG or JPEG (MAX.
+                                        512x512px).</p>
+                                @endif
+                                @error('image')
+                                    <p class="text-sm text-red-600 dark:text-red-500"><span
+                                            class="font-medium">{{ $message }}</span></p>
+                                @enderror
                             </div>
                             <div>
                                 <label for="phone" class="block text-sm  font-medium text-gray-400 dark:text-white">
@@ -336,20 +387,29 @@
                                     <img src="{{ URL('img/phone.png') }}" alt=""
                                         class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
                                     <input type="text" name="phone" placeholder="Input Phone Number"
+                                        value="{{ old('phone') }}"
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                         autocomplete="off" aria-label="Input Table"
                                         class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
                                 </div>
+                                @error('phone')
+                                    <p class="text-sm text-red-600 dark:text-red-500"><span
+                                            class="font-medium">{{ $message }}</span></p>
+                                @enderror
                             </div>
                         </div>
                         <div>
-                            <label for="phone" class="block text-sm  font-medium text-gray-400 dark:text-white">
+                            <label for="address" class="block text-sm  font-medium text-gray-400 dark:text-white">
                                 Address</label>
                             <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
                                 <textarea id="address" rows="4" name="address"
                                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Write your address here..."></textarea>
+                                    placeholder="Write your address here...">{{ old('address') }}</textarea>
                             </div>
+                            @error('address')
+                                <p class="text-sm text-red-600 dark:text-red-500"><span
+                                        class="font-medium">{{ $message }}</span></p>
+                            @enderror
                         </div>
                         <div>
                             <label for="email" class="block text-sm  font-medium text-gray-400 dark:text-white">
@@ -358,9 +418,13 @@
                                 <img src="{{ URL('img/gmail-logo.png') }}" alt=""
                                     class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
                                 <input type="text" name="email" placeholder="Input Email" autocomplete="off"
-                                    aria-label="Input Table"
+                                    aria-label="Input Table" value="{{ old('email') }}"
                                     class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
                             </div>
+                            @error('email')
+                                <p class="text-sm text-red-600 dark:text-red-500"><span
+                                        class="font-medium">{{ $message }}</span></p>
+                            @enderror
                         </div>
                         <div>
                             <label for="email" class="block text-sm  font-medium text-gray-400 dark:text-white">
@@ -379,6 +443,10 @@
                                     </button>
                                 </div>
                             </div>
+                            @error('password')
+                                <p class="text-sm text-red-600 dark:text-red-500"><span
+                                        class="font-medium">{{ $message }}</span></p>
+                            @enderror
                         </div>
                         <div>
                             <label for="email" class="block text-sm  font-medium text-gray-400 dark:text-white">
@@ -398,6 +466,10 @@
                                     @endforeach
                                 </select>
                             </div>
+                            @error('role')
+                                <p class="text-sm text-red-600 dark:text-red-500"><span
+                                        class="font-medium">{{ $message }}</span></p>
+                            @enderror
                         </div>
                         <button type="submit"
                             class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Store
