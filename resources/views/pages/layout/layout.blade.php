@@ -613,29 +613,10 @@
                             Result</h1>
                     </a>
                 @endif
-                {{-- <a href="/logout" x-data="tooltip" x-on:mouseover="show = true"
-                    x-on:mouseleave="show = false" @click="$store.sidebar.active = 'home' "
-                    class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
-                    x-bind:class="{
-                        'justify-start': $store.sidebar.full,
-                        'sm:justify-center': !$store.sidebar
-                            .full,
-                        'text-gray-200 bg-gray-800': $store.sidebar.active == 'home',
-                        'text-gray-400 ': $store
-                            .sidebar.active != 'home'
-                    }">
-                    <img src="{{ URL('img/logout.png') }}" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                    </img>
-                    <h1 x-cloak
-                        x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
-                            'sm:hidden' : ''">
-                        Lagout</h1>
-                </a> --}}
             </div>
         </div>
         @if (Auth::check())
-            <div class="container w-full mt-20 overflow-x-auto rounded shadow">
+            <div class="container w-full mt-16 overflow-x-auto rounded shadow">
                 @yield('content')
             </div>
         @endif

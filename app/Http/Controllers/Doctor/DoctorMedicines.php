@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Doctor;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\medicine;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
 
 class DoctorMedicines extends Controller
 {
@@ -21,29 +22,27 @@ class DoctorMedicines extends Controller
     function store_medicine(Request $request){
         $medicines = new medicine();
         $request->validate([
-            'medicine_name' => 'required',
-            'medicine_information' => 'required',
-        ],[
-            'medicine_name.required' => 'nama medicine wajib diisi',
-            'medicine_information.required' => 'informasi medicine wajib diisi',
+            'medicine_name_store' => 'required|unique:medicines,medicine_name',
+            'medicine_information_store' => 'required',
         ]);
         $medicines = medicine::Create([
-            'medicine_name' => $request->medicine_name,
-            'medicine_information' => $request->medicine_information,
+            'medicine_name_store' => $request->medicine_name,
+            'medicine_information_store' => $request->medicine_information,
         ]);
         $medicines->save();
         return redirect()->route('medicine-doctor');
     }
     function update_medicine(Request $request)
     {
-        $request->validate([
-            'medicine_name' => 'required',
-            'medicine_information' => 'required',
-        ],[
-            'medicine_name.required' => 'nama medicine wajib diisi',
-            'medicine_information.required' => 'informasi medicine wajib diisi',
-        ]);
         $id = $request->id_medicine;
+        $request->validate([
+            'medicine_name' => 
+            [
+                'required',
+                Rule::unique('medicines')->ignore($id),
+            ],
+            'medicine_information' => 'required',
+        ]);
         medicine::where('id',$id)->update([
             'medicine_name' => $request->input('medicine_name'),
             'medicine_information' => $request->input('medicine_information'),
