@@ -1,19 +1,29 @@
 @extends('pages.layout.layout')
 @section('content')
-    <button data-modal-target="create-indication-modal" data-modal-toggle="create-indication-modal"
+    <button data-modal-target="create-indication-modal" data-modal-toggle="create-indication-modal" id="button_id"
         class="flex items-center justify-center pointer-events bg-blue-500 hover:bg-blue-700 text-white w-40 font-bold py-2 px-4 rounded mt-5 ml-16">
         <img src="{{ URL('img/add.png') }}" class="w-5 mr-2" alt="">
         Create Data
     </button>
+    @if ($errors->has('code_indication_store') || $errors->has('indication_store'))
+        <script>
+            function myFunction() {
+                document.getElementById("button_id").value = "Clicked";
+            }
+            setTimeout(function() {
+                document.getElementById("button_id").click();
+            }, 1000);
+        </script>
+    @endif
     <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mb-10 mt-5 shadow-2xl">
         <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
             <div class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
                     <li class="inline-flex items-center">
-                        <a href="{{ route("indication-doctor") }}"
+                        <a href="{{ route('indication-doctor') }}"
                             class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                            <img src="{{ URL('img/diagnosis_black.png') }}" class="w-4 h-4 mr-2 fill-black" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
+                            <img src="{{ URL('img/diagnosis_black.png') }}" class="w-4 h-4 mr-2 fill-black"
+                                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             </img>
                             Indication
                         </a>
@@ -32,6 +42,32 @@
             </div>
             <h2 class="mb-10 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">
                 Indication Table</h2>
+            @if ($errors->has('indication'))
+                <div id="alert-border-2"
+                    class="flex p-4 mb-4 text-red-800 border-t-4 border-red-300 bg-red-50 dark:text-red-400 dark:bg-gray-800 dark:border-red-800"
+                    role="alert">
+                    <svg class="flex-shrink-0 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <div class="ml-3 text-sm font-medium">
+                        {{ $errors->first('indication') }}
+                    </div>
+                    <button type="button"
+                        class="ml-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700"
+                        data-dismiss-target="#alert-border-2" aria-label="Close">
+                        <span class="sr-only">Dismiss</span>
+                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+            @endif
             <table id="example" class="w-full" style="width: 100%; padding-top: 1em;  padding-bottom: 1em;">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -39,10 +75,10 @@
                             No
                         </th>
                         <th scope="col" class="w-96 px-6 py-3">
-                            Code&nbspIndication
+                            Code Indication
                         </th>
                         <th scope="col" class="w-96 px-6 py-3">
-                            Indication&nbsp
+                            Indication
                         </th>
                         <th scope="col" class="w-44 px-6 py-3">
                             Action
@@ -104,7 +140,8 @@
                                                             Code Indication</label>
                                                         <div
                                                             class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                                                            <img src="{{ URL('img/code_indication.png') }}" alt=""
+                                                            <img src="{{ URL('img/code_indication.png') }}"
+                                                                alt=""
                                                                 class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
                                                             <input type="text" name="code_indication"
                                                                 placeholder="Input indication Name" autocomplete="off"
@@ -115,18 +152,30 @@
                                                     </div>
                                                     <div>
                                                         <label for="indication_information"
-                                                            class="block text-sm text-left font-medium text-gray-400 dark:text-white">
+                                                            class="block text-sm text-left font-medium text-gray-400 dark:text-white{{ $errors->has('indication') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                                             Indication</label>
                                                         <div
                                                             class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                                                            <img src="{{ URL('img/symptom.png') }}" alt=""
-                                                                class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                                            @if ($errors->has('indication'))
+                                                                <img src="{{ URL('img/symptom_red.png') }}"
+                                                                    alt=""
+                                                                    class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                                            @endif
+                                                            @if (!$errors->has('indication'))
+                                                                <img src="{{ URL('img/symptom.png') }}" alt=""
+                                                                    class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                                            @endif
                                                             <input type="text" name="indication"
                                                                 placeholder="Input indication" autocomplete="off"
                                                                 aria-label="Input Table"
                                                                 value="{{ $indication->indication }}"
-                                                                class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                                                                class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-22{{ $errors->has('indication') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
                                                         </div>
+                                                        @error('indication')
+                                                            <p class="text-sm text-red-600 text-left dark:text-red-500"><span
+                                                                    class="font-medium">{{ $message }}</span>
+                                                            </p>
+                                                        @enderror
                                                     </div>
                                                     <button type="submit"
                                                         class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update
@@ -153,12 +202,6 @@
                 galley of type of typeof typeof typeof typeof typeof typeof type </p>
         </div>
     </div>
-
-    <!-- Modal toggle -->
-    {{-- <button data-modal-target="create-indication-modal" data-modal-toggle="create-indication-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-    Toggle modal
-  </button> --}}
-
     <!-- Main modal -->
     <div id="create-indication-modal" tabindex="-1" aria-hidden="true"
         class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
@@ -181,26 +224,44 @@
                     <form class="space-y-6" method="POST" action="{{ route('store_indication') }}">
                         @csrf
                         <div>
-                            <label for="code_indication" class="block text-sm  font-medium text-gray-400 dark:text-white">
+                            <label for="code_indication"
+                                class="block text-sm  font-medium text-gray-400 dark:text-white{{ $errors->has('code_indication_store') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                 Code Indication</label>
                             <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
                                 <img src="{{ URL('img/code_indication.png') }}" alt=""
                                     class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                <input type="text" name="code_indication" placeholder="Input Code Indication"
+                                <input type="text" name="code_indication_store" placeholder="Input Code Indication"
                                     autocomplete="off" aria-label="Input Table" value="{{ $format }}" readonly
-                                    class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                                    class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('code_indication_store') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
                             </div>
+                            @error('code_indication_store')
+                                <p class="text-sm text-red-600 dark:text-red-500"><span
+                                        class="font-medium">{{ $message }}</span>
+                                </p>
+                            @enderror
                         </div>
                         <div>
-                            <label for="indication" class="block text-sm  font-medium text-gray-400 dark:text-white">
+                            <label for="indication"
+                                class="block text-sm  font-medium text-gray-400 dark:text-white{{ $errors->has('indication_store') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                 Indication </label>
                             <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                                <img src="{{ URL('img/symptom.png') }}" alt=""
-                                    class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                <input type="text" name="indication" placeholder="Input indication "
-                                    autocomplete="off" aria-label="Input Table"
-                                    class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                                @if ($errors->has('indication_store'))
+                                    <img src="{{ URL('img/symptom_red.png') }}" alt=""
+                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                @endif
+                                @if (!$errors->has('indication_store'))
+                                    <img src="{{ URL('img/symptom.png') }}" alt=""
+                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                @endif
+                                <input type="text" name="indication_store" placeholder="Input indication "
+                                    autocomplete="off" aria-label="Input Table" value="{{ old('indication_store') }}"
+                                    class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('indication_store') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
                             </div>
+                            @error('indication_store')
+                                <p class="text-sm text-red-600 dark:text-red-500"><span
+                                        class="font-medium">{{ $message }}</span>
+                                </p>
+                            @enderror
                         </div>
                         <button type="submit"
                             class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Store

@@ -276,7 +276,7 @@
                                         class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
                                 @endif
                                 <input type="text" name="medicine_name_store" placeholder="Input Medicine Name"
-                                    autocomplete="off" aria-label="Input Table"
+                                    autocomplete="off" aria-label="Input Table" value="{{ old('medicine_name_store') }}"
                                     class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('medicine_name_store') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
                             </div>
                             @error('medicine_name_store')
@@ -299,7 +299,7 @@
                                     <img src="{{ URL('img/leaflet.png') }}" alt=""
                                         class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
                                 @endif
-                                <input type="text" name="medicine_information_store"
+                                <input type="text" name="medicine_information_store" value="{{ old('medicine_information_store') }}"
                                     placeholder="Input Medicine Information" autocomplete="off" aria-label="Input Table"
                                     class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('medicine_information_store') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
                             </div>

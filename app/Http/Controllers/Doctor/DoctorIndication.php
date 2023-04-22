@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Doctor;
 
-use App\Http\Controllers\Controller;
-use App\Models\indication;
 use App\Helpers\Helper;
+use App\Models\indication;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
 
 class DoctorIndication extends Controller
 {
@@ -13,7 +14,6 @@ class DoctorIndication extends Controller
     {
         $this->middleware('is_doctor');
     }
-    
     function index()
     {        
         $indications = indication::all();
@@ -27,28 +27,28 @@ class DoctorIndication extends Controller
     function store_indication(Request $request){
         $indications = new indication();
         $request->validate([
-            'code_indication' => 'required',
-            'indication' => 'required',
-        ],[
-            'code_indication.required' => 'code indication wajib diisi',
-            'indication.required' => 'indication wajib diisi',
+            'code_indication_store' => 'required|unique:indications,code_indication',
+            'indication_store' => 'required|unique:indications,indication',
         ]);
         $indications = indication::Create([
-            'code_indication' => $request->code_indication,
-            'indication' => $request->indication,
+            'code_indication' => $request->code_indication_store,
+            'indication' => $request->indication_store,
         ]);
         $indications->save();
         return redirect()->route('indication-doctor');
     }
     public function update_indication(Request $request){
-        $request->validate([
-            'code_indication' => 'required',
-            'indication' => 'required',
-        ],[
-            'code_indication.required' => 'code indication wajib diisi',
-            'indication.required' => 'indication wajib diisi',
-        ]);
         $id = $request->id_indication;
+        $request->validate([
+            'code_indication' =>  [
+                'required',
+                Rule::unique('indications')->ignore($id),
+            ],
+            'indication' => [
+                'required',
+                Rule::unique('indications')->ignore($id),
+            ],
+        ]);
         indication::where('id',$id)->update([
             'code_indication' => $request->code_indication,
             'indication' => $request->indication,

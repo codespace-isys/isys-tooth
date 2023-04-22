@@ -26,8 +26,8 @@ class DoctorMedicines extends Controller
             'medicine_information_store' => 'required',
         ]);
         $medicines = medicine::Create([
-            'medicine_name_store' => $request->medicine_name,
-            'medicine_information_store' => $request->medicine_information,
+            'medicine_name' => $request->medicine_name_store,
+            'medicine_information' => $request->medicine_information_store,
         ]);
         $medicines->save();
         return redirect()->route('medicine-doctor');
