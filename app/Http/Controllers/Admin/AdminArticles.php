@@ -26,16 +26,10 @@ class AdminArticles extends Controller
     public function store_articles(Request $request){
         $articles = new Article();
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|unique:articles,title',
             'short_description' => 'required',
             'description' => 'required',
-            'image' => 'required|mimes:jpeg,png,jpg,gif'
-        ],[
-            'title.required' => 'title wajib diisi',
-            'short_description.required' => 'short description wajib diisi',
-            'description.required' => ' description wajib diisi',
-            'image.required' => ' image wajib diisi',
-            'image.mimes' => ' image hanya diperbolehkan berekstensi JPEG, JPG, PNG, dan GIF',
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:10240',
         ]);
             $image_file = $request->file('image');
             $image_extension = $image_file->extension();
@@ -63,10 +57,7 @@ class AdminArticles extends Controller
             'title' => 'required',
             'short_description' => 'required',
             'description' => 'required',
-        ],[
-            'title.required' => 'title wajib diisi',
-            'short_description.required' => 'short description wajib diisi',
-            'description.required' => ' description wajib diisi',
+            'image' => 'image|mimes:jpg,png,jpeg|max:10240',
         ]);
         $articles = Article::find($id);
         if($request->hasFile('image')){

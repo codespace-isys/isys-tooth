@@ -33,11 +33,11 @@ class AdminRoles extends Controller
     }
     function update_roles(Request $request){
         $request->validate([
-            'role' => 'required',
+            'role-edit' => 'required',
         ]);
         $id = $request->id_role;
         Role::where('id',$id)->update([
-            'role' => $request->input('role'),
+            'role' => $request->input('role-edit'),
         ]);
         return redirect()->route('roles-admin');
     }

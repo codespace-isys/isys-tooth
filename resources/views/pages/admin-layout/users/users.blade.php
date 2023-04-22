@@ -200,7 +200,7 @@
                                                                 id="file_input" type="file">
                                                             <p class="mt-1 text-sm text-gray-500 text-left dark:text-gray-300"
                                                                 id="file_input_help">PNG,
-                                                                JPG or JPEG (MAX.
+                                                                JPG or JPEG (MIN.
                                                                 512x512px).</p>
                                                         </div>
                                                         <div>
@@ -372,7 +372,7 @@
                                     aria-describedby="file_input_help" name="image" id="file_input" type="file">
                                 @if (!$errors->has('image'))
                                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG,
-                                        JPG or JPEG (MAX.
+                                        JPG or JPEG (MIN.
                                         512x512px).</p>
                                 @endif
                                 @error('image')
