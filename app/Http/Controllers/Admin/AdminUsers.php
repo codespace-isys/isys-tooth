@@ -31,7 +31,7 @@ class AdminUsers extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'phone' => 'required',
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:10240|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:10240',
             'address' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:4',
@@ -58,7 +58,7 @@ class AdminUsers extends Controller
     function update_users(Request $request,$id){
         $users = User::find($id);
         $request->validate([
-            'image_edit' => 'image|mimes:jpg,png,jpeg|max:10240|dimensions:min_width=100,min_height=100,max_width=100,max_height=100',
+            'image_edit' => 'image|mimes:jpg,png,jpeg|max:10240',
             // 'email_edit' => 'email|unique:users,email,'.$request->user_id_edit,
         ]);
         if($request->hasFile('image_edit')){

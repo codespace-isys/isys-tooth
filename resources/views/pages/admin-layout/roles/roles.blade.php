@@ -1,10 +1,20 @@
 @extends('pages.layout.layout')
 @section('content')
-    <button data-modal-target="create-roles-modal" data-modal-toggle="create-roles-modal"
+    <button data-modal-target="create-roles-modal" data-modal-toggle="create-roles-modal" id="button_id"
         class="flex items-center justify-center bg-blue-500 hover:bg-blue-700 text-white w-40 font-bold py-2 px-4 mt-5 ml-16 rounded">
         <img src="{{ URL('img/add.png') }}" class="w-5 mr-2" alt="">
         Create Data
     </button>
+    @if (count($errors) > 0)
+        <script>
+            function myFunction() {
+                document.getElementById("button_id").value = "Clicked";
+            }
+            setTimeout(function() {
+                document.getElementById("button_id").click();
+            }, 1000);
+        </script>
+    @endif
     <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mt-5 mb-10 shadow-2xl">
         <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
             <div class="flex mb-4" aria-label="Breadcrumb">
@@ -68,8 +78,7 @@
                                 {{ $role->updated_at }}
                             </td>
                             <td class="px-6 py-4 text-right grid grid-cols-2">
-                                <a href="#" type="button"
-                                    data-modal-target="update-role-modal{{ $role->id }}"
+                                <a href="#" type="button" data-modal-target="update-role-modal{{ $role->id }}"
                                     data-modal-toggle="update-role-modal{{ $role->id }}"
                                     class="flex items-center justify-center bg-yellow-300 hover:bg-yellow-100 text-white w-24 font-bold py-2 px-4 rounded mt-5 ml-5">
                                     <img src="{{ URL('img/edit.png') }}" class="w-5" alt="">
@@ -110,10 +119,13 @@
                                                                 class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
                                                             <input type="text" name="role"
                                                                 placeholder="Input Roles Name" autocomplete="off"
-                                                                aria-label="Input Table"
-                                                                value="{{ $role->role }}"
+                                                                aria-label="Input Table" value="{{ $role->role }}"
                                                                 class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
                                                         </div>
+                                                        @error('role')
+                                                            <p class="text-sm text-red-600 dark:text-red-500"><span
+                                                                    class="font-medium">{{ $message }}</span></p>
+                                                        @enderror
                                                     </div>
                                                     <button type="submit"
                                                         class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update
@@ -140,7 +152,6 @@
                 galley of type of typeof typeof typeof typeof typeof typeof type </p>
         </div>
     </div>
-
     <!-- Main modal -->
     <div id="create-roles-modal" tabindex="-1" aria-hidden="true"
         class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
@@ -169,9 +180,13 @@
                                 <img src="{{ URL('img/setting_black.png') }}" alt=""
                                     class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
                                 <input type="text" name="role" placeholder="Input Roles Name" autocomplete="off"
-                                    aria-label="Input Table"
+                                    aria-label="Input Table" value="{{ old('first_name') }}"
                                     class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
                             </div>
+                            @error('role')
+                                <p class="text-sm text-red-600 dark:text-red-500"><span
+                                        class="font-medium">{{ $message }}</span></p>
+                            @enderror
                         </div>
                         <button type="submit"
                             class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Store

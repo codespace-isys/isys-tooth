@@ -23,9 +23,7 @@ class AdminRoles extends Controller
     function store_roles(Request $request){
         $roles = new Role();
         $request->validate([
-            'role' => 'required',
-        ],[
-            'role.required' => 'role wajib diisi',
+            'role' => 'required|unique:roles,role',
         ]);
         $roles = Role::Create([
             'role' => $request->role,
@@ -36,8 +34,6 @@ class AdminRoles extends Controller
     function update_roles(Request $request){
         $request->validate([
             'role' => 'required',
-        ],[
-            'role.required' => 'role wajib diisi',
         ]);
         $id = $request->id_role;
         Role::where('id',$id)->update([
