@@ -9,13 +9,19 @@ use App\Models\User;
 class AccountSetting extends Controller
 {
     function store_account_setting(Request $request, $id){
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone' => 'required',
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:10240',
+            'address' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:4',
+            'role' => 'required',
+        ]);
+
         $users = User::find($id);
         if($request->hasFile('image_edit')){
-            // $request->validate([
-            //     'image_edit' => 'mimes:jpeg,png,jpg,gif'
-            // ],[
-            //     'image_edit.mimes' => ' image hanya diperbolehkan berekstensi JPEG, JPG, PNG, dan GIF',
-            // ]);
             $image_file = $request->file('image_edit');
             $image_extension = $image_file->getClientOriginalName();
             $image_name = date('ymdhis') . "." . $image_extension;

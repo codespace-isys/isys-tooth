@@ -244,39 +244,6 @@
                 contextmenu: 'link image table',
                 content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
             });
-            // function nav() {
-            //     return {
-            //         navOpen: false,
-            //         active: "home",
-            //         searchBar: false,
-            //     };
-            // }
-
-            // function dropdown() {
-            //     return {
-            //         open: false,
-            //     };
-            // }
-            //Creating component Dropdown
-            // Alpine.data("dropdown", () => ({
-            //     open: false,
-            //     toggle(tab) {
-            //         this.open = !this.open;
-            //         Alpine.store("sidebar").active = tab;
-            //     },
-            //     activeClass: "bg-gray-800 text-gray-200",
-            //     expandedClass: "border-l border-gray-400 ml-4 pl-4",
-            //     shrinkedClass: "sm:absolute top-0 left-20 sm:shadow-md sm:z-10 sm:bg-gray-900 sm:rounded-md sm:p-4 border-l sm:border-none border-gray-400 ml-4 pl-4 sm:ml-0 w-28",
-            // }));
-            // // Creating component Sub Dropdown
-            // Alpine.data("sub_dropdown", () => ({
-            //     sub_open: false,
-            //     sub_toggle() {
-            //         this.sub_open = !this.sub_open;
-            //     },
-            //     sub_expandedClass: "border-l border-gray-400 ml-4 pl-4",
-            //     sub_shrinkedClass: "sm:absolute top-0 left-28 sm:shadow-md sm:z-10 sm:bg-gray-900 sm:rounded-md sm:p-4 border-l sm:border-none border-gray-400 ml-4 pl-4 sm:ml-0 w-28",
-            // }));
         });
     </script>
 </head>
@@ -306,11 +273,12 @@
                         <li>
                             <a href="#" data-modal-target="account-setting-modal{{ auth()->user()->id }}"
                                 data-modal-toggle="account-setting-modal{{ auth()->user()->id }}"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Account Setting</a>
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Account
+                                Setting</a>
                         </li>
                         <li>
                             <a href="#" data-modal-target="change-password-modal"
-                                data-modal-toggle="change-password-modal"
+                                data-modal-toggle="change-password-modal" id="btn-change-password"
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Change
                                 Password</a>
                         </li>
@@ -574,7 +542,8 @@
                                 'sm:hidden' : ''">
                             Dashboard</h1>
                     </a>
-                    <a href="{{ route('consultation-users') }}" x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
+                    <a href="{{ route('consultation-users') }}" x-data="tooltip"
+                        x-on:mouseover="show = true" x-on:mouseleave="show = false"
                         @click="$store.sidebar.active = 'home' "
                         class=" relative flex items-center hover:bg-gray-800 active:bg-gray-200 hover:text-gray-200 focus:outline-none focus:ring focus:ring-gray-50 space-x-2 rounded-md p-2 cursor-pointer"
                         x-bind:class="{
@@ -621,6 +590,16 @@
             </div>
         @endif
     </aside>
+    @if ($errors->has('old_password') || $errors->has('new_password') || $errors->has('confirm_password'))
+        <script>
+            function myFunction() {
+                document.getElementById("btn-change-password").value = "Clicked";
+            }
+            setTimeout(function() {
+                document.getElementById("btn-change-password").click();
+            }, 1000);
+        </script>
+    @endif
     <!-- Change Password Modal -->
     <div id="change-password-modal" tabindex="-1"
         class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -630,7 +609,7 @@
                 <!-- Modal header -->
                 <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-medium text-gray-900 dark:text-white">
-                        Change Password modal
+                        Change Password
                     </h3>
                     <button type="button"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -649,38 +628,248 @@
                     @csrf
                     <div class="p-6 space-y-6">
                         <div>
-                            <label for="email" class="block text-sm  font-medium text-gray-400 dark:text-white">
+                            <label for="email"
+                                class="block text-sm  font-medium text-gray-400 dark:text-white{{ $errors->has('old_password') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                 Old Password</label>
                             <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                                <img src="{{ URL('img/old-key.png') }}" alt=""
-                                    class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                <input id="password" name="old_password" type="text"
-                                    placeholder="Input Old Password"
-                                    class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                                @if (!$errors->has('old_password'))
+                                    <img src="{{ URL('img/old-key.png') }}" alt=""
+                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    <input id="password" name="old_password" type="password"
+                                        placeholder="Input Old Password"
+                                        class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('old_password') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
+                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                        <button id="toggle-password" type="button"
+                                            class="mt-2 focus:outline-none border-none">
+                                            <img src="{{ URL('img/hide.png') }}" class="h-6 w-6"
+                                                id="imgClickAndChange" onclick="changeImage()">
+                                            </img>
+                                        </button>
+                                    </div>
+                                @endif
+                                @if ($errors->has('old_password'))
+                                    <img src="{{ URL('img/old-key-red.png') }}" alt=""
+                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    <input id="passwordRed" name="old_password" type="password"
+                                        placeholder="Input Old Password"
+                                        class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('old_password') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
+                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                        <button id="toggle-password-red" type="button"
+                                            class="mt-2 focus:outline-none border-none">
+                                            <img src="{{ URL('img/hide_red.png') }}" class="h-6 w-6"
+                                                id="imgClickAndChangeRed" onclick="changeImageRed()">
+                                            </img>
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
+                            @error('old_password')
+                                <p class="text-sm text-red-600 text-left dark:text-red-500"><span
+                                        class="font-medium">{{ $message }}</span>
+                                </p>
+                            @enderror
                         </div>
+                        <script>
+                            let image_tracker = 'view';
+
+                            function changeImage() {
+                                let image = document.getElementById('imgClickAndChange');
+                                if (image_tracker == 'view') {
+                                    image.src = '/img/view.png';
+                                    image_tracker = 'hide';
+                                } else {
+                                    image.src = '/img/hide.png';
+                                    image_tracker = 'view';
+                                }
+                            }
+                            const togglePassword = document.querySelector('#toggle-password');
+                            const password = document.querySelector('#password');
+
+                            togglePassword.addEventListener('click', function(e) {
+                                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                                password.setAttribute('type', type);
+                            });
+                        </script>
+                        <script>
+                            function changeImageRed() {
+                                let image = document.getElementById('imgClickAndChangeRed');
+                                if (image_tracker == 'view') {
+                                    image.src = '/img/show_red.png';
+                                    image_tracker = 'hide';
+                                } else {
+                                    image.src = '/img/hide_red.png';
+                                    image_tracker = 'view';
+                                }
+                            }
+                            const passwordRed = document.querySelector('#passwordRed');
+                            const togglePasswordRed = document.querySelector('#toggle-password-red');
+                            togglePasswordRed.addEventListener('click', function(e) {
+                                const type = passwordRed.getAttribute('type') === 'password' ? 'text' : 'password';
+                                passwordRed.setAttribute('type', type);
+                            });
+                        </script>
                         <div>
-                            <label for="email" class="block text-sm  font-medium text-gray-400 dark:text-white">
+                            <label for="email"
+                                class="block text-sm  font-medium text-gray-400 dark:text-white{{ $errors->has('new_password') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                 New Password</label>
                             <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                                <img src="{{ URL('img/new-password.png') }}" alt=""
-                                    class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                <input id="password1" name="new_password" type="text"
-                                    placeholder="Input New Password"
-                                    class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                                @if (!$errors->has('new_password'))
+                                    <img src="{{ URL('img/new-password.png') }}" alt=""
+                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    <input id="password1" name="new_password" type="password"
+                                        placeholder="Input New Password"
+                                        class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('new_password') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
+                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                        <button id="toggle-password1" type="button"
+                                            class="mt-2 focus:outline-none border-none">
+                                            <img src="{{ URL('img/hide.png') }}" class="h-6 w-6"
+                                                id="imgClickAndChange1" onclick="changeImage1()">
+                                            </img>
+                                        </button>
+                                    </div>
+                                @endif
+                                @if ($errors->has('new_password'))
+                                    <img src="{{ URL('img/new-password-red.png') }}" alt=""
+                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    <input id="passwordRed1" name="new_password" type="password"
+                                        placeholder="Input New Password"
+                                        class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('new_password') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
+                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                        <button id="toggle-password-red1" type="button"
+                                            class="mt-2 focus:outline-none border-none">
+                                            <img src="{{ URL('img/hide_red.png') }}" class="h-6 w-6"
+                                                id="imgClickAndChangeRed1" onclick="changeImageRed1()">
+                                            </img>
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
+                            @error('new_password')
+                                <p class="text-sm text-red-600 text-left dark:text-red-500"><span
+                                        class="font-medium">{{ $message }}</span>
+                                </p>
+                            @enderror
                         </div>
+                        <script>
+                            let image_tracker1 = 'view';
+
+                            function changeImage1() {
+                                let image = document.getElementById('imgClickAndChange1');
+                                if (image_tracker1 == 'view') {
+                                    image.src = '/img/view.png';
+                                    image_tracker1 = 'hide';
+                                } else {
+                                    image.src = '/img/hide.png';
+                                    image_tracker1 = 'view';
+                                }
+                            }
+                            const togglePassword1 = document.querySelector('#toggle-password1');
+                            const password1 = document.querySelector('#password1');
+
+                            togglePassword1.addEventListener('click', function(e) {
+                                const type = password1.getAttribute('type') === 'password' ? 'text' : 'password';
+                                password1.setAttribute('type', type);
+                            });
+                        </script>
+                        <script>
+                            function changeImageRed1() {
+                                let image = document.getElementById('imgClickAndChangeRed1');
+                                if (image_tracker == 'view') {
+                                    image.src = '/img/show_red.png';
+                                    image_tracker = 'hide';
+                                } else {
+                                    image.src = '/img/hide_red.png';
+                                    image_tracker = 'view';
+                                }
+                            }
+                            const passwordRed1 = document.querySelector('#passwordRed1');
+                            const togglePasswordRed1 = document.querySelector('#toggle-password-red1');
+                            togglePasswordRed1.addEventListener('click', function(e) {
+                                const type = passwordRed1.getAttribute('type') === 'password' ? 'text' : 'password';
+                                passwordRed1.setAttribute('type', type);
+                            });
+                        </script>
                         <div>
-                            <label for="email" class="block text-sm  font-medium text-gray-400 dark:text-white">
+                            <label for="email"
+                                class="block text-sm font-medium text-gray-400 dark:text-white{{ $errors->has('confirm_password') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                 Confirm Password</label>
                             <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                                <img src="{{ URL('img/confirm.png') }}" alt=""
-                                    class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                <input id="password2" name="confirm_password" type="text"
-                                    placeholder="Input Confirm Password"
-                                    class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                                @if ($errors->has('confirm_password'))
+                                    <img src="{{ URL('img/confirm_red.png') }}" alt=""
+                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    <input id="passwordRed2" name="confirm_password" type="password"
+                                        placeholder="Input Confirm Password"
+                                        class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('confirm_password') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
+                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                        <button id="toggle-password-red2" type="button"
+                                            class="mt-2 focus:outline-none border-none">
+                                            <img src="{{ URL('img/hide_red.png') }}" class="h-6 w-6"
+                                                id="imgClickAndChangeRed2" onclick="changeImageRed2()">
+                                            </img>
+                                        </button>
+                                    </div>
+                                @endif
+                                @if (!$errors->has('confirm_password'))
+                                    <img src="{{ URL('img/confirm.png') }}" alt=""
+                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    <input id="password2" name="confirm_password" type="password"
+                                        placeholder="Input Confirm Password"
+                                        class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('confirm_password') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
+                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                        <button id="toggle-password2" type="button"
+                                            class="mt-2 focus:outline-none border-none">
+                                            <img src="{{ URL('img/hide.png') }}" class="h-6 w-6"
+                                                id="imgClickAndChange2" onclick="changeImage2()">
+                                            </img>
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
+                            @error('confirm_password')
+                                <p class="text-sm text-red-600 text-left dark:text-red-500"><span
+                                        class="font-medium">{{ $message }}</span>
+                                </p>
+                            @enderror
                         </div>
+                        <script>
+                            let image_tracker2 = 'view';
+
+                            function changeImage2() {
+                                let image = document.getElementById('imgClickAndChange2');
+                                if (image_tracker2 == 'view') {
+                                    image.src = '/img/view.png';
+                                    image_tracker2 = 'hide';
+                                } else {
+                                    image.src = '/img/hide.png';
+                                    image_tracker2 = 'view';
+                                }
+                            }
+                            const togglePassword2 = document.querySelector('#toggle-password2');
+                            const password2 = document.querySelector('#password2');
+
+                            togglePassword2.addEventListener('click', function(e) {
+                                const type = password2.getAttribute('type') === 'password' ? 'text' : 'password';
+                                password2.setAttribute('type', type);
+                            });
+                        </script>
+                        <script>
+                            function changeImageRed2() {
+                                let image = document.getElementById('imgClickAndChangeRed2');
+                                if (image_tracker == 'view') {
+                                    image.src = '/img/show_red.png';
+                                    image_tracker = 'hide';
+                                } else {
+                                    image.src = '/img/hide_red.png';
+                                    image_tracker = 'view';
+                                }
+                            }
+                            const passwordRed2 = document.querySelector('#passwordRed2');
+                            const togglePasswordRed2 = document.querySelector('#toggle-password-red2');
+                            togglePasswordRed2.addEventListener('click', function(e) {
+                                const type = passwordRed2.getAttribute('type') === 'password' ? 'text' : 'password';
+                                passwordRed2.setAttribute('type', type);
+                            });
+                        </script>
                     </div>
                     <!-- Modal footer -->
                     <div
