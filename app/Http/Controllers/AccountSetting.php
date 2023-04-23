@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\File;
 
 class AccountSetting extends Controller
 {
     function store_account_setting(Request $request, $id){
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'phone' => 'required',
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:10240',
-            'address' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:4',
-            'role' => 'required',
-        ]);
-
         $users = User::find($id);
+        $request->validate([
+            'first_name_edit' => 'required',
+            'last_name_edit' => 'required',
+            'phone_edit' => 'required',
+            'image_edit' => 'image|mimes:jpg,png,jpeg|max:10240',
+            'address_edit' => 'required',
+            'email_edit' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($id),
+            ],
+        ]);
         if($request->hasFile('image_edit')){
             $image_file = $request->file('image_edit');
             $image_extension = $image_file->getClientOriginalName();

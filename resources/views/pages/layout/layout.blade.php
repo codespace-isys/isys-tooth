@@ -273,6 +273,7 @@
                         <li>
                             <a href="#" data-modal-target="account-setting-modal{{ auth()->user()->id }}"
                                 data-modal-toggle="account-setting-modal{{ auth()->user()->id }}"
+                                id="btn-account-setting"
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Account
                                 Setting</a>
                         </li>
@@ -884,6 +885,22 @@
             </div>
         </div>
     </div>
+    @if (
+        $errors->has('first_name_edit') ||
+            $errors->has('last_name_edit') ||
+            $errors->has('image_edit') ||
+            $errors->has('phone_edit') ||
+            $errors->has('address_edit') ||
+            $errors->has('email_edit'))
+        <script>
+            function myFunction() {
+                document.getElementById("btn-account-setting").value = "Clicked";
+            }
+            setTimeout(function() {
+                document.getElementById("btn-account-setting").click();
+            }, 1000);
+        </script>
+    @endif
     <!-- Account Setting Modal -->
     <div id="account-setting-modal{{ auth()->user()->id }}" tabindex="-1"
         class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -922,76 +939,142 @@
                         <div class="grid gap-6 mb-6 md:grid-cols-2">
                             <div>
                                 <label for="name"
-                                    class="block text-sm  font-medium text-gray-400 dark:text-white">
+                                    class="block text-sm  font-medium text-gray-400 dark:text-white{{ $errors->has('first_name_edit') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                     First Name</label>
                                 <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                                    <img src="{{ URL('img/user_black.png') }}" alt=""
-                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    @if (!$errors->has('first_name_edit'))
+                                        <img src="{{ URL('img/user_black.png') }}" alt=""
+                                            class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    @endif
+                                    @if ($errors->has('first_name_edit'))
+                                        <img src="{{ URL('img/user_red.png') }}" alt=""
+                                            class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    @endif
                                     <input type="text" name="first_name_edit" value="{{ $first_name }}"
                                         placeholder="Input First Name" autocomplete="off" aria-label="Input Table"
-                                        class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                                        class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('first_name_edit') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-red-500 text-red-900 rounded-2xl border-none ring-2 ring-red-300 focus:ring-red-500 focus:ring-2' : '' }}">
                                 </div>
+                                @error('first_name_edit')
+                                    <p class="text-sm text-red-600 text-left dark:text-red-500"><span
+                                            class="font-medium">{{ $message }}</span>
+                                    </p>
+                                @enderror
                             </div>
                             <div>
                                 <label for="name"
-                                    class="block text-sm  font-medium text-gray-400 dark:text-white">
+                                    class="block text-sm  font-medium text-gray-400 dark:text-white{{ $errors->has('last_name_edit') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                     Last Name</label>
                                 <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                                    <img src="{{ URL('img/user_black.png') }}" alt=""
-                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    @if (!$errors->has('last_name_edit'))
+                                        <img src="{{ URL('img/user_black.png') }}" alt=""
+                                            class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    @endif
+                                    @if ($errors->has('last_name_edit'))
+                                        <img src="{{ URL('img/user_red.png') }}" alt=""
+                                            class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    @endif
                                     <input type="text" name="last_name_edit"
                                         value="{{ $name_middle . ' ' . $last_name }}" placeholder="Input Last Name"
                                         autocomplete="off" aria-label="Input Table"
-                                        class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                                        class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('last_name_edit') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-red-500 text-red-900 rounded-2xl border-none ring-2 ring-red-300 focus:ring-red-500 focus:ring-2' : '' }}">
                                 </div>
+                                @error('last_name_edit')
+                                    <p class="text-sm text-red-600 text-left dark:text-red-500"><span
+                                            class="font-medium">{{ $message }}</span>
+                                    </p>
+                                @enderror
                             </div>
                             <div>
-                                <label for="email"
-                                    class="block text-sm  font-medium text-gray-400 dark:text-white">
-                                    Photos</label>
+                                @if (!$errors->has('image_edit'))
+                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                        for="file_input">Upload
+                                        file</label>
+                                @endif
                                 <input
-                                    class="block w-full mt-1 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                    class="block w-full mt-1 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400{{ $errors->has('image_edit') ? 'block w-full text-sm text-red-900 border border-red-300 rounded-lg cursor-pointer bg-red-50 dark:text-red-400 focus:outline-none dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400' : '' }}"
                                     aria-describedby="file_input_help" name="image_edit" id="file_input"
                                     type="file">
-                                <p class="mt-1 text-sm text-gray-500 text-left dark:text-gray-300"
-                                    id="file_input_help">PNG,
-                                    JPG or JPEG (MAX.
-                                    800x400px).</p>
+                                @if (!$errors->has('image_edit'))
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG,
+                                        JPG or JPEG (MIN.
+                                        512x512px).</p>
+                                @endif
+                                @if ($errors->has('image_edit'))
+                                    @error('image_edit')
+                                        <p class="text-sm text-red-600 text-left dark:text-red-500"><span
+                                                class="font-medium">{{ $message }}</span>
+                                        </p>
+                                    @enderror
+                                @endif
+                                @error('image_edit')
+                                    <p class="text-sm text-red-600 text-left dark:text-red-500"><span
+                                            class="font-medium">{{ $message }}</span>
+                                    </p>
+                                @enderror
                             </div>
                             <div>
                                 <label for="phone"
-                                    class="block text-sm  font-medium text-gray-400 dark:text-white">
+                                    class="block text-sm  font-medium text-gray-400 dark:text-white{{ $errors->has('phone_edit') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                     Phone Number</label>
                                 <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                                    <img src="{{ URL('img/phone.png') }}" alt=""
-                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    @if (!$errors->has('phone_edit'))
+                                        <img src="{{ URL('img/phone.png') }}" alt=""
+                                            class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    @endif
+                                    @if ($errors->has('phone_edit'))
+                                        <img src="{{ URL('img/phone_red.png') }}" alt=""
+                                            class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                    @endif
                                     <input type="text" name="phone_edit" placeholder="Input Phone Number"
                                         value="{{ auth()->user()->phone }}"
                                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                         autocomplete="off" aria-label="Input Table"
-                                        class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                                        class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('phone_edit') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-red-500 text-red-900 rounded-2xl border-none ring-2 ring-red-300 focus:ring-red-500 focus:ring-2' : '' }}">
                                 </div>
+                                @error('phone_edit')
+                                    <p class="text-sm text-red-600 text-left dark:text-red-500"><span
+                                            class="font-medium">{{ $message }}</span>
+                                    </p>
+                                @enderror
                             </div>
                         </div>
                         <div>
-                            <label for="phone" class="block text-sm  font-medium text-gray-400 dark:text-white">
+                            <label for="phone"
+                                class="block text-sm  font-medium text-gray-400 dark:text-white{{ $errors->has('address_edit') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                 Address</label>
                             <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
                                 <textarea id="address" rows="4" name="address_edit"
-                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500{{ $errors->has('address_edit') ? 'block p-2.5 w-full text-sm text-red-900 bg-red-50 rounded-lg border border-red-300 focus:ring-red-500 focus:border-red-500 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-red dark:focus:ring-red-500 dark:focus:border-red-500' : '' }}"
                                     placeholder="Write your address here...">{{ auth()->user()->address }}</textarea>
                             </div>
+                            @error('address_edit')
+                                <p class="text-sm text-red-600 text-left dark:text-red-500"><span
+                                        class="font-medium">{{ $message }}</span>
+                                </p>
+                            @enderror
                         </div>
                         <div>
-                            <label for="email" class="block text-sm  font-medium text-gray-400 dark:text-white">
+                            <label for="email"
+                                class="block text-sm  font-medium text-gray-400 dark:text-white{{ $errors->has('email_edit') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                 Email</label>
                             <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                                <img src="{{ URL('img/gmail-logo.png') }}" alt=""
-                                    class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                @if (!$errors->has('email_edit'))
+                                    <img src="{{ URL('img/gmail-logo.png') }}" alt=""
+                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                @endif
+                                @if ($errors->has('email_edit'))
+                                    <img src="{{ URL('img/gmail-logo-red.png') }}" alt=""
+                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                @endif
                                 <input type="text" name="email_edit" value="{{ auth()->user()->email }}"
                                     placeholder="Input Email" autocomplete="off" aria-label="Input Table"
-                                    class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                                    class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('email_edit') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-red-500 text-red-900 rounded-2xl border-none ring-2 ring-red-300 focus:ring-red-500 focus:ring-2' : '' }}">
                             </div>
+                            @error('email_edit')
+                                <p class="text-sm text-red-600 text-left dark:text-red-500"><span
+                                        class="font-medium">{{ $message }}</span>
+                                </p>
+                            @enderror
                         </div>
                         <button type="submit"
                             class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Store
