@@ -75,11 +75,6 @@ class DoctorSickness extends Controller
         ]);
         $sicknesses = Sickness::find($id);
         if($request->hasFile('sickness_image')){
-            $request->validate([
-                'image' => 'mimes:jpeg,png,jpg,gif'
-            ],[
-                'image.mimes' => ' image hanya diperbolehkan berekstensi JPEG, JPG, PNG, dan GIF',
-            ]);
             $image_file = $request->file('sickness_image');
             $image_extension = $image_file->getClientOriginalName();
             $image_name = date('ymdhis') . "." . $image_extension;

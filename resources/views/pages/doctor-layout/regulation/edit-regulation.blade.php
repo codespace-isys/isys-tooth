@@ -42,22 +42,41 @@
             <form action="{{ route('update-regulation', ['id' => $Sickness->id]) }}" method="POST"
                 enctype="multipart/form-data" class="w-full max-w-screen-2xl mt-10">
                 @csrf
-                <label for="large-input" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Sickness
+                <label for="large-input"
+                    class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5{{ $errors->has('sickness_name') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">Sickness
                     Name</label>
                 <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                    <img src="{{ URL('img/virus.png') }}" alt="" class="w-5 h-5 absolute ml-3 pointer-events-none">
+                    @if ($errors->has('sickness_name'))
+                        <img src="{{ URL('img/virus_red.png') }}" alt=""
+                            class="w-5 h-5 absolute ml-3 pointer-events-none">
+                    @endif
+                    @if (!$errors->has('sickness_name'))
+                        <img src="{{ URL('img/virus.png') }}" alt=""
+                            class="w-5 h-5 absolute ml-3 pointer-events-none">
+                    @endif
                     <input type="text" name="sickness_name" placeholder="Input Sickness" autocomplete="off"
                         aria-label="Input Table" value="{{ $Sickness->sickness_name }}"
-                        class="block w-full  pr-3 pl-10 py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                        class="block w-full  pr-3 pl-10 py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('sickness_name') ? 'block w-full pr-3 pl-10 py-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
                 </div>
+                @error('sickness_name')
+                    <p class="text-sm text-red-600 mb-5 text-left dark:text-red-500"><span
+                            class="font-medium">{{ $message }}</span>
+                    </p>
+                @enderror
                 <label for="large-input"
-                    class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Indication</label>
+                    class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5{{ $errors->has('indication_id') ? 'block text-sm font-medium text-red-700 dark:text-red-500 mt-5' : '' }}">Indication</label>
                 <div class="flex">
                     <div id="states-button" data-dropdown-toggle="dropdown-states"
-                        class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-500 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
+                        class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-500 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600{{ $errors->has('indication_id') ? 'flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-red-500 bg-red-100 border border-red-300 rounded-l-lg hover:bg-red-200 focus:ring-4 focus:outline-none focus:ring-red-100 dark:bg-red-700 dark:hover:bg-red-600 dark:focus:ring-red-700 dark:text-white dark:border-red-600' : '' }}"
                         type="button">
-                        <img src="{{ URL('img/diagnosis_black.png') }}" class="h-5 mr-2">
-                        </img>
+                        @if ($errors->has('indication_id'))
+                            <img src="{{ URL('img/symptom_red.png') }}" class="h-5 mr-2">
+                            </img>
+                        @endif
+                        @if (!$errors->has('indication_id'))
+                            <img src="{{ URL('img/symptom.png') }}" class="h-5 mr-2">
+                            </img>
+                        @endif
                         Indication
                     </div>
                     <select name="indication_id[]" class="indication_id" id="indication_id" style='width: 100%;' multiple>
@@ -71,6 +90,11 @@
                         @endforeach
                     </select>
                 </div>
+                @error('indication_id')
+                    <p class="text-sm text-red-600 mb-5 text-left dark:text-red-500"><span
+                            class="font-medium">{{ $message }}</span>
+                    </p>
+                @enderror
                 <button type="submit"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center mt-10">
                     <img src="{{ URL('img/save-data.png') }}" fill="currentColor" class="w-4 h-4 mr-2 rounded"></img>

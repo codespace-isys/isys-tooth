@@ -13,7 +13,6 @@ class DoctorRegulation extends Controller
     {
         $this->middleware('is_doctor');
     }
-    
     function index()
     {
         $sicknesses = Sickness::all();
@@ -34,6 +33,10 @@ class DoctorRegulation extends Controller
         return view('/pages/doctor-layout/regulation/edit-regulation', $array);
     }
     function update_regulation(Request $request, $id){
+        $request->validate([
+            'indication_id' => 'required',
+            'sickness_name' => 'required',
+        ]);
         $sicknesses = Sickness::find($id);
         Sickness::where('id',$id)->update([
             'sickness_name' => $request->input('sickness_name'),
