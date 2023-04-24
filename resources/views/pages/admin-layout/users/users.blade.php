@@ -761,7 +761,7 @@
                                 <select id="role" name="role" style='width: 100%;'>
                                     <option selected disabled>Choose a Roles</option>
                                     @foreach ($roles as $role)
-                                        <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                        <option value="{{ $role->id }}" @selected(old('role') == $role->id)>{{ $role->role }}</option>
                                     @endforeach
                                 </select>
                             </div>

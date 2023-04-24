@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use App\Http\Controllers\Controller;
 use App\Models\Article;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 
 class AdminArticles extends Controller
 {
@@ -54,18 +55,16 @@ class AdminArticles extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required',
+            'title' => [
+                'required',
+                Rule::unique('articles')->ignore($id),
+            ],
             'short_description' => 'required',
             'description' => 'required',
             'image' => 'image|mimes:jpg,png,jpeg|max:10240',
         ]);
         $articles = Article::find($id);
         if($request->hasFile('image')){
-            $request->validate([
-                'image' => 'mimes:jpeg,png,jpg,gif'
-            ],[
-                'image.mimes' => ' image hanya diperbolehkan berekstensi JPEG, JPG, PNG, dan GIF',
-            ]);
             $image_file = $request->file('image');
             $image_extension = $image_file->getClientOriginalName();
             $image_name = date('ymdhis') . "." . $image_extension;
