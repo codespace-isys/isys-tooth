@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\File;
-use App\Models\User;
 use App\Models\Role;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class AdminUsers extends Controller
 {
@@ -33,8 +34,12 @@ class AdminUsers extends Controller
             'phone' => 'required',
             'image' => 'required|image|mimes:jpg,png,jpeg|max:10240',
             'address' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:4',
+            'email_store' => 'required|email|unique:users,email',
+            'password' => [
+                'required',
+                'min:4',
+                'max:20',
+            ],
             'role' => 'required',
         ]);
 
@@ -48,7 +53,7 @@ class AdminUsers extends Controller
             'image' => $image_name,
             'address' => $request->address,
             'phone' => $request->phone,
-            'email' => $request->email,
+            'email' => $request->email_store,
             'password' => Hash::make($request->password),
             'role_id' => $request->role,
         ]);
@@ -58,8 +63,17 @@ class AdminUsers extends Controller
     function update_users(Request $request,$id){
         $users = User::find($id);
         $request->validate([
+            'first_name_edit' => 'required',
+            'last_name_edit' => 'required',
+            'phone_edit' => 'required',
             'image_edit' => 'image|mimes:jpg,png,jpeg|max:10240',
-            // 'email_edit' => 'email|unique:users,email,'.$request->user_id_edit,
+            'address_edit' => 'required',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($id),
+            ],
+            'role_edit' => 'required',
         ]);
         if($request->hasFile('image_edit')){
             $image_file = $request->file('image_edit');
@@ -73,7 +87,7 @@ class AdminUsers extends Controller
 
         User::where('id',$id)->update([
             'name' => $request->first_name_edit.' '.$request->last_name_edit,
-            'email' => $request->input('email_edit'),
+            'email' => $request->email,
             'address' => $request->input('address_edit'),
             'phone' => $request->input('phone_edit'),
             'role_id' => $request->input('role_edit'),

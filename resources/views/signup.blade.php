@@ -87,7 +87,7 @@
                 <div class="flex items-center justify-between mb-2 mt-4">
                     <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
                         href="{{ route('login') }}">
-                        You Have Account? Login!
+                        You Have Account? Sign In!
                     </a>
                 </div>
             </form>

@@ -10,7 +10,7 @@
 <body class="bg-gray-100">
     <div class="min-h-screen flex items-center justify-center">
         <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
-            <h1 class="text-2xl font-bold text-gray-700 mb-6 text-center">Login</h1>
+            <h1 class="text-2xl font-bold text-gray-700 mb-6 text-center">Sign In</h1>
             @if (Session::has('error'))
                 <div class="flex p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:text-red-400 dark:border-red-800"
                     role="alert">

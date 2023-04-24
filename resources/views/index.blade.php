@@ -20,10 +20,9 @@
         </ul> --}}
             </div>
             <div class="flex items-center">
-                <a class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md mr-4">Sign up</a>
+                <a class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md mr-4">Sign Up</a>
                 <a href="{{ URL('/login') }}"
-                    class="bg-transparent border border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-white px-4 py-2 rounded-md">Log
-                    in</a>
+                    class="bg-transparent border border-blue-500 hover:bg-blue-500 text-blue-500 hover:text-white px-4 py-2 rounded-md">Sign In</a>
             </div>
         </nav>
     </header>
