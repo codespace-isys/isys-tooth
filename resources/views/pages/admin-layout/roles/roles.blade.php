@@ -5,7 +5,7 @@
         <img src="{{ URL('img/add.png') }}" class="w-5 mr-2" alt="">
         Create Data
     </button>
-    @if (count($errors) > 0)
+    @if ($errors->has('role_store'))
         <script>
             function myFunction() {
                 document.getElementById("button_id").value = "Clicked";
@@ -42,7 +42,7 @@
             </div>
             <h2 class="mb-10 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">
                 Roles Table</h2>
-            @if ($errors->has('role-edit'))
+            @if ($errors->has('role'))
                 <div id="alert-border-2"
                     class="flex p-4 mb-4 text-red-800 border-t-4 border-red-300 bg-red-50 dark:text-red-400 dark:bg-gray-800 dark:border-red-800"
                     role="alert">
@@ -53,7 +53,7 @@
                             clip-rule="evenodd"></path>
                     </svg>
                     <div class="ml-3 text-sm font-medium">
-                        {{ $errors->first('role-edit') }}
+                        {{ $errors->first('role') }}
                     </div>
                     <button type="button"
                         class="ml-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700"
@@ -137,19 +137,27 @@
                                                     <input type="hidden" value="{{ $role->id }}" name="id_role">
                                                     <div>
                                                         <label for="role_name"
-                                                            class="block text-sm text-left font-medium text-gray-400 dark:text-white">
+                                                            class="block text-sm text-left font-medium text-gray-400 dark:text-white{{ $errors->has('role') ? 'block text-sm  font-medium text-red-400 dark:text-red-500' : '' }}">
                                                             Roles Name</label>
                                                         <div
                                                             class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                                                            <img src="{{ URL('img/setting_black.png') }}" alt=""
-                                                                class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                                            <input type="text" name="role-edit"
+                                                            @if (!$errors->has('role'))
+                                                                <img src="{{ URL('img/setting_black.png') }}"
+                                                                    alt=""
+                                                                    class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                                            @endif
+                                                            @if ($errors->has('role'))
+                                                                <img src="{{ URL('img/setting_red.png') }}"
+                                                                    alt=""
+                                                                    class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                                            @endif
+                                                            <input type="text" name="role"
                                                                 placeholder="Input Roles Name" autocomplete="off"
                                                                 aria-label="Input Table" value="{{ $role->role }}"
-                                                                class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                                                                class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('role') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-red-500 text-red-500 rounded-2xl border-none ring-2 ring-red-300 focus:ring-red-500 focus:ring-2' : '' }}">
                                                         </div>
                                                         @error('role')
-                                                            <p class="text-sm text-red-600 dark:text-red-500"><span
+                                                            <p class="text-sm text-red-600 text-left dark:text-red-500"><span
                                                                     class="font-medium">{{ $message }}</span></p>
                                                         @enderror
                                                     </div>
@@ -200,16 +208,23 @@
                     <form class="space-y-6" method="POST" action="{{ route('store-roles') }}">
                         @csrf
                         <div>
-                            <label for="roles_name" class="block text-sm  font-medium text-gray-400 dark:text-white">
+                            <label for="roles_name"
+                                class="block text-sm  font-medium text-gray-400 dark:text-white{{ $errors->has('role_store') ? 'block text-sm  font-medium text-red-400 dark:text-red-500' : '' }}">
                                 Roles Name</label>
                             <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                                <img src="{{ URL('img/setting_black.png') }}" alt=""
-                                    class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                <input type="text" name="role" placeholder="Input Roles Name" autocomplete="off"
-                                    aria-label="Input Table" value="{{ old('first_name') }}"
-                                    class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                                @if (!$errors->has('role_store'))
+                                    <img src="{{ URL('img/setting_black.png') }}" alt=""
+                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                @endif
+                                @if ($errors->has('role_store'))
+                                    <img src="{{ URL('img/setting_red.png') }}" alt=""
+                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                @endif
+                                <input type="text" name="role_store" placeholder="Input Roles Name"
+                                    autocomplete="off" aria-label="Input Table" value="{{ old('role_store') }}"
+                                    class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('role_store') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-red-500 text-red-500 rounded-2xl border-none ring-2 ring-red-300 focus:ring-red-500 focus:ring-2' : '' }}">
                             </div>
-                            @error('role')
+                            @error('role_store')
                                 <p class="text-sm text-red-600 dark:text-red-500"><span
                                         class="font-medium">{{ $message }}</span></p>
                             @enderror
