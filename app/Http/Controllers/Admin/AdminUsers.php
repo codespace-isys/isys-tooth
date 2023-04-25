@@ -59,8 +59,7 @@ class AdminUsers extends Controller
             'role_id' => $request->role,
         ]);
         $users->save();
-        // Session::flash('sukses','Ini notifikasi SUKSES');
-        return redirect()->route('users-admin')->with('sukses','Ini notifikasi SUKSES');
+        return redirect()->route('users-admin')->with('success-store-users','Data Saved Successfully');
     }
     function update_users(Request $request,$id){
         $users = User::find($id);
@@ -95,7 +94,7 @@ class AdminUsers extends Controller
             'role_id' => $request->input('role_edit'),
             'image' => $request->image_edit ? $image_name : $users->image,
         ]);
-        return redirect()->route('users-admin');
+        return redirect()->route('users-admin')->with('success-update-users', 'data Updated Successfully');
     }
     function delete_users($id){
         User::where('id',$id)->delete();

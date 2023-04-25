@@ -824,10 +824,19 @@
             passwordRed.setAttribute('type', type);
         });
     </script>
-    @if ($message = Session('sukses'))
+    @if ($message = Session('success-store-users'))
         <script>
             Swal.fire(
-                'Good job!',
+                'Successfully!',
+                '{{ $message }}',
+                'success'
+            )
+        </script>
+    @endif
+    @if ($message = Session('success-update-users'))
+        <script>
+            Swal.fire(
+                'Successfully!',
                 '{{ $message }}',
                 'success'
             )
