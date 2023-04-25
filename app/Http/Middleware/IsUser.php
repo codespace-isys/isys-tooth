@@ -11,8 +11,8 @@ class IsUser
     {
         if (auth()->user()->role_id == 3) {
             return $next($request);
+        }else{
+            return redirect()->route('login')->with('error-user', "You don't Have This Access");
         }
-
-        return redirect()->back()->with('error', "Anda tidak memiliki akses ini");
     }
 }

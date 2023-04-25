@@ -526,7 +526,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="javascript:void(0)" id="delete-user" onclick="deleteUser({{ $user->id }})"
+                                <a href="javascript:void(0)" id="delete-user"
                                     data-id_user="{{ $user->id }}"
                                     class="btn-delete-user flex items-center justify-center bg-red-600 hover:bg-red-400 text-white w-20 font-bold py-2 px-4 rounded mt-5 ml-5">
                                     <img src="{{ URL('img/trash.png') }}" class="w-5" alt="">
@@ -826,7 +826,14 @@
     </script>
     @if ($message = Session('success-store-users'))
         <script>
-            Swal.fire(
+            const swalWithTailwindButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'text-green-700 hover:text-white border border-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800',
+                    cancelButton: 'text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900'
+                },
+                buttonsStyling: false
+            })
+            swalWithTailwindButtons.fire(
                 'Successfully!',
                 '{{ $message }}',
                 'success'
@@ -835,7 +842,14 @@
     @endif
     @if ($message = Session('success-update-users'))
         <script>
-            Swal.fire(
+            const swalWithTailwindButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'text-green-700 hover:text-white border border-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800',
+                    cancelButton: 'text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900'
+                },
+                buttonsStyling: false
+            })
+            swalWithTailwindButtons.fire(
                 'Successfully!',
                 '{{ $message }}',
                 'success'

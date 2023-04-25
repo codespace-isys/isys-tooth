@@ -59,7 +59,7 @@ class AdminUsers extends Controller
             'role_id' => $request->role,
         ]);
         $users->save();
-        return redirect()->route('users-admin')->with('success-store-users','Data Saved Successfully');
+        return redirect()->route('users-admin')->with('success-store-users', 'Data '.$request->first_name.' '.$request->last_name.' Saved Successfully');
     }
     function update_users(Request $request,$id){
         $users = User::find($id);
@@ -94,7 +94,7 @@ class AdminUsers extends Controller
             'role_id' => $request->input('role_edit'),
             'image' => $request->image_edit ? $image_name : $users->image,
         ]);
-        return redirect()->route('users-admin')->with('success-update-users', 'data Updated Successfully');
+        return redirect()->route('users-admin')->with('success-update-users', 'Data '.$request->first_name_edit.' '.$request->last_name_edit. ' Updated Successfully');
     }
     function delete_users($id){
         User::where('id',$id)->delete();

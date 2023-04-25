@@ -29,7 +29,7 @@ class AuthController extends Controller
         
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
             if (auth()->user()->role_id == 1) {
-                return redirect()->route('dashboard-admin');
+                return redirect()->route('dashboard-admin')->with('login-admin', auth()->user()->name.' Successfully Logged In');
             } 
         } else {
             return redirect()->route('login')->with('error', 'Email Or Password Are Wrong.');
@@ -37,7 +37,7 @@ class AuthController extends Controller
 
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
             if (auth()->user()->role_id == 2) {
-                return redirect()->route('dashboard-doctor');
+                return redirect()->route('dashboard-doctor')->with('login-doctor', auth()->user()->name.' Successfully Logged In');
             }
         } else {
             return redirect()->route('login')->with('error', 'Email Or Password Are Wrong.');
@@ -45,7 +45,7 @@ class AuthController extends Controller
 
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
             if (auth()->user()->role_id == 3) {
-                return redirect()->route('dashboard-users');
+                return redirect()->route('dashboard-users')->with('login-user', auth()->user()->name.' Successfully Logged In');
             }
         } else {
             return redirect()->route('login')->with('error', 'Email Or Password Are Wrong.');

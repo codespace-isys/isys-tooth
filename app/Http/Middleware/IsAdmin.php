@@ -11,8 +11,8 @@ class IsAdmin
     {
         if (auth()->user()->role_id == 1) {
             return $next($request);
+        }else{
+            return redirect()->route('login')->with('error-admin', "You don't Have This Access");
         }
-
-        return redirect()->back()->with('error', "Anda tidak memiliki akses ini");
     }
 }

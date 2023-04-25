@@ -49,6 +49,7 @@
                 .responsive.recalc();
         });
     </script>
+
     <style>
         /*Overrides for Tailwind CSS */
 
@@ -292,8 +293,8 @@
                         </li>
                     </ul>
                     <div class="py-2">
-                        <a href="/logout"
-                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
+                        <a href="javascript:void(0)"
+                            class="btn-logout block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign
                             out</a>
                     </div>
                 </div>
@@ -1085,6 +1086,50 @@
             </div>
         </div>
     </div>
+    <script>
+        $("body").on('click', '.btn-logout', function() {
+            const swalWithTailwindButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'text-green-700 hover:text-white border border-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800',
+                    cancelButton: 'text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithTailwindButtons.fire({
+                title: 'Are you sure?',
+                text: "You will be log out !",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Logout!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Logout!',
+                        text: 'You has been logout',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    window.setTimeout(function() {
+                        window.location.replace('{{ route('logout') }}');
+                    }, 1500);
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithTailwindButtons.fire(
+                        "Canceled!",
+                        "You canceled logout",
+                        "error"
+                    )
+                }
+            })
+        })
+    </script>
 </body>
 
 </html>
