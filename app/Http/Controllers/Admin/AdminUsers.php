@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Session;
 
 class AdminUsers extends Controller
 {
@@ -58,7 +59,8 @@ class AdminUsers extends Controller
             'role_id' => $request->role,
         ]);
         $users->save();
-        return redirect()->route('users-admin');
+        // Session::flash('sukses','Ini notifikasi SUKSES');
+        return redirect()->route('users-admin')->with('sukses','Ini notifikasi SUKSES');
     }
     function update_users(Request $request,$id){
         $users = User::find($id);

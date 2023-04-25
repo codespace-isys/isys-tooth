@@ -526,8 +526,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="{{ route('delete-users', ['id' => $user->id]) }}"
-                                    class="flex items-center justify-center bg-red-600 hover:bg-red-400 text-white w-20 font-bold py-2 px-4 rounded mt-5 ml-5">
+                                <a href="javascript:void(0)" id="delete-user" onclick="deleteUser({{ $user->id }})"
+                                    data-id_user="{{ $user->id }}"
+                                    class="btn-delete-user flex items-center justify-center bg-red-600 hover:bg-red-400 text-white w-20 font-bold py-2 px-4 rounded mt-5 ml-5">
                                     <img src="{{ URL('img/trash.png') }}" class="w-5" alt="">
                                     Hapus
                                 </a>
@@ -761,7 +762,8 @@
                                 <select id="role" name="role" style='width: 100%;'>
                                     <option selected disabled>Choose a Roles</option>
                                     @foreach ($roles as $role)
-                                        <option value="{{ $role->id }}" @selected(old('role') == $role->id)>{{ $role->role }}</option>
+                                        <option value="{{ $role->id }}" @selected(old('role') == $role->id)>
+                                            {{ $role->role }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -821,5 +823,63 @@
             const type = passwordRed.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordRed.setAttribute('type', type);
         });
+    </script>
+    @if ($message = Session('sukses'))
+        <script>
+            Swal.fire(
+                'Good job!',
+                '{{ $message }}',
+                'success'
+            )
+        </script>
+    @endif
+    <script>
+        $("body").on('click', '.btn-delete-user', function() {
+            const id = $(this).data("id_user");
+            console.log(id);
+            const swalWithTailwindButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'text-green-700 hover:text-white border border-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800',
+                    cancelButton: 'text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithTailwindButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be deleted this data!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/pages/admin-layout/users/${id}`).then(() => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Deleted!',
+                            text: 'Your data has been deleted',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1500);
+                    });
+
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithTailwindButtons.fire(
+                        "Canceled!",
+                        "You canceled delete data",
+                        "error"
+                    )
+                }
+            })
+        })
     </script>
 @endsection

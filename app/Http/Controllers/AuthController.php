@@ -30,7 +30,7 @@ class AuthController extends Controller
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
             if (auth()->user()->role_id == 1) {
                 return redirect()->route('dashboard-admin');
-            }
+            } 
         } else {
             return redirect()->route('login')->with('error', 'Email Or Password Are Wrong.');
         }
