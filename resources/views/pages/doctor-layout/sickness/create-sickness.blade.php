@@ -107,7 +107,7 @@
                     <select id="medicine_id" name="medicine_id" style='width: 100%;'>
                         <option selected disabled>Choose a Medicine</option>
                         @foreach ($medicines as $medicine)
-                            <option value="{{ $medicine->id }}">{{ $medicine->medicine_name }}</option>
+                            <option value="{{ $medicine->id }}"@selected(old('medicine_id') == $medicine->id)>{{ $medicine->medicine_name }}</option>
                         @endforeach
                     </select>
                 </div>

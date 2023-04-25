@@ -692,6 +692,8 @@
                             });
                         </script>
                         <script>
+                            let image_tracker = 'view';
+
                             function changeImageRed() {
                                 let image = document.getElementById('imgClickAndChangeRed');
                                 if (image_tracker == 'view') {
@@ -773,14 +775,16 @@
                             });
                         </script>
                         <script>
+                            let image_tracker1 = 'view';
+
                             function changeImageRed1() {
                                 let image = document.getElementById('imgClickAndChangeRed1');
-                                if (image_tracker == 'view') {
+                                if (image_tracker1 == 'view') {
                                     image.src = '/img/show_red.png';
-                                    image_tracker = 'hide';
+                                    image_tracker1 = 'hide';
                                 } else {
                                     image.src = '/img/hide_red.png';
-                                    image_tracker = 'view';
+                                    image_tracker1 = 'view';
                                 }
                             }
                             const passwordRed1 = document.querySelector('#passwordRed1');
@@ -856,12 +860,12 @@
                         <script>
                             function changeImageRed2() {
                                 let image = document.getElementById('imgClickAndChangeRed2');
-                                if (image_tracker == 'view') {
+                                if (image_tracker2 == 'view') {
                                     image.src = '/img/show_red.png';
-                                    image_tracker = 'hide';
+                                    image_tracker2 = 'hide';
                                 } else {
                                     image.src = '/img/hide_red.png';
-                                    image_tracker = 'view';
+                                    image_tracker2 = 'view';
                                 }
                             }
                             const passwordRed2 = document.querySelector('#passwordRed2');
@@ -985,7 +989,8 @@
                                 @enderror
                             </div>
                             <div>
-                                <label class="block text-sm  font-medium text-gray-400 dark:text-white{{ $errors->has('image_setting') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}"
+                                <label
+                                    class="block text-sm  font-medium text-gray-400 dark:text-white{{ $errors->has('image_setting') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}"
                                     for="file_input">Upload
                                     file</label>
                                 <input
