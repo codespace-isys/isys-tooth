@@ -98,13 +98,10 @@
                         Indication
                     </div>
                     <select id="selUser" name="medicine_id" style='width: 100%;'>
-                        <option selected value="{{ $Sickness->medicine_id }}">{{ $Sickness->medicine->medicine_name }}
-                        </option>
                         <option disabled>Choose a Medicine</option>
-                        @foreach ($medicine as $medicines)
-                            @if (!$medicines->id == $Sickness->medicine_id)
-                                <option value="{{ $medicines->id }}">{{ $medicines->medicine_name }}</option>
-                            @endif
+                        @foreach ($medicines as $medicine)
+                            <option value="{{ $medicine->id }}" @if ($Sickness->medicine_id == $medicine->id) selected @endif>
+                                {{ $medicine->medicine_name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -137,7 +134,7 @@
                 <button type="submit"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center mt-10">
                     <img src="{{ URL('img/save-data.png') }}" fill="currentColor" class="w-4 h-4 mr-2 rounded"></img>
-                    <span>Store Data</span>
+                    <span>Update Data</span>
                 </button>
             </form>
             <p class=" text-white text-opacity-100 ">Lorem Ipsum is simply dummy text of the printing and typesetting

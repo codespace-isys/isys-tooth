@@ -52,7 +52,7 @@ class DoctorSickness extends Controller
                 'sickness_image' => $image_name,
             ]);
             $sicknesses->save();
-        return redirect()->route('sickness-doctor');
+        return redirect()->route('sickness-doctor')->with('success-store-sickness', 'Data '.$request->sickness_name.' Saved Successfully');
     }
     function edit_sickness($id){
         $sicknesses = Sickness::findOrFail($id);
@@ -60,7 +60,7 @@ class DoctorSickness extends Controller
         $indications = indication::all();
         $array = [
             'Sickness' => $sicknesses,
-            'medicine' => $medicines,
+            'medicines' => $medicines,
             'indications' => $indications,
         ];
         return view('/pages/doctor-layout/sickness/edit-sickness', $array);
@@ -90,7 +90,7 @@ class DoctorSickness extends Controller
             'medicine_id' => $request->medicine_id,
             'sickness_image' => $request->sickness_image ? $image_name : $sicknesses->sickness_image,
         ]);
-        return redirect()->route('sickness-doctor');
+        return redirect()->route('sickness-doctor')->with('success-update-sickness', 'Data '.$request->sickness_name.' Update Successfully');
     }
     public function delete_sickness($id){
         $data = Sickness::where('id', $id)->first();
