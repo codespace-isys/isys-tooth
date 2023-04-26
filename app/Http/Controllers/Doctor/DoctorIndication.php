@@ -35,7 +35,7 @@ class DoctorIndication extends Controller
             'indication' => $request->indication_store,
         ]);
         $indications->save();
-        return redirect()->route('indication-doctor');
+        return redirect()->route('indication-doctor')->with('success-store-indication', 'Data Indication Saved Successfully');
     }
     public function update_indication(Request $request){
         $id = $request->id_indication;
@@ -53,7 +53,7 @@ class DoctorIndication extends Controller
             'code_indication' => $request->code_indication,
             'indication' => $request->indication,
         ]);
-        return redirect()->route('indication-doctor');
+        return redirect()->route('indication-doctor')->with('success-update-indication', 'Data Indication Update Successfully');
     }
     public function delete_indication($id){
         indication::where('id', $id)->delete();
