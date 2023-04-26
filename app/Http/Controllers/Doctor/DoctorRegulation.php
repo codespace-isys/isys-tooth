@@ -42,6 +42,6 @@ class DoctorRegulation extends Controller
             'sickness_name' => $request->input('sickness_name'),
         ]);
         $sicknesses->indication()->sync($request->indication_id);
-        return redirect()->route('regulation-doctor');
+        return redirect()->route('regulation-doctor')->with('success-store-regulation', 'Data '.$request->sickness_name.' Saved Successfully');
     }
 }
