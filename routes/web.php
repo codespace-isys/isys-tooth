@@ -38,7 +38,7 @@ Route::group(['middleware' => ['is_admin']], function () {
     Route::post('/pages/admin-layout/articles/create-articles', 'Admin\AdminArticles@store_articles')->name('store_articles');
     Route::get('/pages/admin-layout/articles/edit-articles/{id}', 'Admin\AdminArticles@edit')->name('edit-articles-admin');
     Route::post('/pages/admin-layout/articles/edit-articles/{id}', 'Admin\AdminArticles@update')->name('update-articles');
-    Route::get('/pages/admin-layout/articles/delete-articles/{id}', 'Admin\AdminArticles@delete')->name('delete-articles');
+    Route::get('/pages/admin-layout/articles/{id}', 'Admin\AdminArticles@delete_articles')->name('delete-articles');
     
     //CRUD Roles
     Route::get('/pages/admin-layout/roles', 'Admin\AdminRoles@index')->name('roles-admin');

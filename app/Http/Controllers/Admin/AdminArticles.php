@@ -44,7 +44,7 @@ class AdminArticles extends Controller
                 'image' => $image_name,
             ]);
             $articles->save();
-        return redirect()->route('articles-admin');
+        return redirect()->route('articles-admin')->with('success-store-articles', 'Data'.$request->title.' Saved Successfully');
     }
 
     //Update Data
@@ -79,11 +79,11 @@ class AdminArticles extends Controller
             'description' => $request->input('description'),
             'image' => $request->image ? $image_name : $articles->image,
         ]);
-        return redirect()->route('articles-admin');
+        return redirect()->route('articles-admin')->with('success-store-articles', 'Data'.$request->title.' Saved Successfully');
     }
 
     //delete data
-    public function delete($id){
+    public function delete_articles($id){
         $data = Article::where('id', $id)->first();
         File::delete(public_path('img'). '/' .$data->image);
 
