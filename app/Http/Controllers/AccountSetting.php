@@ -40,6 +40,6 @@ class AccountSetting extends Controller
             'phone' => $request->input('phone_setting'),
             'image' => $request->image_setting ? $image_name : $users->image,
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('success-update-account-setting', 'data '.$request->first_name_setting.' '.$request->last_name_setting.' Update Successfully');
     }
 }

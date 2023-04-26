@@ -69,7 +69,6 @@ class AuthController extends Controller
                 'required',
                 'min:4',
                 'max:20',
-                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
             ],
         ]);
         $users = User::Create([
@@ -82,6 +81,6 @@ class AuthController extends Controller
             'role_id' => 3,
         ]);
         $users->save();
-        return redirect()->route('login');
+        return redirect()->route('login')->with('success-store-account', 'Your Account Successfully Created');
     }  
 }

@@ -602,7 +602,7 @@
             }
             setTimeout(function() {
                 document.getElementById("btn-change-password").click();
-            }, 1000);
+            }, 500);
         </script>
     @endif
     <!-- Change Password Modal -->
@@ -906,7 +906,7 @@
             }
             setTimeout(function() {
                 document.getElementById("btn-account-setting").click();
-            }, 1000);
+            }, 500);
         </script>
     @endif
     <!-- Account Setting Modal -->
@@ -1130,6 +1130,37 @@
             })
         })
     </script>
+    @if ($message = Session('success-update-account-setting'))
+        <script>
+            const swalWithTailwindButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'text-green-700 hover:text-white border border-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800',
+                    cancelButton: 'text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900'
+                },
+                buttonsStyling: false
+            })
+            swalWithTailwindButtons.fire(
+                'Successfully!',
+                '{{ $message }}',
+                'success'
+            )
+        </script>
+    @endif
+    @if ($message = Session('success-update-change-password'))
+        <script>
+            const swalWithTailwindButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'text-green-700 hover:text-white border border-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800',
+                    cancelButton: 'text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900'
+                },
+                buttonsStyling: false
+            })
+            swalWithTailwindButtons.fire(
+                'Successfully!',
+                '{{ $message }}',
+                'success'
+            )
+        </script>
+    @endif
 </body>
-
 </html>

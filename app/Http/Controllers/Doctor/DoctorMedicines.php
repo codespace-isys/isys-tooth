@@ -30,7 +30,7 @@ class DoctorMedicines extends Controller
             'medicine_information' => $request->medicine_information_store,
         ]);
         $medicines->save();
-        return redirect()->route('medicine-doctor');
+        return redirect()->route('medicine-doctor')->with('success-store-medicine', 'Data '.$request->medicine_name_store. ' Saved Successfully');
     }
     function update_medicine(Request $request)
     {
@@ -47,7 +47,7 @@ class DoctorMedicines extends Controller
             'medicine_name' => $request->input('medicine_name'),
             'medicine_information' => $request->input('medicine_information'),
         ]);
-        return redirect()->route('medicine-doctor');
+        return redirect()->route('medicine-doctor')->with('success-update-medicine', 'Data '.$request->medicine_name. ' Update Successfully');
     }
     public function delete_medicine($id){
         medicine::where('id', $id)->delete();

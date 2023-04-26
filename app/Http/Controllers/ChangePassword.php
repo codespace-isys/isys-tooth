@@ -14,13 +14,11 @@ class ChangePassword extends Controller
                 'required',
                 'min:4',
                 'max:20',
-                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
             ],
             'new_password' => [
                 'required',
                 'min:4',
                 'max:20',
-                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
 
             ],
             'confirm_password' => [
@@ -28,7 +26,6 @@ class ChangePassword extends Controller
                 'min:4',
                 'max:20',
                 'same:new_password',
-                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/',
             ],
         ]);
         if (!Hash::check($request->old_password, auth()->user()->password)) {
@@ -40,6 +37,6 @@ class ChangePassword extends Controller
         auth()->user()->update([
             'password' => Hash::make($request->new_password),
         ]);
-        return redirect()->back();
+        return redirect()->back()->with('success-update-change-password', 'Data '.auth()->user()->name.' Updated Successfully');
     }
 }

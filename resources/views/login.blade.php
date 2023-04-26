@@ -5,22 +5,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     @vite('resources/css/app.css')
     <title>Login Page</title>
-    @if ($message = Session('error-admin'))
-        <script>
-            const swalWithTailwindButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'text-green-700 hover:text-white border border-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800',
-                    cancelButton: 'text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900'
-                },
-                buttonsStyling: false
-            })
-            swalWithTailwindButtons.fire(
-                'Successfully!',
-                '{{ $message }}',
-                'success'
-            )
-        </script>
-    @endif
 </head>
 
 <body class="bg-gray-100">
@@ -38,10 +22,24 @@
                     </svg>
                     <span class="sr-only">Info</span>
                     <div>
-                        <span class="font-medium">{{ Session::get('error') }}</span> 
+                        <span class="font-medium">{{ Session::get('error') }}</span>
                     </div>
                 </div>
-                
+            @endif
+            @if (Session::has('success-store-account'))
+                <div class="flex p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:text-green-400 border-green-300 dark:border-green-800"
+                    role="alert">
+                    <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
+                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Info</span>
+                    <div>
+                        <span class="font-medium">{{ Session::get('success-store-account') }}</span>
+                    </div>
+                </div>
             @endif
             <form method="POST" action="">
                 @csrf
@@ -151,6 +149,7 @@
             passwordRed.setAttribute('type', type);
         });
     </script>
+
     @vite('resources/js/app.js')
 </body>
 

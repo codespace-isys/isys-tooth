@@ -30,7 +30,7 @@ class AdminRoles extends Controller
             'role' => $request->role_store,
         ]);
         $roles->save();
-        return redirect()->route('roles-admin')->with('success-store-roles', 'Data'.$request->role_store.' Saved Successfully');
+        return redirect()->route('roles-admin')->with('success-store-roles', 'Data '.$request->role_store.' Saved Successfully');
     }
     function update_roles(Request $request){
         $id = $request->id_role;
@@ -43,7 +43,7 @@ class AdminRoles extends Controller
         Role::where('id',$id)->update([
             'role' => $request->role,
         ]);
-        return redirect()->route('roles-admin')->with('success-store-roles', 'Data'.$request->role.' Update Successfully');
+        return redirect()->route('roles-admin')->with('success-store-roles', 'Data '.$request->role.' Update Successfully');
     }
     function delete_roles($id){
         Role::where('id',$id)->delete();

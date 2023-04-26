@@ -12,7 +12,7 @@
             }
             setTimeout(function() {
                 document.getElementById("button_id").click();
-            }, 1000);
+            }, 500);
         </script>
     @endif
     <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mt-5 mb-10 shadow-2xl">
