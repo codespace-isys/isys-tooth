@@ -175,7 +175,7 @@
                                                                 <img src="{{ URL('img/tooth-with-a-plus-sign-outlines.png') }}"
                                                                     alt=""
                                                                     class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                                            @endif
+                                                            @endif 
                                                             <input type="text" name="medicine_name"
                                                                 placeholder="Input Medicine Name" autocomplete="off"
                                                                 aria-label="Input Table"

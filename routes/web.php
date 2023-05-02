@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
 Route::get('/articles', "ArticlesController@index")->name('articles');
 Route::get('/login', "AuthController@index")->name('login');
 Route::post('/login', "AuthController@submit");

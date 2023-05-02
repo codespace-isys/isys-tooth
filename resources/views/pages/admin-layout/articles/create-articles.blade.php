@@ -63,19 +63,7 @@
                 <label for="large-input"
                     class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5{{ $errors->has('short_description') ? 'block mb-2 text-xl font-medium text-red-600 dark:text-red-500 mt-5' : '' }}">Short
                     Description</label>
-                <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                    @if (!$errors->has('short_description'))
-                        <img src="{{ URL('img/description.png') }}" alt=""
-                            class="w-5 h-5 absolute ml-3 pointer-events-none">
-                    @endif
-                    @if ($errors->has('short_description'))
-                        <img src="{{ URL('img/description_red.png') }}" alt=""
-                            class="w-5 h-5 absolute ml-3 pointer-events-none">
-                    @endif
-                    <input type="text" name="short_description" placeholder="Input Short Description" autocomplete="off"
-                        aria-label="Input Table" value="{{ old('short_description') }}"
-                        class="block w-full  pr-3 pl-10 py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('short_description') ? 'block w-full  pr-3 pl-10 py-2 font-semibold placeholder-red-500 text-red-500 rounded-2xl border-none ring-2 ring-red-300 focus:ring-red-500 focus:ring-2' : '' }}">
-                </div>
+                <textarea name="short_description" id="myTextarea" cols="30" rows="10">{{ old('short_description') }}</textarea>
                 @error('short_description')
                     <p class="text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</span>
                     </p>
