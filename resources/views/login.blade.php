@@ -7,7 +7,7 @@
     <title>Sign In Page</title>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gray-100 scrollbar-hide">
     <header class="bg-white shadow-md">
         <nav
             class="bg-white border-gray-200 dark:bg-white items-center justify-between max-w-full px-20 mx-auto py-2 drop-shadow-md">

@@ -8,7 +8,7 @@
     <title>Diagnosis Penyakit Gigi & Mulut</title>
 </head>
 
-<body>
+<body class="scrollbar-hide">
     <header>
         <nav class="bg-white border-gray-200 dark:bg-white items-center justify-between max-w-full px-20 mx-auto py-2 drop-shadow-md">
             <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
