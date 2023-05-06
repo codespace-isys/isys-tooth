@@ -28,14 +28,14 @@
             <h2 class="mb-10 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">
                 
                 
-                @foreach ($indication->unique('sickness_id') as $ind)
+                {{-- @foreach ($indication->unique('sickness_id') as $ind)
                     {{ $ind->sickness_id }}
-                @endforeach Consultation Page</h2>
+                @endforeach Consultation Page</h2> --}}
 
             <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Diagnosis Sickness</h3>
             <ul
                 class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                <form action="{{ route('cek-diagnosis') }}" method="POST">
+                {{-- <form action="{{ route('cek-diagnosis') }}" method="POST">
                     @csrf
                     @foreach ($indications as $indication)
                         <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
@@ -48,7 +48,7 @@
                         </li>
                     @endforeach
                     <button type="submit">cek</button>
-                </form>
+                </form> --}}
             </ul>
             {{-- @foreach ($indications as $indication1)
                 @foreach ($sicknesses as $sickness)

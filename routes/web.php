@@ -89,4 +89,7 @@ Route::group(['middleware' => ['is_user']], function () {
     //Feature Consultation
     Route::get('/pages/users-layout/consultation', 'Users\UsersConsultation@index')->name('consultation-users');
     Route::post('/pages/users-layout/consultation', 'Users\UsersConsultation@cek_diagnosis')->name('cek-diagnosis');
+
+    //Feature Results
+    Route::get('/pages/users-layout/result', 'Users\UserResult@index')->name('result-users');
 });

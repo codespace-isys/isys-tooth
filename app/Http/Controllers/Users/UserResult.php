@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Models\Results;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Results;
-use App\Models\User;
-class UsersDashboard extends Controller
+
+class UserResult extends Controller
 {
     public function __construct()
     {
         $this->middleware('is_user');
     }
-    function dashboard()
-    { 
+    public function index(){
         $results = Results::all();
-        $countResults = Results::count();
         $array = [
             'results' => $results,
-            'countResults' => $countResults,
+           
         ];
-        return view('/pages/users-layout/dashboard', $array);
+        return view('/pages/users-layout/result/result', $array);
     }
 }
