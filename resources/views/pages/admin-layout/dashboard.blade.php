@@ -170,7 +170,7 @@
                 </div>
                 <div class="flex items-center justify-between">
                     <div>
-                        <h3 class="text-lg leading-tight text-gray-500 dark:text-slate-400">Roles</h3>
+                        <h3 class="text-lg leading-tight text-gray-500 dark:text-slate-400">Role</h3>
                         <h1 class="text-3xl leading-tight font-semibold">
                             <div>{{ $countRoles }}</div>
                         </h1>
@@ -250,7 +250,7 @@
                 </div>
                 <div class="flex items-center justify-between">
                     <div>
-                        <h3 class="text-lg leading-tight text-gray-500 dark:text-slate-400">Roles</h3>
+                        <h3 class="text-lg leading-tight text-gray-500 dark:text-slate-400">Result</h3>
                         <h1 class="text-3xl leading-tight font-semibold">
                             <div>{{ $countResults }}</div>
                         </h1>
@@ -264,7 +264,7 @@
             </div>
         </div>
     </div>
-    <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mb-10 mt-10  rounded-2xl">
+    <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mb-10 mt-10 rounded-2xl">
         <div class="p-8 mt-6 lg:mt-0 bg-white min-h-screen rounded-2xl shadow-2xl">
             <h2 class="mb-10 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">
                 Users Table</h2>
@@ -313,7 +313,7 @@
                                 {{ $user->phone }}
                             </td>
                             <td class="w-1 px-6 py-4">
-                                <img src="/img/{{ $user->image }}" alt="">
+                                <img src="/img/{{ $user->image }}" alt="" width="250">
                             </td>
                         </tr>
                     @endforeach
