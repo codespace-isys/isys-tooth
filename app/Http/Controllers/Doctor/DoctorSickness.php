@@ -84,9 +84,9 @@ class DoctorSickness extends Controller
             File::delete(public_path('img') . '/'. $data_image->sickness_image);
         }
         Sickness::where('id',$id)->update([
-            'sickness_name' => $request->input('sickness_name'),
-            'sickness_description' => $request->input('sickness_description'),
-            'sickness_solution' => $request->input('sickness_solution'),
+            'sickness_name' => $request->sickness_name,
+            'sickness_description' => $request->sickness_description,
+            'sickness_solution' => $request->sickness_solution,
             'medicine_id' => $request->medicine_id,
             'sickness_image' => $request->sickness_image ? $image_name : $sicknesses->sickness_image,
         ]);

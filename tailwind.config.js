@@ -14,6 +14,7 @@ module.exports = {
         require("flowbite/plugin"),
         require("tailwind-scrollbar"),
         require("preline/plugin"),
-        require('tailwind-scrollbar-hide')
+        require('tailwind-scrollbar-hide'),
+        require("tailgrids/plugin")
     ],
 };

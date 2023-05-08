@@ -16,6 +16,16 @@
             )
         </script>
     @endif
+    <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mt-10">
+        <div class="flex items-center justify-start"><span
+                class="inline-flex justify-center items-center w-12 h-12 rounded-full bg-white text-black dark:bg-slate-900/70 dark:text-white mr-3">
+                <img src="{{ URL('img/home_black.png') }}" viewBox="0 0 24 24" width="24" height="24"
+                    class="inline-block">
+
+                </img></span>
+            <h1 class="leading-tight font-bold text-4xl">Dashboard</h1>
+        </div>
+    </div>
     <div class=" mt-8 grid lg:grid-cols-2 sm:grid-cols-2 p-4 gap-10 mr-14 ml-14">
         <div class="bg-white flex  rounded-2xl flex-col dark:bg-slate-900/70">
             <div class="flex-1 p-6 undefined">
@@ -49,13 +59,14 @@
                         </h1>
                     </div>
                     <span class="inline-flex justify-center items-center  h-16 text-blue-500">
-                        <img src="{{ URL('img/doctor-consultation-blue.png') }}" width="48" height="48" class="inline-block">
+                        <img src="{{ URL('img/doctor-consultation-blue.png') }}" width="48" height="48"
+                            class="inline-block">
                         </img>
                     </span>
                 </div>
             </div>
         </div>
-        
+
         <div class="bg-white flex rounded-2xl flex-col dark:bg-slate-900/70">
             <div class="flex-1 p-6 undefined">
                 <div class="flex items-center justify-between mb-3">
@@ -106,7 +117,7 @@
                             No
                         </th>
                         <th scope="col" class="w-10 px-1 py-3">
-                            Date 
+                            Date
                         </th>
                         <th scope="col" class="w-10 px-1 py-3">
                             Indication
