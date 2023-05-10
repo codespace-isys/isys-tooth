@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Users;
 
+use Carbon\Carbon;
+use App\Models\Results;
 use App\Models\Sickness;
 use App\Models\indication;
 use Termwind\Components\Dd;
@@ -30,8 +32,7 @@ class UsersConsultation extends Controller
         return view('/pages/users-layout/consultation/consultation', $array);
     }
     function cek_diagnosis (Request $request){
-        $indications = indication::all();
-        $sicknesses = Sickness::all();
+        $results = new Results();
         $DataRegulation = indication_sickness::all();
         $selectedIndication= $request->indication;
         $regulation = [];
@@ -55,18 +56,24 @@ class UsersConsultation extends Controller
         }
         if (count($result) > 0){
             $max_keys = array_keys($result, max($result));
-            dd($max_keys[0]);
+            $sickness = Sickness::where('id', '=', $max_keys[0])->get();
+            $indications = indication::all();
+            $arrayShow = [
+                'result' => $sickness,
+                'indications' => $indications,
+                'found' =>'Your Sickness Diagnosis Has Been Found'
+            ];
+            $myTime = Carbon::now();
+            $results = Results::Create([
+                'datetime' => $myTime->toDateTimeString(),
+                'sickness_id' =>  $max_keys[0],
+                'user_id' => auth()->user()->id,
+            ]);
+            $results->indication()->attach($request->indication);
+            $results->save();
+            return view('/pages/users-layout/consultation/result-consultation',  $arrayShow );
         }else{
-            return redirect()->back();
+            return redirect()->back()->with('failed-diagnosis', "Sickness wasn't found");
         }
-
-        $arrayShow = [
-            // 'result' => $result,
-            // 'indications' => $indications,
-            // 'sicknesses' => $sicknesses,
-            // 'duplicated' => $duplicated,
-            // 'request_indication' => $selectedIndication,
-        ];
-        return view('/pages/users-layout/consultation/result-consultation',  $arrayShow );
     }
 }

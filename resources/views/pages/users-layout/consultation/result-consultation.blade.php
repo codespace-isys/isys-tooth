@@ -1,17 +1,33 @@
 @extends('pages.layout.layout')
 @section('content')
+    @if ($found == 'Your Sickness Diagnosis Has Been Found')
+        <script>
+            const swalWithTailwindButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'text-green-700 hover:text-white border border-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800',
+                    cancelButton: 'text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900'
+                },
+                buttonsStyling: false
+            })
+            swalWithTailwindButtons.fire(
+                'Successfully!',
+                '{{ $found }}',
+                'success'
+            )
+        </script>
+    @endif
     <div class="p-16 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-14">
         <div class="p-8 mt-6 lg:mt-0 rounded bg-white shadow-lg">
             <div class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
                     <li class="inline-flex items-center">
-                        <a href="{{ route('articles-admin') }}"
+                        <div
                             class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                            <img src="{{ URL('img/article_black.png') }}" class="w-4 h-4 mr-2 fill-black" fill="currentColor"
-                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <img src="{{ URL('img/doctor-consultation-black.png') }}" class="w-4 h-4 mr-2 fill-black"
+                                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             </img>
-                            Consultation
-                        </a>
+                            Diagnosis
+                        </div>
                     </li>
                     <li>
                         <div class="flex items-center">
@@ -21,41 +37,41 @@
                                     d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                            <a href="{{ route('create-sickness-doctor') }}"
+                            <div
                                 class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">
-                                Result Indication</a>
+                                Result Indication</div>
                         </div>
                     </li>
                 </ol>
             </div>
             <h2 class="mb-10 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">
-                Result Indication
+                Indication Result
             </h2>
-            <div class="container rounded overflow-hidden h-32 shadow-lg mb-10 mt-10 ">
-                {{-- @foreach ($indication_request as $req)
-                    <p>{{ $req }}</p>
-                @endforeach --}}
-                {{-- @foreach ($result->unique('sickness_id') as $ind)
-                    {{ $ind->sickness_id }}
-                    @break
-                @endforeach
-                @foreach ($request_indication as $req)
-                    <p>{{ $req }}</p>
-                @endforeach --}}
-                {{-- <p>{{ $indication_request }}</p> --}}
+            <div class="container rounded overflow-hidden shadow-md mb-10 mt-10 ">
+                <ul class="max-w-xs flex flex-col divide-y divide-gray-200 dark:divide-gray-700">
+                    @foreach ($result as $show)
+                        @foreach ($show->indications as $item)
+                            <li
+                                class="inline-flex items-center gap-x-2 py-3 px-4 text-sm font-medium text-gray-800 dark:text-white">
+                                {{ $item->code_indication }} <img src="{{ URL('img/fast-forward.png') }}" alt=""
+                                    width="5%"> {{ $item->indication }}
+                            </li>
+                        @endforeach
+                    @endforeach
+                </ul>
             </div>
         </div>
         <div class="p-8 mt-6 lg:mt-0 rounded bg-white shadow-lg">
             <div class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
                     <li class="inline-flex items-center">
-                        <a href="{{ route('articles-admin') }}"
+                        <div
                             class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                            <img src="{{ URL('img/article_black.png') }}" class="w-4 h-4 mr-2 fill-black"
+                            <img src="{{ URL('img/doctor-consultation-black.png') }}" class="w-4 h-4 mr-2 fill-black"
                                 fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             </img>
-                            Consultation
-                        </a>
+                            Diagnosis
+                        </div>
                     </li>
                     <li>
                         <div class="flex items-center">
@@ -65,9 +81,9 @@
                                     d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                            <a href="{{ route('create-sickness-doctor') }}"
+                            <div
                                 class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">
-                                Biodata User</a>
+                                Biodata User</div>
                         </div>
                     </li>
                 </ol>
@@ -116,13 +132,13 @@
             <div class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
                     <li class="inline-flex items-center">
-                        <a href="{{ route('sickness-doctor') }}"
+                        <div
                             class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                            <img src="{{ URL('img/virus_black.png') }}" class="w-4 h-4 mr-2 fill-black" fill="currentColor"
-                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <img src="{{ URL('img/doctor-consultation-black.png') }}" class="w-4 h-4 mr-2 fill-black"
+                                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             </img>
-                            Sickness
-                        </a>
+                            Diagnosis
+                        </div>
                     </li>
                     <li>
                         <div class="flex items-center">
@@ -132,12 +148,60 @@
                                     d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                     clip-rule="evenodd"></path>
                             </svg>
+                            <div
+                                class="ml-1 text-sm font-medium text-gray-700 hover:text-gray-900 md:ml-2 dark:text-gray-400 dark:hover:text-white">
+                                Result Sickness</div>
                         </div>
                     </li>
                 </ol>
             </div>
             <h2 class="mb-10 text-3xl font-bold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">
-                Sickness Table</h2>
+                Sickness Result</h2>
+            @foreach ($result as $show)
+                <!-- container for all cards -->
+                <div class="container w-100 lg:w-full mx-auto flex flex-col">
+                    <!-- card -->
+                    <div v-for="card in cards"
+                        class="flex flex-col md:flex-row overflow-hidden
+                                                      bg-white rounded-lg shadow-sm mt-4 w-100 mx-2">
+                        <!-- media -->
+                        <div class="flex w-auto md:w-1/3 relative overflow-hidden">
+                            <img class="inset-0 h-full w-full object-cover object-center scale-100 hover:scale-150 ease-in duration-300 rounded-full shadow-2xl dark:shadow-gray-800"
+                                src="/img/{{ $show->sickness_image }}" />
+                        </div>
+                        <!-- content -->
+                        <div class="w-full py-4 px-6 text-gray-800 flex flex-col justify-between">
+                            <h3
+                                class="leading-tight truncate mb-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-black">
+                                {{ $show->sickness_name }}</h3>
+                            <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
+                            <h5
+                                class="leading-tight truncate mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-black">
+                                Sickness Description</h5>
+                            {!! $show->sickness_description !!}
+                            </p>
+                            <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
+                            <h5
+                                class="leading-tight truncate mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-black">
+                                Sickness Solution</h5>
+                            {!! $show->sickness_solution !!}
+                            </p>
+                            <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
+                            <h5
+                                class="leading-tight truncate mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-black">
+                                Medicine</h5>
+                            {{ $show->medicine->medicine_name }}
+                            </p>
+                        </div>
+                    </div>
+                    <!--/ card-->
+                </div>
+            @endforeach
+            <p class=" text-white text-opacity-100 ">Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+                took a
+                galley of type of typeof typeof typeof typeof typeof typeof type </p>
         </div>
     </div>
 @endsection

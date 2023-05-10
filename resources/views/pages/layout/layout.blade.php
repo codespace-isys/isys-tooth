@@ -41,7 +41,6 @@
 
     <script>
         $(document).ready(function() {
-
             var table = $('#example').DataTable({
                     responsive: true
                 })
@@ -565,7 +564,7 @@
                         <h1 x-cloak
                             x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
                                 'sm:hidden' : ''">
-                            Consultation</h1>
+                            Diagnosis</h1>
                     </a>
                     <a href="{{ route('result-users') }}" x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                         @click="$store.sidebar.active = 'home' "

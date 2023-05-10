@@ -1,5 +1,14 @@
 @extends('pages.layout.layout')
 @section('content')
+    @if (Session::has('failed-diagnosis'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Sickness Wasn't Fount",
+            })
+        </script>
+    @endif
     <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mt-10">
         <div class="flex items-center justify-start"><span
                 class="inline-flex justify-center items-center w-12 h-12 rounded-full bg-white text-black dark:bg-slate-900/70 dark:text-white mr-3">
@@ -7,7 +16,7 @@
                     class="inline-block">
 
                 </img></span>
-            <h1 class="leading-tight font-bold text-4xl">Consultation</h1>
+            <h1 class="leading-tight font-bold text-4xl">Diagnosis</h1>
         </div>
     </div>
     <div class="container w-full md:w-11/12 xl:w-11/12 md:h-w-11/12 mx-auto px-2 mb-10 mt-10 shadow-2xl">
@@ -20,7 +29,7 @@
                             <img src="{{ URL('img/doctor-consultation-black.png') }}" class="w-4 h-4 mr-2 fill-black"
                                 fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             </img>
-                            Consultation
+                            Diagnosis
                         </a>
                     </li>
                     <li>
@@ -49,7 +58,7 @@
                                     <div class="flex items-center h-10 relative">
                                         <input id="{{ $indication->id }}" type="checkbox" value="{{ $indication->id }}"
                                             name="indication[]"
-                                            class="cursor-pointer select-none box flex mr-2 h-5 w-5 items-center justify-center rounded-md border">
+                                            class="checkbox cursor-pointer select-none box flex mr-2 h-5 w-5 items-center justify-center rounded-md border">
                                         <label for="vue-checkbox"
                                             class="w-full py-3 ml-2 text-sm font-semibold text-gray-900 dark:text-gray-300">{{ $indication->indication }}</label>
                                     </div>
@@ -79,7 +88,5 @@
                 checkbox.prop('checked', !checkbox.prop('checked'));
             });
         });
-
-        
     </script>
 @endsection

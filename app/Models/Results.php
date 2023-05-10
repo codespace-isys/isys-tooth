@@ -16,4 +16,10 @@ class Results extends Model
         'sickness_id',
         'user_id',
     ];
+    public function indication(){
+        return $this->belongsToMany(indication::class)->withTimestamps();
+    }
+    public function sickness(){
+        return $this->belongsTo(Sickness::class, 'sickness_id'); 
+    }
 }
