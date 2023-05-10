@@ -1,10 +1,19 @@
 @extends('pages.layout.layout')
 @section('content')
-    <button data-modal-target="create-medicine-modal" data-modal-toggle="create-medicine-modal" id="button_id"
-        class="flex items-center justify-center bg-blue-500 hover:bg-blue-700 text-white w-40 font-bold py-2 px-4 mt-5 ml-16 rounded">
-        <img src="{{ URL('img/add.png') }}" class="w-5 mr-2" alt="">
-        Create Data
-    </button>
+    <div class="w-full md:w-96 xl:w-96 md:h-w-96">
+        <div class="grid grid-cols-2">
+            <button data-modal-target="create-medicine-modal" data-modal-toggle="create-medicine-modal" id="button_id"
+                class="flex items-center justify-center bg-blue-500 hover:bg-blue-700 text-white w-40 font-bold py-2 px-4 mt-5 ml-16 rounded mb-5">
+                <img src="{{ URL('img/add.png') }}" class="w-5 mr-2" alt="">
+                Create Data
+            </button>
+            <a href="#"
+                class="flex items-center justify-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 w-44 font-bold py-2 px-4 mt-5 ml-16 rounded mb-5">
+                <img src="{{ URL('img/printer.png') }}" class="w-5 mr-2" alt="">
+                Print Medicines
+            </a>
+        </div>
+    </div>
     @if ($errors->has('medicine_name_store') || $errors->has('medicine_information_store'))
         <script>
             function myFunction() {
@@ -15,7 +24,7 @@
             }, 500);
         </script>
     @endif
-    <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mb-10 mt-5 shadow-2xl">
+    <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mb-10 shadow-2xl">
         <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
             <div class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
@@ -175,7 +184,7 @@
                                                                 <img src="{{ URL('img/tooth-with-a-plus-sign-outlines.png') }}"
                                                                     alt=""
                                                                     class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                                            @endif 
+                                                            @endif
                                                             <input type="text" name="medicine_name"
                                                                 placeholder="Input Medicine Name" autocomplete="off"
                                                                 aria-label="Input Table"
@@ -289,8 +298,7 @@
                             <label for="medicine_information"
                                 class="block text-sm  font-medium text-gray-400 dark:text-white{{ $errors->has('medicine_information_store') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                 Medicine Information</label>
-                            <div
-                                class="relative flex items-center text-gray-400 focus-within:text-gray-600">
+                            <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
                                 @if ($errors->has('medicine_information_store'))
                                     <img src="{{ URL('img/leaflet_red.png') }}" alt=""
                                         class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
@@ -299,7 +307,8 @@
                                     <img src="{{ URL('img/leaflet.png') }}" alt=""
                                         class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
                                 @endif
-                                <input type="text" name="medicine_information_store" value="{{ old('medicine_information_store') }}"
+                                <input type="text" name="medicine_information_store"
+                                    value="{{ old('medicine_information_store') }}"
                                     placeholder="Input Medicine Information" autocomplete="off" aria-label="Input Table"
                                     class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('medicine_information_store') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
                             </div>

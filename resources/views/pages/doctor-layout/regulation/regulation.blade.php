@@ -1,6 +1,11 @@
 @extends('pages.layout.layout')
 @section('content')
-    <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mb-10 shadow-2xl mt-14">
+    <a href="#"
+        class="flex items-center justify-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 w-48 font-bold py-2 px-4 mt-5 ml-16 rounded mb-5">
+        <img src="{{ URL('img/printer.png') }}" class="w-5 mr-2" alt="">
+        Print Regulations
+    </a>
+    <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mb-10 shadow-2xl mt-5">
         <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
             <div class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">

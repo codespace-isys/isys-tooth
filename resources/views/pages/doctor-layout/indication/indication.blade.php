@@ -1,10 +1,19 @@
 @extends('pages.layout.layout')
 @section('content')
-    <button data-modal-target="create-indication-modal" data-modal-toggle="create-indication-modal" id="button_id"
-        class="flex items-center justify-center pointer-events bg-blue-500 hover:bg-blue-700 text-white w-40 font-bold py-2 px-4 rounded mt-5 ml-16">
-        <img src="{{ URL('img/add.png') }}" class="w-5 mr-2" alt="">
-        Create Data
-    </button>
+    <div class="w-full md:w-96 xl:w-96 md:h-w-96">
+        <div class="grid grid-cols-2">
+            <button data-modal-target="create-indication-modal" data-modal-toggle="create-indication-modal" id="button_id"
+                class="flex items-center justify-center bg-blue-500 hover:bg-blue-700 text-white w-40 font-bold py-2 px-4 mt-5 ml-16 rounded mb-5">
+                <img src="{{ URL('img/add.png') }}" class="w-5 mr-2" alt="">
+                Create Data
+            </button>
+            <a href="#"
+                class="flex items-center justify-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 w-48 font-bold py-2 px-4 mt-5 ml-16 rounded mb-5">
+                <img src="{{ URL('img/printer.png') }}" class="w-5 mr-2" alt="">
+                Print Indications
+            </a>
+        </div>
+    </div>
     @if ($errors->has('code_indication_store') || $errors->has('indication_store'))
         <script>
             function myFunction() {
@@ -15,7 +24,7 @@
             }, 500);
         </script>
     @endif
-    <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mb-10 mt-5 shadow-2xl">
+    <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mb-10 shadow-2xl">
         <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
             <div class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
@@ -172,8 +181,8 @@
                                                                 class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-22{{ $errors->has('indication') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
                                                         </div>
                                                         @error('indication')
-                                                            <p class="text-sm text-red-600 text-left dark:text-red-500"><span
-                                                                    class="font-medium">{{ $message }}</span>
+                                                            <p class="text-sm text-red-600 text-left dark:text-red-500">
+                                                                <span class="font-medium">{{ $message }}</span>
                                                             </p>
                                                         @enderror
                                                     </div>
@@ -195,9 +204,11 @@
                     @endforeach
                 </tbody>
             </table>
-            <p class=" text-white text-opacity-100 ">Lorem Ipsum is simply dummy text of the printing and typesetting
+            <p class=" text-white text-opacity-100 ">Lorem Ipsum is simply dummy text of the printing and
+                typesetting
                 industry.
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                printer
                 took a
                 galley of type of typeof typeof typeof typeof typeof typeof type </p>
         </div>

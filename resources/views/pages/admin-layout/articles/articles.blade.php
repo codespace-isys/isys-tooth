@@ -1,10 +1,19 @@
 @extends('pages.layout.layout')
 @section('content')
-    <a href="{{ route('create-articles-admin') }}"
-        class="flex items-center justify-center bg-blue-500 hover:bg-blue-700 text-white w-40 font-bold py-2 px-4 mt-5 ml-16 rounded mb-5">
-        <img src="{{ URL('img/add.png') }}" class="w-5 mr-2" alt="">
-        Create Data
-    </a>
+    <div class="w-full md:w-96 xl:w-96 md:h-w-96">
+        <div class="grid grid-cols-2">
+            <a href="{{ route('create-articles-admin') }}"
+                class="flex items-center justify-center bg-blue-500 hover:bg-blue-700 text-white w-40 font-bold py-2 px-4 mt-5 ml-16 rounded mb-5">
+                <img src="{{ URL('img/add.png') }}" class="w-5 mr-2" alt="">
+                Create Data
+            </a>
+            <a href="#"
+                class="flex items-center justify-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 w-40 font-bold py-2 px-4 mt-5 ml-16 rounded mb-5">
+                <img src="{{ URL('img/printer.png') }}" class="w-5 mr-2" alt="">
+                Print Articles
+            </a>
+        </div>
+    </div>
     <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mb-10 shadow-2xl">
         <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
             <div class="flex mb-4" aria-label="Breadcrumb">
@@ -92,9 +101,11 @@
                     @endforeach
                 </tbody>
             </table>
-            <p class=" text-white text-opacity-100 ">Lorem Ipsum is simply dummy text of the printing and typesetting
+            <p class=" text-white text-opacity-100 ">Lorem Ipsum is simply dummy text of the printing and
+                typesetting
                 industry.
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                printer
                 took a
                 galley of type of typeof typeof typeof typeof typeof typeof type </p>
         </div>

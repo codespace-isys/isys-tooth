@@ -117,7 +117,7 @@
                             No
                         </th>
                         <th scope="col" class="w-10 px-1 py-3">
-                            Date
+                            Date Time
                         </th>
                         <th scope="col" class="w-10 px-1 py-3">
                             Indication
@@ -125,17 +125,8 @@
                         <th scope="col" class="w-10 px-1 py-3">
                             Sickness Name
                         </th>
-                        <th scope="col" class="w-40 px-1 py-3">
-                            Sickness Description
-                        </th>
-                        <th scope="col" class="w-40 px-1 py-3">
-                            Sickness Solution
-                        </th>
-                        <th scope="col" class="w-1 px-6 py-3">
-                            Medicine Name
-                        </th>
-                        <th scope="col" class="w-1 px-6 py-3">
-                            Sickness Image
+                        <th scope="col" class="w-10 px-1 py-3">
+                            User Name
                         </th>
                     </tr>
                 </thead>
@@ -145,24 +136,27 @@
                     @endphp
                     @foreach ($results as $result)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td class="w-1 px-4 py-4">
+                            <td class="px-1 py-1">
                                 {{ $no++ }}
                             </td>
-                            {{-- <td class="w-20 px-1 py-1">
-                                {{ $sickness->sickness_name }}
+                            <td class="px-1 py-1">
+                                {{ $result->datetime }}
                             </td>
-                            <td class="w-40 px-1 py-1">
-                                {!! Str::limit($sickness->sickness_description, '50', '...') !!}
+                            <td class="px-1 py-1 text-center">
+                                @foreach ($result->indication as $item)
+                                    <li
+                                        class="inline-flex items-center text-center gap-x-2 py-3 px-4 text-sm font-medium text-gray-800 dark:text-white">
+                                        {{ $item->code_indication }} <img src="{{ URL('img/fast-forward.png') }}"
+                                            alt="" width="5%"> {{ $item->indication }}
+                                    </li>
+                                @endforeach
                             </td>
-                            <td class="w-1 px-1 py-1">
-                                {!! Str::limit($sickness->sickness_solution, '50', '...') !!}
+                            <td class="px-1 py-1">
+                                {{ $result->sickness->sickness_name }}
                             </td>
-                            <td class="w-1 px-1 py-1">
-                                <img src="/img/{{ $sickness->sickness_image }}" alt="">
+                            <td class="px-1 py-1">
+                                {{ auth()->user()->name }}
                             </td>
-                            <td class="w-1 px-6 py-4">
-                                {{ $sickness->medicine->medicine_name }}
-                            </td> --}}
                         </tr>
                     @endforeach
                 </tbody>

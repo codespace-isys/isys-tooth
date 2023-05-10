@@ -1,10 +1,20 @@
 @extends('pages.layout.layout')
 @section('content')
-    <button data-modal-target="create-users-modal" data-modal-toggle="create-users-modal" id="button_id" onclick="myFunction()"
-        class="flex items-center justify-center bg-blue-500 hover:bg-blue-700 text-white w-40 font-bold py-2 px-4 mt-5 ml-16 rounded">
-        <img src="{{ URL('img/add.png') }}" class="w-5 mr-2" alt="">
-        Create Data
-    </button>
+    <div class="w-full md:w-96 xl:w-96 md:h-w-96">
+        <div class="grid grid-cols-2">
+            <button data-modal-target="create-users-modal" data-modal-toggle="create-users-modal" id="button_id"
+                onclick="myFunction()"
+                class="flex items-center justify-center bg-blue-500 hover:bg-blue-700 text-white w-40 font-bold py-2 px-4 mt-5 ml-16 rounded mb-5">
+                <img src="{{ URL('img/add.png') }}" class="w-5 mr-2" alt="">
+                Create Data
+            </button>
+            <a href="#"
+                class="flex items-center justify-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 w-40 font-bold py-2 px-4 mt-5 ml-16 rounded mb-5">
+                <img src="{{ URL('img/printer.png') }}" class="w-5 mr-2" alt="">
+                Print Users
+            </a>
+        </div>
+    </div>
     @if (
         $errors->has('first_name') ||
             $errors->has('last_name') ||
@@ -22,7 +32,7 @@
             }, 500);
         </script>
     @endif
-    <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mt-5 mb-10 shadow-2xl">
+    <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mb-10 shadow-2xl">
         <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
             <div class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
@@ -526,8 +536,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="javascript:void(0)" id="delete-user"
-                                    data-id_user="{{ $user->id }}"
+                                <a href="javascript:void(0)" id="delete-user" data-id_user="{{ $user->id }}"
                                     class="btn-delete-user flex items-center justify-center bg-red-600 hover:bg-red-400 text-white w-20 font-bold py-2 px-4 rounded mt-5 ml-5">
                                     <img src="{{ URL('img/trash.png') }}" class="w-5" alt="">
                                     Hapus

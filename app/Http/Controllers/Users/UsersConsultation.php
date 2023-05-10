@@ -7,10 +7,8 @@ use App\Models\Results;
 use App\Models\medicine;
 use App\Models\Sickness;
 use App\Models\indication;
-use Termwind\Components\Dd;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\DB;
 use App\Models\indication_sickness;
 use App\Http\Controllers\Controller;
 

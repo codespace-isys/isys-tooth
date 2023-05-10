@@ -14,7 +14,7 @@ class UsersDashboard extends Controller
     }
     function dashboard()
     { 
-        $results = Results::all();
+        $results = Results::where('user_id', '=', auth()->user()->id)->get();;
         $countResults = Results::count();
         $array = [
             'results' => $results,
