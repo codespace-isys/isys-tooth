@@ -22,4 +22,7 @@ class Results extends Model
     public function sickness(){
         return $this->belongsTo(Sickness::class, 'sickness_id'); 
     }
+    public function User(){
+        return $this->belongsTo(User::class, 'user_id'); 
+    }
 }

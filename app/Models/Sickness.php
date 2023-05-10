@@ -26,4 +26,7 @@ class Sickness extends Model
     public function indications(){
         return $this->belongsToMany(indication::class, 'indication_sickness', 'sickness_id','indication_id');
     }
+    public function Result(){
+        return $this->hasMany(Results::class, 'id');
+    }
 }

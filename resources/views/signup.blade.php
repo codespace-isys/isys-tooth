@@ -4,6 +4,7 @@
 <head>
     <title>Sign Up Page</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="{{ URL('img/gigi.png') }}">
     @vite('resources/css/app.css')
 </head>
 

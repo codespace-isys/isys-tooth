@@ -16,7 +16,21 @@
             )
         </script>
     @endif
-    <div class="p-16 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-14">
+    <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mt-10">
+        <div class="flex items-center justify-start"><span
+                class="inline-flex justify-center items-center w-12 h-12 rounded-full bg-white text-black dark:bg-slate-900/70 dark:text-white mr-3">
+                <img src="{{ URL('img/medical-report.png') }}" viewBox="0 0 24 24" width="24" height="24"
+                    class="inline-block">
+                </img></span>
+            <h1 class="leading-tight font-bold text-4xl">Result Diagnosis</h1>
+        </div>
+    </div>
+    <a href="{{ route('export-diagnosis') }}"
+        class="flex items-center justify-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 w-60 font-bold py-2 px-4 mt-5 ml-16 rounded">
+        <img src="{{ URL('img/printer.png') }}" class="w-5 mr-2" alt="">
+        Print Sickness Diagnosis
+    </a>
+    <div class="px-16 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-14 mt-10 mb-14">
         <div class="p-8 mt-6 lg:mt-0 rounded bg-white shadow-lg">
             <div class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">

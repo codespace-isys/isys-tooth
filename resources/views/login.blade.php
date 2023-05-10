@@ -3,6 +3,7 @@
 
 <head>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="{{ URL('img/gigi.png') }}">
     @vite('resources/css/app.css')
     <title>Sign In Page</title>
 </head>

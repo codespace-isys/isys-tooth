@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Users;
 
 use Carbon\Carbon;
 use App\Models\Results;
+use App\Models\medicine;
 use App\Models\Sickness;
 use App\Models\indication;
 use Termwind\Components\Dd;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use App\Models\indication_sickness;
 use App\Http\Controllers\Controller;
@@ -75,5 +77,17 @@ class UsersConsultation extends Controller
         }else{
             return redirect()->back()->with('failed-diagnosis', "Sickness wasn't found");
         }
+    }
+    function export_diagnosis(){
+        $data = Results::latest()->first();
+        $indications = indication::all();
+        $medicines = medicine::all();
+        $array = [
+            'data' => $data,
+            'indications' => $indications,
+            'medicines' => $medicines,
+        ];
+        $pdf = Pdf::loadView('pages.users-layout.consultation.export-consultation', $array);
+        return $pdf->download('export-consultation-' .Carbon::now()->timestamp.'.pdf');
     }
 }

@@ -52,6 +52,8 @@ Route::group(['middleware' => ['is_admin']], function () {
     Route::put('/pages/admin-layout/users/{id}', 'Admin\AdminUsers@update_users')->name('update-users');
     Route::get('/pages/admin-layout/users/{id}', 'Admin\AdminUsers@delete_users')->name('delete-users');
     
+    //CRUD Results
+    Route::get('/pages/admin-layout/result', 'Admin\AdminResult@index')->name('result-admin');
 });
 
 Route::group(['middleware' => ['is_doctor']], function () {
@@ -89,6 +91,7 @@ Route::group(['middleware' => ['is_user']], function () {
     //Feature Consultation
     Route::get('/pages/users-layout/consultation', 'Users\UsersConsultation@index')->name('consultation-users');
     Route::post('/pages/users-layout/consultation', 'Users\UsersConsultation@cek_diagnosis')->name('cek-diagnosis');
+    Route::get('/pages/users-layout/export-consultation', 'Users\UsersConsultation@export_diagnosis')->name('export-diagnosis');
 
     //Feature Results
     Route::get('/pages/users-layout/result', 'Users\UserResult@index')->name('result-users');
