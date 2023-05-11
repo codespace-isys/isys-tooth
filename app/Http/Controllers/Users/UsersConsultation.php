@@ -86,6 +86,6 @@ class UsersConsultation extends Controller
             'medicines' => $medicines,
         ];
         $pdf = Pdf::loadView('pages.users-layout.consultation.export-consultation', $array);
-        return $pdf->download('export-consultation-' .Carbon::now()->timestamp.'.pdf');
+        return $pdf->download('Result-Diagnosis-' .Carbon::now()->timestamp.'.pdf');
     }
 }

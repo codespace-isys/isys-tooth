@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Session;
+use Carbon\Carbon;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
-use Session;
 
 class AdminUsers extends Controller
 {
@@ -99,5 +101,13 @@ class AdminUsers extends Controller
     function delete_users($id){
         User::where('id',$id)->delete();
         return redirect()->route('users-admin');
+    }
+    function report_users(){
+        $users = User::all();
+        $array = [
+            'users' => $users,
+        ];
+        $pdf = Pdf::loadView('pages.admin-layout.users.report-users', $array);
+        return $pdf->download('report-users-' .Carbon::now()->timestamp.'.pdf');
     }
 }

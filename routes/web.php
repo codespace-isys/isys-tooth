@@ -51,6 +51,7 @@ Route::group(['middleware' => ['is_admin']], function () {
     Route::post('/pages/admin-layout/users', 'Admin\AdminUsers@store_users')->name('store-users');
     Route::put('/pages/admin-layout/users/{id}', 'Admin\AdminUsers@update_users')->name('update-users');
     Route::get('/pages/admin-layout/users/{id}', 'Admin\AdminUsers@delete_users')->name('delete-users');
+    Route::get('/pages/users-layout/report-users', 'Admin\AdminUsers@report_users')->name('report-users');
     
     //CRUD Results
     Route::get('/pages/admin-layout/result', 'Admin\AdminResult@index')->name('result-admin');
