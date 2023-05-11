@@ -53,7 +53,7 @@
                 </div>
                 <div class="flex items-center justify-between">
                     <div>
-                        <h3 class="text-lg leading-tight text-gray-500 dark:text-slate-400">Consultation</h3>
+                        <h3 class="text-lg leading-tight text-gray-500 dark:text-slate-400">Diagnosis</h3>
                         <h1 class="text-3xl leading-tight font-semibold">
                             <div></div>
                         </h1>

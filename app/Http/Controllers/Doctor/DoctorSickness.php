@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\medicine;
 use App\Models\Sickness;
 use App\Models\indication;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
@@ -67,7 +68,10 @@ class DoctorSickness extends Controller
     }
     function update_sickness (Request $request, $id){
         $request->validate([
-            'sickness_name' => 'required|unique:sicknesses,sickness_name',
+            'sickness_name' =>  [
+                'required',
+                Rule::unique('sicknesses')->ignore($id),
+            ],
             'sickness_description' => 'required',
             'sickness_solution' => 'required',
             'medicine_id' => 'required',
