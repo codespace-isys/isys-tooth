@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminRoles extends Controller
 {
@@ -48,5 +50,13 @@ class AdminRoles extends Controller
     function delete_roles($id){
         Role::where('id',$id)->delete();
         return redirect()->route('roles-admin');
+    }
+    function report_roles(){
+        $roles = Role::all();
+        $array = [
+            'roles' => $roles,
+        ];
+        $pdf = Pdf::loadView('pages.admin-layout.roles.report-roles', $array);
+        return $pdf->download('report-roles-' .Carbon::now()->timestamp.'.pdf');
     }
 }

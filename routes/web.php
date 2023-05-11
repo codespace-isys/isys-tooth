@@ -45,6 +45,7 @@ Route::group(['middleware' => ['is_admin']], function () {
     Route::post('/pages/admin-layout/roles', 'Admin\AdminRoles@store_roles')->name('store-roles');
     Route::put('/pages/admin-layout/roles/{id}', 'Admin\AdminRoles@update_roles')->name('update-roles');
     Route::get('/pages/admin-layout/roles/{id}', 'Admin\AdminRoles@delete_roles')->name('delete-roles');
+    Route::get('/pages/users-layout/report-roles', 'Admin\AdminRoles@report_roles')->name('report-roles');
     
     //CRUD Users
     Route::get('/pages/admin-layout/users', 'Admin\AdminUsers@index')->name('users-admin');

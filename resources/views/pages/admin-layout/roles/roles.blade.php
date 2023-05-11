@@ -7,7 +7,7 @@
                 <img src="{{ URL('img/add.png') }}" class="w-5 mr-2" alt="">
                 Create Data
             </button>
-            <a href="#"
+            <a href="{{ route('report-roles') }}"
                 class="flex items-center justify-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 w-40 font-bold py-2 px-4 mt-5 ml-16 rounded mb-5">
                 <img src="{{ URL('img/printer.png') }}" class="w-5 mr-2" alt="">
                 Print Roles
