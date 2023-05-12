@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\admin;
 
+use Carbon\Carbon;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -89,5 +91,14 @@ class AdminArticles extends Controller
 
         Article::where('id', $id)->delete();
         return redirect()->route('articles-admin');
+    }
+
+    function report_articles(){
+        $articles = Article::all();
+        $array = [
+            'articles' => $articles,
+        ];
+        $pdf = Pdf::loadView('pages.admin-layout.articles.report-articles', $array);
+        return $pdf->download('report-articles-' .Carbon::now()->timestamp.'.pdf');
     }
 }
