@@ -75,7 +75,7 @@
             <div class="head-content">
                 <table cellpadding="0" cellspacing="0" width="100%" border="0">
                     <tr>
-                        <td><span style="color:#808080;"></span>TABLE MEDICINE</td>
+                        <td><span style="color:#808080;"></span>TABLE INDICATION</td>
                     </tr>
                 </table>
             </div>
@@ -84,26 +84,22 @@
             <table width="100%" class="table">
                 <thead>
                     <tr>
-                        <th class="left">Medicine</th>
-                        <th class="left">Medicine Information</th>
+                        <th class="left">Indication</th>
                         <th class="left">Created At</th>
                         <th class="left">Updated At</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($medicines as $medicine)
+                    @foreach ($indications as $indication)
                     <tr>
                         <td>
-                            {{ $medicine->medicine_name }}
+                            {{ $indication->indication }}
                         </td>
                         <td>
-                            {{$medicine->medicine_information }}
+                            {{$indication->created_at }}
                         </td>
                         <td>
-                            {{$medicine->created_at }}
-                        </td>
-                        <td>
-                            {{$medicine->updated_at }}
+                            {{$indication->updated_at }}
                         </td>
                     </tr>
                     @endforeach

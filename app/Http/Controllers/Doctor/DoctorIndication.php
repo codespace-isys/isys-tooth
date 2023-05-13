@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Doctor;
 
+use Carbon\Carbon;
 use App\Helpers\Helper;
 use App\Models\indication;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DoctorIndication extends Controller
 {
@@ -58,5 +60,13 @@ class DoctorIndication extends Controller
     public function delete_indication($id){
         indication::where('id', $id)->delete();
         return redirect()->route('indication-doctor');
+    }
+    public function report_indication(){
+        $indications = indication::all();
+        $array = [
+            'indications' => $indications,
+        ];
+        $pdf = Pdf::loadView('pages.doctor-layout.indication.report-indication', $array);
+        return $pdf->download('report-indications-' .Carbon::now()->timestamp.'.pdf');
     }
 }
