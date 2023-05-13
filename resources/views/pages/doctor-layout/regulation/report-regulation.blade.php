@@ -75,7 +75,7 @@
             <div class="head-content">
                 <table cellpadding="0" cellspacing="0" width="100%" border="0">
                     <tr>
-                        <td><span style="color:#808080;"></span>TABLE SICKNESS</td>
+                        <td><span style="color:#808080;"></span>TABLE REGULATION</td>
                     </tr>
                 </table>
             </div>
@@ -85,9 +85,7 @@
                 <thead>
                     <tr>
                         <th class="left">Sickness Name</th>
-                        <th class="left">Sickness Description</th>
-                        <th class="left">Sickness Solution</th>
-                        <th class="left">Medicine</th>
+                        <th class="left">Indication</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -97,13 +95,13 @@
                             {{ $sickness->sickness_name }}
                         </td>
                         <td>
-                            {!! $sickness->sickness_description !!}
-                        </td>
-                        <td>
-                            {!! $sickness->sickness_solution !!}
-                        </td>
-                        <td>
-                            {{$sickness->medicine->medicine_name }}
+                            @foreach ($sickness->indication as $item)
+                            <ul>
+                                <li>
+                                    {{ $item->indication }} <br>
+                                </li>
+                            </ul>
+                            @endforeach
                         </td>
                     </tr>
                     @endforeach
