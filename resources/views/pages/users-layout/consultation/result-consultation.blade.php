@@ -204,7 +204,7 @@
                             <h5
                                 class="leading-tight truncate mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-black">
                                 Medicine</h5>
-                            {{ $show->medicine->medicine_name }}
+                            {{ $show->medicine->medicine_name }} - {{ $show->medicine->medicine_information }}
                             </p>
                         </div>
                     </div>

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Doctor;
 
+use Carbon\Carbon;
 use App\Models\medicine;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DoctorMedicines extends Controller
 {
@@ -52,5 +54,13 @@ class DoctorMedicines extends Controller
     public function delete_medicine($id){
         medicine::where('id', $id)->delete();
         return redirect()->route('medicine-doctor');
+    }
+    public function report_medicine(){
+        $medicines = medicine::all();
+        $array = [
+            'medicines' => $medicines,
+        ];
+        $pdf = Pdf::loadView('pages.doctor-layout.medicine.report-medicine', $array);
+        return $pdf->download('report-medicines-' .Carbon::now()->timestamp.'.pdf');
     }
 }
