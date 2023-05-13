@@ -1,6 +1,6 @@
 @extends('pages.layout.layout')
 @section('content')
-    <a href="#"
+    <a href="{{ route('report-result') }}"
         class="flex items-center justify-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 w-40 font-bold py-2 px-4 mt-5 ml-16 rounded mb-5">
         <img src="{{ URL('img/printer.png') }}" class="w-5 mr-2" alt="">
         Print Results
@@ -10,9 +10,9 @@
             <div class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
                     <li class="inline-flex items-center">
-                        <a href="{{ route('sickness-doctor') }}"
+                        <a href="{{ route('result-admin') }}"
                             class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-                            <img src="{{ URL('img/virus_black.png') }}" class="w-4 h-4 mr-2 fill-black" fill="currentColor"
+                            <img src="{{ URL('img/result-black.png') }}" class="w-4 h-4 mr-2 fill-black" fill="currentColor"
                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             </img>
                             Result

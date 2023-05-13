@@ -58,6 +58,7 @@ Route::group(['middleware' => ['is_admin']], function () {
     //CRUD Results
     Route::get('/pages/admin-layout/result', 'Admin\AdminResult@index')->name('result-admin');
     Route::get('/pages/admin-layout/result/{id}', 'Admin\AdminResult@delete_result')->name('delete-result');
+    Route::get('/pages/users-layout/report-result', 'Admin\AdminResult@report_result')->name('report-result');
 });
 
 Route::group(['middleware' => ['is_doctor']], function () {
