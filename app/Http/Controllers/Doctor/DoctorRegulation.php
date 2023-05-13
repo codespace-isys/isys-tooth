@@ -39,9 +39,9 @@ class DoctorRegulation extends Controller
         ]);
         $sicknesses = Sickness::find($id);
         Sickness::where('id',$id)->update([
-            'sickness_name' => $request->input('sickness_name'),
+            'sickness_name' => $request->sickness_name,
         ]);
-        $sicknesses->indication()->sync($request->indication_id);
+        $sicknesses->indication()->sync($request->indication_id); 
         return redirect()->route('regulation-doctor')->with('success-store-regulation', 'Data '.$request->sickness_name.' Saved Successfully');
     }
 }

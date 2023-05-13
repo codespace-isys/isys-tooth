@@ -7,7 +7,7 @@
                 <img src="{{ URL('img/add.png') }}" class="w-5 mr-2" alt="">
                 Create Data
             </a>
-            <a href="#"
+            <a href="{{ route('report-sickness') }}"
                 class="flex items-center justify-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 w-44 font-bold py-2 px-4 mt-5 ml-16 rounded mb-5">
                 <img src="{{ URL('img/printer.png') }}" class="w-5 mr-2" alt="">
                 Print Sicknesses
@@ -80,10 +80,10 @@
                                 {{ $sickness->sickness_name }}
                             </td>
                             <td class="w-40 px-1 py-1">
-                                {{ Str::limit($sickness->sickness_description, '50', '...') }}
+                                {!! Str::limit($sickness->sickness_description, '50', '...') !!}
                             </td>
                             <td class="w-1 px-1 py-1">
-                                {{ Str::limit($sickness->sickness_solution, '50', '...') }}
+                                {!! Str::limit($sickness->sickness_solution, '50', '...') !!}
                             </td>
                             <td class="w-1 px-1 py-1">
                                 <img src="/img/{{ $sickness->sickness_image }}" alt="">

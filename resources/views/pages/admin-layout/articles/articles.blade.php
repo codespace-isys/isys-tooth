@@ -77,10 +77,10 @@
                                 {{ $article->title }}
                             </td>
                             <td class="w-40 px-6 py-4">
-                                {{ Str::limit($article->short_description, '50', '...') }}
+                                {!! Str::limit($article->short_description, '50', '...') !!}
                             </td>
                             <td class="w-40 px-6 py-4">
-                                {{ Str::limit($article->description, '50', '...') }}
+                                {!! Str::limit($article->description, '50', '...') !!}
                             </td>
                             <td class="w-10 px-6 py-4">
                                 <img src="/img/{{ $article->image }}" alt="">

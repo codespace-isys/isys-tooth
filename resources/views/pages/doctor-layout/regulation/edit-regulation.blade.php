@@ -55,7 +55,7 @@
                             class="w-5 h-5 absolute ml-3 pointer-events-none">
                     @endif
                     <input type="text" name="sickness_name" placeholder="Input Sickness" autocomplete="off"
-                        aria-label="Input Table" value="{{ $Sickness->sickness_name }}"
+                        aria-label="Input Table" value="{{ $Sickness->sickness_name }}" 
                         class="block w-full  pr-3 pl-10 py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('sickness_name') ? 'block w-full pr-3 pl-10 py-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
                 </div>
                 @error('sickness_name')

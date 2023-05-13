@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Doctor;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\medicine;
 use App\Models\Sickness;
 use App\Models\indication;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DoctorSickness extends Controller
 {
@@ -102,5 +104,13 @@ class DoctorSickness extends Controller
 
         Sickness::where('id', $id)->delete();
         return redirect()->route('sickness-doctor');
+    }
+    function report_sickness(){
+        $sicknesses = Sickness::all();
+        $array = [
+            'sicknesses' => $sicknesses,
+        ];
+        $pdf = Pdf::loadView('pages.doctor-layout.sickness.report-sickness', $array);
+        return $pdf->download('report-sicknesses-' .Carbon::now()->timestamp.'.pdf');
     }
 }
