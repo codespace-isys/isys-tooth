@@ -29,26 +29,26 @@ class AuthController extends Controller
         
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
             if (auth()->user()->role_id == 1) {
-                return redirect()->route('dashboard-admin');
-            }
+                return redirect()->route('dashboard-admin')->with('login-admin', auth()->user()->name.' Successfully Logged In');
+            } 
         } else {
-            return redirect()->route('login')->with('error', 'Email-Address And Password Are Wrong.');
+            return redirect()->route('login')->with('error', 'Email Or Password Are Wrong.');
         }
 
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
             if (auth()->user()->role_id == 2) {
-                return redirect()->route('dashboard-doctor');
+                return redirect()->route('dashboard-doctor')->with('login-doctor', auth()->user()->name.' Successfully Logged In');
             }
         } else {
-            return redirect()->route('login')->with('error', 'Email-Address And Password Are Wrong.');
+            return redirect()->route('login')->with('error', 'Email Or Password Are Wrong.');
         }
 
         if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password']))) {
             if (auth()->user()->role_id == 3) {
-                return redirect()->route('dashboard-users');
+                return redirect()->route('dashboard-users')->with('login-user', auth()->user()->name.' Successfully Logged In');
             }
         } else {
-            return redirect()->route('login')->with('error', 'Email-Address And Password Are Wrong.');
+            return redirect()->route('login')->with('error', 'Email Or Password Are Wrong.');
         }
     }
 
@@ -64,15 +64,12 @@ class AuthController extends Controller
         $users = new User();
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:2',
-        ],[
-            'name.required' => 'Nama wajib diisi',
-            'email.required' => 'Email wajib diisi',
-            'email.email' => 'Silakan masukkan email yang valid',
-            'email.unique' => 'Email sudah pernah digunakan, silakan gunakan email lain',
-            'password.required' => 'Password wajib diisi',
-            'password.min' => 'Minimum password yang diizinkan adalah 6 karakter',
+            'email' => 'required|email|unique:users,email',
+            'password' => [
+                'required',
+                'min:4',
+                'max:20',
+            ],
         ]);
         $users = User::Create([
             'name' => $request->name,
@@ -84,6 +81,6 @@ class AuthController extends Controller
             'role_id' => 3,
         ]);
         $users->save();
-        return redirect()->route('login');
+        return redirect()->route('login')->with('success-store-account', 'Your Account Successfully Created');
     }  
 }

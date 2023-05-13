@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Results;
 use App\Models\User;
 class UsersDashboard extends Controller
 {
@@ -13,6 +14,12 @@ class UsersDashboard extends Controller
     }
     function dashboard()
     { 
-        return view('/pages/users-layout/dashboard');
+        $results = Results::where('user_id', '=', auth()->user()->id)->get();;
+        $countResults = Results::count();
+        $array = [
+            'results' => $results,
+            'countResults' => $countResults,
+        ];
+        return view('/pages/users-layout/dashboard', $array);
     }
 }

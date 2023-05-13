@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Doctor;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\medicine;
 use App\Models\Sickness;
 use App\Models\indication;
-use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DoctorSickness extends Controller
 {
@@ -33,18 +36,11 @@ class DoctorSickness extends Controller
     function store_sickness(Request $request){
         $sicknesses = new Sickness();
         $request->validate([
-            'sickness_name' => 'required',
+            'sickness_name' => 'required|unique:sicknesses,sickness_name',
             'sickness_description' => 'required',
             'sickness_solution' => 'required',
             'medicine_id' => 'required',
-            'sickness_image' => 'required|mimes:jpeg,png,jpg,gif'
-        ],[
-            'sickness_name.required' => 'sickness_name wajib diisi',
-            'sickness_description.required' => 'short description wajib diisi',
-            'sickness_solution.required' => ' sickness_solution wajib diisi',
-            'medicine_id.required' => ' medicine_id wajib diisi',
-            'sickness_image.required' => ' image wajib diisi',
-            'sickness_image.mimes' => ' image hanya diperbolehkan berekstensi JPEG, JPG, PNG, dan GIF',
+            'sickness_image' => 'required|image|mimes:jpg,png,jpeg|max:10240',
         ]);
             $image_file = $request->file('sickness_image');
             $image_extension = $image_file->extension();
@@ -55,12 +51,11 @@ class DoctorSickness extends Controller
                 'sickness_name' => $request->input('sickness_name'),
                 'sickness_description' => $request->input('sickness_description'),
                 'sickness_solution' => $request->input('sickness_solution'),
-                'medicine_id' => $request->input('medicine_id'),
+                'medicine_id' => $request->medicine_id,
                 'sickness_image' => $image_name,
             ]);
-            $sicknesses->indication()->attach($request->indication_id);
             $sicknesses->save();
-        return redirect()->route('sickness-doctor');
+        return redirect()->route('sickness-doctor')->with('success-store-sickness', 'Data '.$request->sickness_name.' Saved Successfully');
     }
     function edit_sickness($id){
         $sicknesses = Sickness::findOrFail($id);
@@ -68,32 +63,24 @@ class DoctorSickness extends Controller
         $indications = indication::all();
         $array = [
             'Sickness' => $sicknesses,
-            'medicine' => $medicines,
+            'medicines' => $medicines,
             'indications' => $indications,
         ];
         return view('/pages/doctor-layout/sickness/edit-sickness', $array);
     }
     function update_sickness (Request $request, $id){
         $request->validate([
-            'sickness_name' => 'required',
+            'sickness_name' =>  [
+                'required',
+                Rule::unique('sicknesses')->ignore($id),
+            ],
             'sickness_description' => 'required',
             'sickness_solution' => 'required',
             'medicine_id' => 'required',
-            'sickness_image' => 'mimes:jpeg,png,jpg,gif'
-        ],[
-            'sickness_name.required' => 'sickness_name wajib diisi',
-            'sickness_description.required' => 'short description wajib diisi',
-            'sickness_solution.required' => ' sickness_solution wajib diisi',
-            'medicine_id.required' => ' medicine_id wajib diisi',
-            'sickness_image.mimes' => ' image hanya diperbolehkan berekstensi JPEG, JPG, PNG, dan GIF',
+            'sickness_image' => 'image|mimes:jpg,png,jpeg|max:10240',
         ]);
         $sicknesses = Sickness::find($id);
         if($request->hasFile('sickness_image')){
-            $request->validate([
-                'image' => 'mimes:jpeg,png,jpg,gif'
-            ],[
-                'image.mimes' => ' image hanya diperbolehkan berekstensi JPEG, JPG, PNG, dan GIF',
-            ]);
             $image_file = $request->file('sickness_image');
             $image_extension = $image_file->getClientOriginalName();
             $image_name = date('ymdhis') . "." . $image_extension;
@@ -103,14 +90,13 @@ class DoctorSickness extends Controller
             File::delete(public_path('img') . '/'. $data_image->sickness_image);
         }
         Sickness::where('id',$id)->update([
-            'sickness_name' => $request->input('sickness_name'),
-            'sickness_description' => $request->input('sickness_description'),
-            'sickness_solution' => $request->input('sickness_solution'),
+            'sickness_name' => $request->sickness_name,
+            'sickness_description' => $request->sickness_description,
+            'sickness_solution' => $request->sickness_solution,
             'medicine_id' => $request->medicine_id,
             'sickness_image' => $request->sickness_image ? $image_name : $sicknesses->sickness_image,
         ]);
-        $sicknesses->indication()->sync($request->indication_id);
-        return redirect()->route('sickness-doctor');
+        return redirect()->route('sickness-doctor')->with('success-update-sickness', 'Data '.$request->sickness_name.' Update Successfully');
     }
     public function delete_sickness($id){
         $data = Sickness::where('id', $id)->first();
@@ -118,5 +104,13 @@ class DoctorSickness extends Controller
 
         Sickness::where('id', $id)->delete();
         return redirect()->route('sickness-doctor');
+    }
+    function report_sickness(){
+        $sicknesses = Sickness::all();
+        $array = [
+            'sicknesses' => $sicknesses,
+        ];
+        $pdf = Pdf::loadView('pages.doctor-layout.sickness.report-sickness', $array);
+        return $pdf->download('report-sicknesses-' .Carbon::now()->timestamp.'.pdf');
     }
 }

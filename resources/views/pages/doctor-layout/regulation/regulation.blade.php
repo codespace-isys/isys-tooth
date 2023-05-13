@@ -1,6 +1,11 @@
 @extends('pages.layout.layout')
 @section('content')
-    <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mb-10 shadow-2xl mt-14">
+    <a href="{{ route('report-regulation') }}"
+        class="flex items-center justify-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 text-sm dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700 w-48 font-bold py-2 px-4 mt-5 ml-16 rounded mb-5">
+        <img src="{{ URL('img/printer.png') }}" class="w-5 mr-2" alt="">
+        Print Regulations
+    </a>
+    <div class="container w-full md:w-11/12 xl:w-11/12 md:h-11/12 mx-auto px-2 mb-10 shadow-2xl mt-5">
         <div class="p-8 mt-6 lg:mt-0 rounded shadow bg-white">
             <div class="flex mb-4" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
@@ -68,8 +73,8 @@
                                     <img src="{{ URL('img/edit.png') }}" class="w-5" alt="">
                                     Update
                                 </a>
-                                <a href="{{ route('delete-sickness', ['id' => $sickness->id]) }}"
-                                    class="flex items-center  justify-center bg-red-600 hover:bg-red-400 text-white w-20 font-bold py-2 px-4 rounded mt-5 ml-5">
+                                <a href="javascript:void(0)" data-id_regulation="{{ $sickness->id }}"
+                                    class="btn-delete-regulation flex items-center  justify-center bg-red-600 hover:bg-red-400 text-white w-20 font-bold py-2 px-4 rounded mt-5 ml-5">
                                     <img src="{{ URL('img/trash.png') }}" class="w-5" alt="">
                                     Hapus
                                 </a>
@@ -85,4 +90,69 @@
                 galley of type of typeof typeof typeof typeof typeof typeof type </p>
         </div>
     </div>
+    @if ($message = Session('success-store-regulation'))
+        <script>
+            const swalWithTailwindButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'text-green-700 hover:text-white border border-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800',
+                    cancelButton: 'text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900'
+                },
+                buttonsStyling: false
+            })
+            swalWithTailwindButtons.fire(
+                'Successfully!',
+                '{{ $message }}',
+                'success'
+            )
+        </script>
+    @endif
+    <script>
+        $("body").on('click', '.btn-delete-regulation', function() {
+            const id = $(this).data("id_regulation");
+            console.log(id);
+            const swalWithTailwindButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'text-green-700 hover:text-white border border-green-700 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800',
+                    cancelButton: 'text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithTailwindButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be deleted this data!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/pages/doctor-layout/sickness/${id}`).then(() => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Deleted!',
+                            text: 'Your data has been deleted',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1500);
+                    });
+
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithTailwindButtons.fire(
+                        "Canceled!",
+                        "You canceled delete data",
+                        "error"
+                    )
+                }
+            })
+        })
+    </script>
 @endsection

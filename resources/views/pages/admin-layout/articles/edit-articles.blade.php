@@ -42,40 +42,55 @@
             <form action="" method="POST" enctype="multipart/form-data" class="w-full max-w-screen-2xl mt-10">
                 @csrf
                 <label for="large-input"
-                    class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Title</label>
+                    class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5{{ $errors->has('title') ? 'block mb-2 text-xl font-medium text-red-600 dark:text-red-500 mt-5' : '' }}">Title</label>
                 <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                    <img src="{{ URL('img/title.png') }}" alt="" class="w-5 h-5 absolute ml-3 pointer-events-none">
+                    @if (!$errors->has('title'))
+                        <img src="{{ URL('img/title.png') }}" alt=""
+                            class="w-5 h-5 absolute ml-3 pointer-events-none">
+                    @endif
+                    @if ($errors->has('title'))
+                        <img src="{{ URL('img/title_red.png') }}" alt=""
+                            class="w-5 h-5 absolute ml-3 pointer-events-none">
+                    @endif
                     <input type="text" name="title" placeholder="Input Title" autocomplete="off"
                         value="{{ $articles->title }}" aria-label="Input Table"
-                        class="block w-full  pr-3 pl-10 py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
+                        class="block w-full  pr-3 pl-10 py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('title') ? 'block w-full  pr-3 pl-10 py-2 font-semibold placeholder-red-500 text-red-500 rounded-2xl border-none ring-2 ring-red-300 focus:ring-red-500 focus:ring-2' : '' }}">
                 </div>
-                <label for="large-input" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Short
+                @error('title')
+                    <p class="text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</span>
+                    </p>
+                @enderror
+                <label for="large-input" class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5{{ $errors->has('short_description') ? 'block mb-2 text-xl font-medium text-red-600 dark:text-red-500 mt-5' : '' }}">Short
                     Description</label>
-                <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                    <img src="{{ URL('img/description.png') }}" alt=""
-                        class="w-5 h-5 absolute ml-3 pointer-events-none">
-                    <input type="text" name="short_description" placeholder="Input Short Description" autocomplete="off"
-                        aria-label="Input Table" value="{{ $articles->short_description }}"
-                        class="block w-full  pr-3 pl-10 py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2">
-                </div>
+                    <textarea name="short_description" id="myTextarea" cols="30" rows="10">{{ $articles->short_description }}</textarea>
+                @error('short_description')
+                    <p class="text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</span>
+                    </p>
+                @enderror
                 <label for="large-input"
                     class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Description</label>
                 <textarea name="description" id="myTextarea" cols="30" rows="10">{{ $articles->description }}</textarea>
+                @error('description')
+                    <p class="text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</span>
+                    </p>
+                @enderror
                 <label for="large-input"
-                    class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5">Image</label>
-
-                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload
-                    file</label>
-                {{-- <span id="documentName">{{$articles->image}}</span> <button id="removeFile">Remove</button> --}}
+                    class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5{{ $errors->has('image') ? 'block mb-2 text-xl font-medium text-red-600 dark:text-red-500 mt-5' : '' }}">Image</label>
                 <input
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                     aria-describedby="file_input_help" name="image" id="file_input" value="" type="file">
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX.
-                    800x400px).</p>
+                @if (!$errors->has('image'))
+                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG,
+                        JPG or JPEG (MIN.
+                        512x512px).</p>
+                @endif
+                @error('image')
+                    <p class="text-sm text-red-600 dark:text-red-500"><span class="font-medium">{{ $message }}</span></p>
+                @enderror
                 <button type="submit"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center mt-10">
                     <img src="{{ URL('img/save-data.png') }}" fill="currentColor" class="w-4 h-4 mr-2 rounded"></img>
-                    <span>Store Data</span>
+                    <span>Update Data</span>
                 </button>
             </form>
             <p class=" text-white text-opacity-100 ">Lorem Ipsum is simply dummy text of the printing and typesetting
