@@ -97,10 +97,13 @@
                         @endif
                         Indication
                     </div>
-                    <select id="selUser" name="medicine_id" style='width: 100%;'>
-                        <option disabled>Choose a Medicine</option>
+                    <select name="medicine_id[]" class="medicine_id" id="medicine_id" style='width: 100%;' multiple>
                         @foreach ($medicines as $medicine)
-                            <option value="{{ $medicine->id }}" @if ($Sickness->medicine_id == $medicine->id) selected @endif>
+                            <option value="{{ $medicine->id }}"
+                                @foreach ($Sickness->medicine as $value)
+                                    @if ($medicine->id == $value->id)
+                                        selected
+                                    @endif @endforeach>
                                 {{ $medicine->medicine_name }}</option>
                         @endforeach
                     </select>
@@ -147,8 +150,8 @@
     <script>
         $(document).ready(function() {
             $("#selUser").select2();
-            $("#indication_id").select2({
-                placeholder: "Select a state",
+            $("#medicine_id").select2({
+                placeholder: "Select a Medicine",
                 allowClear: true,
             });
         });

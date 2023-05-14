@@ -159,6 +159,7 @@
             </tr>
             @php
                 $no = 1;
+                $nomer = 1;
             @endphp
             @foreach ($data->indication as $item)
                 <tr class="details">
@@ -184,10 +185,14 @@
                 <td>Sickness Solution</td>
                 <td>{!! $data->sickness->sickness_description !!}</td>
             </tr>
-            <tr class="item last">
-                <td>Medicine</td>
-                <td>{{ $data->sickness->medicine->medicine_name }}</td>
-            </tr>
+            @foreach ($data->sickness->medicine as $medicines)
+                <tr class="item last">
+                    <td>Medicine - {{ $nomer++ }}</td>
+                    <td>
+                        {{ $medicines->medicine_name }} - {{ $medicines->medicine_information }}
+                    </td>
+                </tr>
+            @endforeach
         </table>
     </div>
 </body>

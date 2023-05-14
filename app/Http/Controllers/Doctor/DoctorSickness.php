@@ -51,10 +51,10 @@ class DoctorSickness extends Controller
                 'sickness_name' => $request->input('sickness_name'),
                 'sickness_description' => $request->input('sickness_description'),
                 'sickness_solution' => $request->input('sickness_solution'),
-                'medicine_id' => $request->medicine_id,
                 'sickness_image' => $image_name,
             ]);
             $sicknesses->save();
+            $sicknesses->medicine()->attach($request->medicine_id);
         return redirect()->route('sickness-doctor')->with('success-store-sickness', 'Data '.$request->sickness_name.' Saved Successfully');
     }
     function edit_sickness($id){
@@ -93,9 +93,9 @@ class DoctorSickness extends Controller
             'sickness_name' => $request->sickness_name,
             'sickness_description' => $request->sickness_description,
             'sickness_solution' => $request->sickness_solution,
-            'medicine_id' => $request->medicine_id,
             'sickness_image' => $request->sickness_image ? $image_name : $sicknesses->sickness_image,
         ]);
+        $sicknesses->medicine()->sync($request->medicine_id); 
         return redirect()->route('sickness-doctor')->with('success-update-sickness', 'Data '.$request->sickness_name.' Update Successfully');
     }
     public function delete_sickness($id){

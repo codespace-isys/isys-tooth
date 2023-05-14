@@ -103,7 +103,7 @@
                             {!! $sickness->sickness_solution !!}
                         </td>
                         <td>
-                            {{$sickness->medicine->medicine_name }}
+                            {{$sickness->ShowMedicine->medicine_name }}
                         </td>
                     </tr>
                     @endforeach

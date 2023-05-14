@@ -89,7 +89,15 @@
                                 <img src="/img/{{ $sickness->sickness_image }}" alt="">
                             </td>
                             <td class="w-1 px-6 py-4">
-                                {{ $sickness->medicine->medicine_name }}
+                                @foreach ($sickness->medicines as $medicine)
+                                    <ul class="max-w-xs flex flex-col divide-y divide-gray-200 dark:divide-gray-700">
+                                        <li
+                                            class="inline-flex items-center gap-x-2 py-3 px-4 text-sm font-medium text-gray-800 dark:text-white">
+                                            <img src="{{ URL('img/fast-forward.png') }}" alt="" class="mt-1"
+                                                width="10%">{{ $medicine->medicine_name }}
+                                        </li>
+                                    </ul>
+                                @endforeach
                             </td>
                             <td class="w-36 px-1 py-1 text-right grid grid-cols-2 gap-14 justify-center">
                                 <a href="{{ route('edit-sickness', ['id' => $sickness->id]) }}"

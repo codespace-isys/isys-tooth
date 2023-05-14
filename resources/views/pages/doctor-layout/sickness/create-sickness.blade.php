@@ -104,10 +104,10 @@
                         @endif
                         Medicine
                     </div>
-                    <select id="medicine_id" name="medicine_id" style='width: 100%;'>
-                        <option selected disabled>Choose a Medicine</option>
+                    <select name="medicine_id[]" class="medicine_id" id="medicine_id" style='width: 100%;' multiple>
                         @foreach ($medicines as $medicine)
-                            <option value="{{ $medicine->id }}"@selected(old('medicine_id') == $medicine->id)>{{ $medicine->medicine_name }}</option>
+                            <option value="{{ $medicine->id }}">
+                                {{ $medicine->medicine_name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -152,7 +152,10 @@
     </div>
     <script>
         $(document).ready(function() {
-            $("#medicine_id").select2();
+            $("#medicine_id").select2({
+                placeholder: "Select a Medicine",
+                allowClear: true,
+            });
             $("#indication_id").select2({
                 placeholder: "Select a Indication",
                 allowClear: true,

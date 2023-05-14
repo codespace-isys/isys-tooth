@@ -14,7 +14,10 @@ class medicine extends Model
         'medicine_name',
         'medicine_information',
     ];
-    public function Sickness(){
+    public function Sicknesses(){
         return $this->hasMany(Sickness::class, 'id');
+    }
+    public function sickness(){
+        return $this->belongsToMany(Sickness::class);
     }
 }
