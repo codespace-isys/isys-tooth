@@ -11,6 +11,7 @@ class medicine extends Model
     protected $table = "medicines";
     protected $primaryKey = 'id';
     protected $fillable = [
+        'medicine_code',
         'medicine_name',
         'medicine_information',
     ];

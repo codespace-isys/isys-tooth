@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('medicines', function (Blueprint $table) {
             $table->id();
+            $table->string('medicine_code', 20);
             $table->string('medicine_name', 100);
             $table->string('medicine_information', 100);
             $table->timestamps();
