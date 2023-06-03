@@ -11,6 +11,7 @@ class Sickness extends Model
     protected $table = "sicknesses";
     protected $primaryKey = 'id';
     protected $fillable = [
+        'sickness_code',
         'sickness_name',
         'sickness_image',
         'sickness_description',

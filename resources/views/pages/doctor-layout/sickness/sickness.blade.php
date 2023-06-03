@@ -45,7 +45,7 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="w-1 px-4 py-4">
-                            No
+                            Code
                         </th>
                         <th scope="col" class="w-10 px-1 py-3">
                             Sickness Name
@@ -74,7 +74,7 @@
                     @foreach ($sicknesses as $sickness)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <td class="w-1 px-4 py-4">
-                                {{ $no++ }}
+                                {{ $sickness->sickness_code }}
                             </td>
                             <td class="w-20 px-1 py-1">
                                 {{ $sickness->sickness_name }}

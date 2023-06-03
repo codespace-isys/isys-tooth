@@ -84,6 +84,7 @@
             <table width="100%" class="table">
                 <thead>
                     <tr>
+                        <th class="left">Indication Code</th>
                         <th class="left">Indication</th>
                         <th class="left">Created At</th>
                         <th class="left">Updated At</th>
@@ -92,6 +93,9 @@
                 <tbody>
                     @foreach ($indications as $indication)
                     <tr>
+                        <td>
+                            {{ $indication->code_indication }}
+                        </td>
                         <td>
                             {{ $indication->indication }}
                         </td>

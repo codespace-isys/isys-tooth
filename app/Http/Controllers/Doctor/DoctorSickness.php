@@ -7,10 +7,11 @@ use App\Models\medicine;
 use App\Models\Sickness;
 use App\Models\indication;
 use Illuminate\Http\Request;
+use App\Helpers\SicknessHelper;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class DoctorSickness extends Controller
 {
@@ -27,15 +28,18 @@ class DoctorSickness extends Controller
     function create(){
         $medicines = medicine::all();
         $indications = indication::all();
+        $sickness_code = SicknessHelper::IDGenerator(new Sickness, 'sickness_code', '4', 'SICK');
         $array = [
             'medicines' => $medicines,
             'indications' => $indications,
+            'sickness_code' => $sickness_code,3
         ];
         return view('/pages/doctor-layout/sickness/create-sickness', $array);
     }
     function store_sickness(Request $request){
         $sicknesses = new Sickness();
         $request->validate([
+            'sickness_code' => 'required',
             'sickness_name' => 'required|unique:sicknesses,sickness_name',
             'sickness_description' => 'required',
             'sickness_solution' => 'required',
@@ -48,6 +52,7 @@ class DoctorSickness extends Controller
             $image_file->move(public_path('img'), $image_name);
        
             $sicknesses = Sickness::Create([
+                'sickness_code' => $request->input('sickness_code'),
                 'sickness_name' => $request->input('sickness_name'),
                 'sickness_description' => $request->input('sickness_description'),
                 'sickness_solution' => $request->input('sickness_solution'),
@@ -70,6 +75,7 @@ class DoctorSickness extends Controller
     }
     function update_sickness (Request $request, $id){
         $request->validate([
+            'sickness_code' => 'required',
             'sickness_name' =>  [
                 'required',
                 Rule::unique('sicknesses')->ignore($id),
@@ -90,6 +96,7 @@ class DoctorSickness extends Controller
             File::delete(public_path('img') . '/'. $data_image->sickness_image);
         }
         Sickness::where('id',$id)->update([
+            'sickness_code' => $request->sickness_code,
             'sickness_name' => $request->sickness_name,
             'sickness_description' => $request->sickness_description,
             'sickness_solution' => $request->sickness_solution,
