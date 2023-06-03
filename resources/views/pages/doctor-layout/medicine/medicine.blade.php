@@ -235,23 +235,7 @@
                                                         <label for="medicine_information"
                                                             class="block text-sm text-left font-medium text-gray-400 dark:text-white{{ $errors->has('medicine_information') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                                             Medicine Information</label>
-                                                        <div
-                                                            class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                                                            @if ($errors->has('medicine_information'))
-                                                                <img src="{{ URL('img/leaflet_red.png') }}"
-                                                                    alt=""
-                                                                    class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                                            @endif
-                                                            @if (!$errors->has('medicine_information'))
-                                                                <img src="{{ URL('img/leaflet.png') }}" alt=""
-                                                                    class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                                            @endif
-                                                            <input type="text" name="medicine_information"
-                                                                placeholder="Input Medicine Information"
-                                                                autocomplete="off" aria-label="Input Table"
-                                                                value="{{ $medicine->medicine_information }}"
-                                                                class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('medicine_information') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
-                                                        </div>
+                                                        <textarea id="message" rows="4" name="medicine_information" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500 {{ $errors->has('medicine_information') ? 'block p-2.5 w-full text-sm text-red-900 bg-red-50 rounded-lg border border-red-300 focus:ring-red-500 focus:border-red-500 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500' : ' ' }}" placeholder="Write medicin information here...">{{ $medicine->medicine_information }}</textarea>
                                                         @error('medicine_information')
                                                             <p class="text-sm text-red-600 text-left dark:text-red-500"><span
                                                                     class="font-medium">{{ $message }}</span>
@@ -355,20 +339,7 @@
                             <label for="medicine_information"
                                 class="block text-sm  font-medium text-gray-400 dark:text-white{{ $errors->has('medicine_information_store') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                 Medicine Information</label>
-                            <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                                @if ($errors->has('medicine_information_store'))
-                                    <img src="{{ URL('img/leaflet_red.png') }}" alt=""
-                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                @endif
-                                @if (!$errors->has('medicine_information_store'))
-                                    <img src="{{ URL('img/leaflet.png') }}" alt=""
-                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                @endif
-                                <input type="text" name="medicine_information_store"
-                                    value="{{ old('medicine_information_store') }}"
-                                    placeholder="Input Medicine Information" autocomplete="off" aria-label="Input Table"
-                                    class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('medicine_information_store') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
-                            </div>
+                            <textarea id="message" rows="4" name="medicine_information_store" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500 {{ $errors->has('medicine_information_store') ? 'block p-2.5 w-full text-sm text-red-900 bg-red-50 rounded-lg border border-red-300 focus:ring-red-500 focus:border-red-500 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500' : ' ' }}" placeholder="Write medicin information here...">{{ old('medicine_information_store') }}</textarea>
                             @error('medicine_information_store')
                                 <p class="text-sm text-red-600 dark:text-red-500"><span
                                         class="font-medium">{{ $message }}</span>

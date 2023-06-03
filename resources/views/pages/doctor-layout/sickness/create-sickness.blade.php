@@ -93,7 +93,7 @@
                 <label for="large-input"
                     class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5{{ $errors->has('sickness_description') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">Sickness
                     Description</label>
-                <textarea name="sickness_description" id="myTextarea2" cols="30" rows="10">{{ old('sickness_description') }}</textarea>
+                <textarea name="sickness_description" id="myTextarea" cols="30" rows="10">{{ old('sickness_description') }}</textarea>
                 @error('sickness_description')
                     <p class="text-sm text-red-600 mb-5 text-left dark:text-red-500"><span
                             class="font-medium">{{ $message }}</span>
@@ -102,7 +102,7 @@
                 <label for="large-input"
                     class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5{{ $errors->has('sickness_solution') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">Sickness
                     Solution</label>
-                <textarea name="sickness_solution" id="myTextarea" cols="30" rows="10">{{ old('sickness_solution') }}</textarea>
+                <textarea id="message" rows="4" name="sickness_solution" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500{{ $errors->has('sickness_solution') ? 'block p-2.5 w-full text-sm text-red-900 bg-red-50 rounded-lg border border-red-300 focus:ring-red-500 focus:border-red-500 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500': ''}}" placeholder="Write your thoughts here...">{{ old('sickness_solution') }}</textarea>
                 @error('sickness_solution')
                     <p class="text-sm text-red-600 text-left mb-5 dark:text-red-500"><span
                             class="font-medium">{{ $message }}</span>

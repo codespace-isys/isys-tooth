@@ -50,16 +50,16 @@
                         <th scope="col" class="w-10 px-1 py-3">
                             Sickness Name
                         </th>
-                        <th scope="col" class="w-40 px-1 py-3">
+                        <th scope="col" class="w-20 px-1 py-3">
                             Sickness Description
                         </th>
-                        <th scope="col" class="w-40 px-1 py-3">
+                        <th scope="col" class="w-20 px-1 py-3">
                             Sickness Solution
                         </th>
                         <th scope="col" class="w-1 px-6 py-3">
                             Sickness Image
                         </th>
-                        <th scope="col" class="w-1 px-6 py-3">
+                        <th scope="col" class="w-40 px-6 py-3">
                             Medicine Name
                         </th>
                         <th scope="col" class="w-32 px-6 py-3">
