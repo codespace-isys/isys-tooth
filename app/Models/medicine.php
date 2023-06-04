@@ -11,10 +11,14 @@ class medicine extends Model
     protected $table = "medicines";
     protected $primaryKey = 'id';
     protected $fillable = [
+        'medicine_code',
         'medicine_name',
         'medicine_information',
     ];
-    public function Sickness(){
+    public function Sicknesses(){
         return $this->hasMany(Sickness::class, 'id');
+    }
+    public function sickness(){
+        return $this->belongsToMany(Sickness::class);
     }
 }

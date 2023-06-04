@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Doctor;
 
 use Carbon\Carbon;
 use App\Models\medicine;
+use App\Helpers\MedicineHelper;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
@@ -19,15 +20,22 @@ class DoctorMedicines extends Controller
     function index()
     {
         $medicines = medicine::all();
-        return view('/pages/doctor-layout/medicine/medicine')->with('medicines', $medicines);
+        $medicine_code = MedicineHelper::IDGenerator(new medicine, 'medicine_code', '4', 'MDC');
+        $array = [
+            'medicines' => $medicines,
+            'medicine_code' => $medicine_code,
+        ];
+        return view('/pages/doctor-layout/medicine/medicine', $array);
     }
     function store_medicine(Request $request){
         $medicines = new medicine();
         $request->validate([
+            'medicine_code_store' => 'required|unique:medicines,medicine_code',
             'medicine_name_store' => 'required|unique:medicines,medicine_name',
             'medicine_information_store' => 'required',
         ]);
         $medicines = medicine::Create([
+            'medicine_code' => $request->medicine_code_store,
             'medicine_name' => $request->medicine_name_store,
             'medicine_information' => $request->medicine_information_store,
         ]);
@@ -38,6 +46,11 @@ class DoctorMedicines extends Controller
     {
         $id = $request->id_medicine;
         $request->validate([
+            'medicine_code' => 
+            [
+                'required',
+                Rule::unique('medicines')->ignore($id),
+            ],
             'medicine_name' => 
             [
                 'required',
@@ -46,6 +59,7 @@ class DoctorMedicines extends Controller
             'medicine_information' => 'required',
         ]);
         medicine::where('id',$id)->update([
+            'medicine_code' => $request->input('medicine_code'),
             'medicine_name' => $request->input('medicine_name'),
             'medicine_information' => $request->input('medicine_information'),
         ]);

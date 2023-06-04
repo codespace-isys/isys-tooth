@@ -45,21 +45,21 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="w-1 px-4 py-4">
-                            No
+                            Code
                         </th>
                         <th scope="col" class="w-10 px-1 py-3">
                             Sickness Name
                         </th>
-                        <th scope="col" class="w-40 px-1 py-3">
+                        <th scope="col" class="w-20 px-1 py-3">
                             Sickness Description
                         </th>
-                        <th scope="col" class="w-40 px-1 py-3">
+                        <th scope="col" class="w-20 px-1 py-3">
                             Sickness Solution
                         </th>
                         <th scope="col" class="w-1 px-6 py-3">
                             Sickness Image
                         </th>
-                        <th scope="col" class="w-1 px-6 py-3">
+                        <th scope="col" class="w-40 px-6 py-3">
                             Medicine Name
                         </th>
                         <th scope="col" class="w-32 px-6 py-3">
@@ -74,7 +74,7 @@
                     @foreach ($sicknesses as $sickness)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <td class="w-1 px-4 py-4">
-                                {{ $no++ }}
+                                {{ $sickness->sickness_code }}
                             </td>
                             <td class="w-20 px-1 py-1">
                                 {{ $sickness->sickness_name }}
@@ -89,7 +89,15 @@
                                 <img src="/img/{{ $sickness->sickness_image }}" alt="">
                             </td>
                             <td class="w-1 px-6 py-4">
-                                {{ $sickness->medicine->medicine_name }}
+                                @foreach ($sickness->medicines as $medicine)
+                                    <ul class="max-w-xs flex flex-col divide-y divide-gray-200 dark:divide-gray-700">
+                                        <li
+                                            class="inline-flex items-center gap-x-2 py-3 px-4 text-sm font-medium text-gray-800 dark:text-white">
+                                            <img src="{{ URL('img/fast-forward.png') }}" alt="" class="mt-1"
+                                                width="10%">{{ $medicine->medicine_name }}
+                                        </li>
+                                    </ul>
+                                @endforeach
                             </td>
                             <td class="w-36 px-1 py-1 text-right grid grid-cols-2 gap-14 justify-center">
                                 <a href="{{ route('edit-sickness', ['id' => $sickness->id]) }}"

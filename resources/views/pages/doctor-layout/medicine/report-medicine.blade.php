@@ -84,7 +84,8 @@
             <table width="100%" class="table">
                 <thead>
                     <tr>
-                        <th class="left">Medicine</th>
+                        <th class="left">Medicine Code</th>
+                        <th class="left">Medicine Name</th>
                         <th class="left">Medicine Information</th>
                         <th class="left">Created At</th>
                         <th class="left">Updated At</th>
@@ -93,6 +94,9 @@
                 <tbody>
                     @foreach ($medicines as $medicine)
                     <tr>
+                        <td>
+                            {{ $medicine->medicine_code }}
+                        </td>
                         <td>
                             {{ $medicine->medicine_name }}
                         </td>

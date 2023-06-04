@@ -15,14 +15,11 @@ return new class extends Migration
     {
         Schema::create('sicknesses', function (Blueprint $table) {
             $table->id();
+            $table->string('sickness_code',20);
             $table->string('sickness_name',200);
             $table->string('sickness_image',200);
             $table->text('sickness_description');
             $table->text('sickness_solution');
-
-            $table->bigInteger('medicine_id')->unsigned();
-            $table->foreign('medicine_id')->references('id')->on('medicines')->onDelete('cascade');
-
             $table->timestamps();
         });
     }

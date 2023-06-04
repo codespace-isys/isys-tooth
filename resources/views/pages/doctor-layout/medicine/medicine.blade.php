@@ -110,10 +110,13 @@
                             No
                         </th>
                         <th scope="col" class="w-96 px-6 py-3">
-                            Medicine&nbspNama
+                            Medicine Code
                         </th>
                         <th scope="col" class="w-96 px-6 py-3">
-                            Medicine&nbspInformation
+                            Medicine Nama
+                        </th>
+                        <th scope="col" class="w-96 px-6 py-3">
+                            Medicine Information
                         </th>
                         <th scope="col" class="w-44 px-6 py-3">
                             Action
@@ -128,6 +131,9 @@
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <td class="w-20 px-6 py-1 whitespace-nowrap">
                                 {{ $no++ }}
+                            </td>
+                            <td class="w-96 px-6 py-4 ">
+                                {{ $medicine->medicine_code }}
                             </td>
                             <td class="w-96 px-6 py-4 ">
                                 {{ $medicine->medicine_name }}
@@ -170,6 +176,34 @@
                                                     <input type="hidden" value="{{ $medicine->id }}"
                                                         name="id_medicine">
                                                     <div>
+                                                        <label for="medicine_code"
+                                                            class="block text-sm text-left font-medium text-gray-400 dark:text-white{{ $errors->has('medicine_code') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
+                                                            Medicine Code</label>
+                                                        <div
+                                                            class="relative flex items-center text-gray-400 focus-within:text-gray-600">
+                                                            @if ($errors->has('medicine_code'))
+                                                                <img src="{{ URL('img/dna-code-red.png') }}"
+                                                                    alt=""
+                                                                    class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                                            @endif
+                                                            @if (!$errors->has('medicine_code'))
+                                                                <img src="{{ URL('img/dna-code.png') }}"
+                                                                    alt=""
+                                                                    class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                                            @endif
+                                                            <input type="text" name="medicine_code"
+                                                                placeholder="Input Medicine Code" autocomplete="off"
+                                                                aria-label="Input Table" readonly
+                                                                value="{{ $medicine->medicine_code }}"
+                                                                class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('medicine_code') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
+                                                        </div>
+                                                        @error('medicine_code')
+                                                            <p class="text-sm text-red-600 text-left dark:text-red-500"><span
+                                                                    class="font-medium">{{ $message }}</span>
+                                                            </p>
+                                                        @enderror
+                                                    </div>
+                                                    <div>
                                                         <label for="medicine_name"
                                                             class="block text-sm text-left font-medium text-gray-400 dark:text-white{{ $errors->has('medicine_name') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                                             Medicine Name</label>
@@ -201,23 +235,7 @@
                                                         <label for="medicine_information"
                                                             class="block text-sm text-left font-medium text-gray-400 dark:text-white{{ $errors->has('medicine_information') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                                             Medicine Information</label>
-                                                        <div
-                                                            class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                                                            @if ($errors->has('medicine_information'))
-                                                                <img src="{{ URL('img/leaflet_red.png') }}"
-                                                                    alt=""
-                                                                    class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                                            @endif
-                                                            @if (!$errors->has('medicine_information'))
-                                                                <img src="{{ URL('img/leaflet.png') }}" alt=""
-                                                                    class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                                            @endif
-                                                            <input type="text" name="medicine_information"
-                                                                placeholder="Input Medicine Information"
-                                                                autocomplete="off" aria-label="Input Table"
-                                                                value="{{ $medicine->medicine_information }}"
-                                                                class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('medicine_information') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
-                                                        </div>
+                                                        <textarea id="message" rows="4" name="medicine_information" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500 {{ $errors->has('medicine_information') ? 'block p-2.5 w-full text-sm text-red-900 bg-red-50 rounded-lg border border-red-300 focus:ring-red-500 focus:border-red-500 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500' : ' ' }}" placeholder="Write medicin information here...">{{ $medicine->medicine_information }}</textarea>
                                                         @error('medicine_information')
                                                             <p class="text-sm text-red-600 text-left dark:text-red-500"><span
                                                                     class="font-medium">{{ $message }}</span>
@@ -272,6 +290,29 @@
                     <form class="space-y-6" method="POST" action="{{ route('store_medicine') }}">
                         @csrf
                         <div>
+                            <label for="medicine_code"
+                                class="block text-sm  font-medium text-gray-400 dark:text-white{{ $errors->has('medicine_code_store') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
+                                Medicine Code</label>
+                            <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
+                                @if ($errors->has('medicine_code_store'))
+                                    <img src="{{ URL('img/dna-code-red.png') }}" alt=""
+                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                @endif
+                                @if (!$errors->has('medicine_code_store'))
+                                    <img src="{{ URL('img/dna-code.png') }}" alt=""
+                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
+                                @endif
+                                <input type="text" name="medicine_code_store" placeholder="Input Medicine Code" value="{{ $medicine_code }}" readonly
+                                    autocomplete="off" aria-label="Input Table" value="{{ old('medicine_code_store') }}"
+                                    class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('medicine_code_store') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
+                            </div>
+                            @error('medicine_code_store')
+                                <p class="text-sm text-red-600 dark:text-red-500"><span
+                                        class="font-medium">{{ $message }}</span>
+                                </p>
+                            @enderror
+                        </div>
+                        <div>
                             <label for="medicine_name"
                                 class="block text-sm  font-medium text-gray-400 dark:text-white{{ $errors->has('medicine_name_store') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                 Medicine Name</label>
@@ -298,20 +339,7 @@
                             <label for="medicine_information"
                                 class="block text-sm  font-medium text-gray-400 dark:text-white{{ $errors->has('medicine_information_store') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">
                                 Medicine Information</label>
-                            <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
-                                @if ($errors->has('medicine_information_store'))
-                                    <img src="{{ URL('img/leaflet_red.png') }}" alt=""
-                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                @endif
-                                @if (!$errors->has('medicine_information_store'))
-                                    <img src="{{ URL('img/leaflet.png') }}" alt=""
-                                        class="w-5 h-5 mt-2 absolute ml-3 pointer-events-none">
-                                @endif
-                                <input type="text" name="medicine_information_store"
-                                    value="{{ old('medicine_information_store') }}"
-                                    placeholder="Input Medicine Information" autocomplete="off" aria-label="Input Table"
-                                    class="block w-full pr-3 pl-10 py-2 mt-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('medicine_information_store') ? 'block w-full pr-3 pl-10 py-2 mt-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
-                            </div>
+                            <textarea id="message" rows="4" name="medicine_information_store" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500 {{ $errors->has('medicine_information_store') ? 'block p-2.5 w-full text-sm text-red-900 bg-red-50 rounded-lg border border-red-300 focus:ring-red-500 focus:border-red-500 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500' : ' ' }}" placeholder="Write medicin information here...">{{ old('medicine_information_store') }}</textarea>
                             @error('medicine_information_store')
                                 <p class="text-sm text-red-600 dark:text-red-500"><span
                                         class="font-medium">{{ $message }}</span>

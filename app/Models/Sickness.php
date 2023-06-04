@@ -11,13 +11,14 @@ class Sickness extends Model
     protected $table = "sicknesses";
     protected $primaryKey = 'id';
     protected $fillable = [
+        'sickness_code',
         'sickness_name',
         'sickness_image',
         'sickness_description',
         'sickness_solution',
         'medicine_id',
     ];
-    public function medicine(){
+    public function ShowMedicine(){
         return $this->belongsTo(medicine::class, 'medicine_id'); 
     }
     public function indication(){
@@ -25,6 +26,12 @@ class Sickness extends Model
     }
     public function indications(){
         return $this->belongsToMany(indication::class, 'indication_sickness', 'sickness_id','indication_id');
+    }
+    public function medicine(){
+        return $this->belongsToMany(medicine::class)->withTimestamps(); 
+    }
+    public function medicines(){
+        return $this->belongsToMany(medicine::class, 'medicine_sickness', 'sickness_id','medicine_id');
     }
     public function Result(){
         return $this->hasMany(Results::class, 'id');

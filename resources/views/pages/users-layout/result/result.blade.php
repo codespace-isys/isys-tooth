@@ -43,6 +43,9 @@
                             Sickness Name
                         </th>
                         <th scope="col" class="w-10 px-1 py-3">
+                            Medicine
+                        </th>
+                        <th scope="col" class="w-10 px-1 py-3">
                             User Name
                         </th>
                     </tr>
@@ -70,6 +73,17 @@
                             </td>
                             <td class="px-1 py-1">
                                 {{ $result->sickness->sickness_name }}
+                            </td>
+                            <td class="px-1 py-1">
+                                @foreach ($result->sickness->medicines as $medicine)
+                                    <ul class="max-w-xs flex flex-col divide-y divide-gray-200 dark:divide-gray-700">
+                                        <li
+                                            class="inline-flex items-center gap-x-2 py-3 px-4 text-sm font-medium text-gray-800 dark:text-white">
+                                            <img src="{{ URL('img/fast-forward.png') }}" alt="" class="mt-1"
+                                                width="7%">{{ $medicine->medicine_name }}
+                                        </li>
+                                    </ul>
+                                @endforeach
                             </td>
                             <td class="px-1 py-1">
                                 {{ auth()->user()->name }}

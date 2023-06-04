@@ -43,6 +43,27 @@
                 enctype="multipart/form-data" class="w-full max-w-screen-2xl mt-10">
                 @csrf
                 <label for="large-input"
+                    class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5{{ $errors->has('sickness_code') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">Sickness
+                    Code</label>
+                <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
+                    @if ($errors->has('sickness_code'))
+                        <img src="{{ URL('img/virus_code_red.png') }}" alt=""
+                            class="w-5 h-5 absolute ml-3 pointer-events-none">
+                    @endif
+                    @if (!$errors->has('sickness_code'))
+                        <img src="{{ URL('img/virus_code.png') }}" alt=""
+                            class="w-5 h-5 absolute ml-3 pointer-events-none">
+                    @endif
+                    <input type="text" name="sickness_code" placeholder="Input Sickness" autocomplete="off"
+                        aria-label="Input Table" value="{{ $Sickness->sickness_code }}" readonly
+                        class="block w-full  pr-3 pl-10 py-2 font-semibold placeholder-gray-500 text-black rounded-2xl border-none ring-2 ring-gray-300 focus:ring-gray-500 focus:ring-2{{ $errors->has('sickness_code') ? 'block w-full pr-3 pl-10 py-2 font-semibold rounded-2xl border-none ring-2 border border-red-500 text-red-700 placeholder-red-700 text-sm ring-red-500 focus:ring-red-500 focus:ring-2 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500' : '' }}">
+                </div>
+                @error('sickness_code')
+                    <p class="text-sm text-red-600 mb-5 text-left dark:text-red-500"><span
+                            class="font-medium">{{ $message }}</span>
+                    </p>
+                @enderror
+                <label for="large-input"
                     class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5{{ $errors->has('sickness_name') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">Sickness
                     Name</label>
                 <div class="relative flex items-center text-gray-400 focus-within:text-gray-600">
@@ -66,7 +87,7 @@
                 <label for="large-input"
                     class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5{{ $errors->has('sickness_description') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">Sickness
                     Description</label>
-                <textarea name="sickness_description" id="myTextarea" cols="30" rows="10">{{ $Sickness->sickness_description }}</textarea>
+                <textarea name="sickness_description" id="myTextarea2" cols="30" rows="10">{{ $Sickness->sickness_description }}</textarea>
                 @error('sickness_description')
                     <p class="text-sm text-red-600 mb-5 text-left dark:text-red-500"><span
                             class="font-medium">{{ $message }}</span>
@@ -75,7 +96,7 @@
                 <label for="large-input"
                     class="block mb-2 text-xl font-medium text-gray-900 dark:text-white mt-5{{ $errors->has('sickness_solution') ? 'block text-sm font-medium text-red-700 dark:text-red-500' : '' }}">Sickness
                     Solution</label>
-                <textarea name="sickness_solution" id="myTextarea" cols="30" rows="10">{{ $Sickness->sickness_solution }}</textarea>
+                <textarea id="message" rows="4" name="sickness_solution" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500{{ $errors->has('sickness_solution') ? 'block p-2.5 w-full text-sm text-red-900 bg-red-50 rounded-lg border border-red-300 focus:ring-red-500 focus:border-red-500 dark:bg-red-700 dark:border-red-600 dark:placeholder-red-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500': ''}}" placeholder="Write your thoughts here...">{{ $Sickness->sickness_solution }}</textarea>
                 @error('sickness_solution')
                     <p class="text-sm text-red-600 text-left mb-5 dark:text-red-500"><span
                             class="font-medium">{{ $message }}</span>
@@ -97,10 +118,13 @@
                         @endif
                         Indication
                     </div>
-                    <select id="selUser" name="medicine_id" style='width: 100%;'>
-                        <option disabled>Choose a Medicine</option>
+                    <select name="medicine_id[]" class="medicine_id" id="medicine_id" style='width: 100%;' multiple>
                         @foreach ($medicines as $medicine)
-                            <option value="{{ $medicine->id }}" @if ($Sickness->medicine_id == $medicine->id) selected @endif>
+                            <option value="{{ $medicine->id }}"
+                                @foreach ($Sickness->medicine as $value)
+                                    @if ($medicine->id == $value->id)
+                                        selected
+                                    @endif @endforeach>
                                 {{ $medicine->medicine_name }}</option>
                         @endforeach
                     </select>
@@ -147,8 +171,8 @@
     <script>
         $(document).ready(function() {
             $("#selUser").select2();
-            $("#indication_id").select2({
-                placeholder: "Select a state",
+            $("#medicine_id").select2({
+                placeholder: "Select a Medicine",
                 allowClear: true,
             });
         });

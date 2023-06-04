@@ -204,7 +204,16 @@
                             <h5
                                 class="leading-tight truncate mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-black">
                                 Medicine</h5>
-                            {{ $show->medicine->medicine_name }} - {{ $show->medicine->medicine_information }}
+                            @foreach ($show->medicines as $medicine)
+                                <ul class="max-w-xs flex flex-col divide-y divide-gray-200 dark:divide-gray-700">
+                                    <li
+                                        class="inline-flex items-center gap-x-2 text-sm font-medium text-gray-800 dark:text-white">
+                                        <img src="{{ URL('img/fast-forward.png') }}" alt="" class="mt-1 "
+                                            width="4%">{{ $medicine->medicine_name }} -
+                                        {{ $medicine->medicine_information }}
+                                    </li>
+                                </ul>
+                            @endforeach
                             </p>
                         </div>
                     </div>

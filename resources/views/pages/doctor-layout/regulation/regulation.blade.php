@@ -35,16 +35,13 @@
             <table id="example" class="w-full" style="width: 100%; padding-top: 1em;  padding-bottom: 1em;">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="w-1 px-4 py-4">
-                            No
-                        </th>
-                        <th scope="col" class="w-10 px-1 py-3">
+                        <th scope="col" class="w-4 px-1 py-1">
                             Sickness Name
                         </th>
-                        <th scope="col" class="w-44 px-1 py-3">
+                        <th scope="col" class="w-72 px-1 py-1">
                             Indication
                         </th>
-                        <th scope="col" class="w-1 px-6 py-3">
+                        <th scope="col" class="w-16 px-6 py-3">
                             Action
                         </th>
                     </tr>
@@ -55,9 +52,6 @@
                     @endphp
                     @foreach ($sicknesses as $sickness)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <td class="w-1 px-4 py-4">
-                                {{ $no++ }}
-                            </td>
                             <td class="w-20 px-1 py-1">
                                 {{ $sickness->sickness_name }}
                             </td>

@@ -84,6 +84,7 @@
             <table width="100%" class="table">
                 <thead>
                     <tr>
+                        <th class="left">Sickness Code</th>
                         <th class="left">Sickness Name</th>
                         <th class="left">Sickness Description</th>
                         <th class="left">Sickness Solution</th>
@@ -94,6 +95,9 @@
                     @foreach ($sicknesses as $sickness)
                     <tr>
                         <td>
+                            {{ $sickness->sickness_code }}
+                        </td>
+                        <td>
                             {{ $sickness->sickness_name }}
                         </td>
                         <td>
@@ -103,7 +107,13 @@
                             {!! $sickness->sickness_solution !!}
                         </td>
                         <td>
-                            {{$sickness->medicine->medicine_name }}
+                            @foreach ($sickness->medicine as $item)
+                            <ul>
+                                <li>
+                                    {{ $item->medicine_name }} <br>
+                                </li>
+                            </ul>
+                            @endforeach
                         </td>
                     </tr>
                     @endforeach
